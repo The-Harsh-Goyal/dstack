@@ -1,5 +1,6 @@
 // dstack TTS providers. Off by default: the default "silent" provider makes no
-// sound and sends nothing anywhere. dstack contains no cloud TTS client.
+// sound and sends nothing anywhere. The only cloud provider is ElevenLabs (approved, US host),
+// and it runs only when you select it.
 //
 // Providers (choose with --tts <name> or DSTACK_TTS_PROVIDER):
 //   silent   (default) silent track whose length is estimated from the text
@@ -15,13 +16,20 @@
 //            provider adapter later (an adapter script you add yourself).
 //            Whatever the command does with the text is its responsibility:
 //            dstack prints the command before running it.
+//   elevenlabs  ElevenLabs TTS over https://api.elevenlabs.io (scripts/audio/elevenlabs.mjs):
+//            with-timestamps endpoint, so word timings are measured. Voice/model from
+//            DSTACK_ELEVENLABS_VOICE / DSTACK_ELEVENLABS_MODEL (or the script's `voice:`).
+//            Key: ELEVENLABS_API_KEY or DSTACK_ELEVENLABS_KEY_FILE. No key, or an API error:
+//            one warning, then the chunk (and the rest of the run) falls back to silent.
+//            Results are cached, so re-running the same text costs no credits.
 //
-// Contract: synthesize(text, outMp3, opts) -> { duration, words: [...], wordsEstimated }
+// Contract: await synthesize(name, text, outMp3, opts) -> { duration, words: [...], wordsEstimated, provider }
 
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
+import * as el from '../audio/elevenlabs.mjs';
 
 const CJK = /[\u3040-\u30ff\u3400-\u9fff\uf900-\ufaff\uac00-\ud7af]/g;
 
@@ -86,19 +94,49 @@ const providers = {
     try { const j = JSON.parse(stdout.trim().split('\n').pop() || ''); if (Array.isArray(j.words)) words = j.words; } catch { /* no timings */ }
     return words ? { duration, words, wordsEstimated: false } : { duration, words: estimateWords(text, duration), wordsEstimated: true };
   },
+  async elevenlabs(text, outPath, opts) {
+    const r = await el.tts(text, opts, { fetchImpl: opts.fetchImpl });
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dstack-el-'));
+    const raw = path.join(dir, 'el.mp3');
+    fs.writeFileSync(raw, r.audio);
+    // same encoding as the silent gaps (24 kHz mono mp3) so the concat demuxer can join them
+    execFileSync('ffmpeg', ['-y', '-i', raw, '-ar', '24000', '-ac', '1', '-acodec', 'libmp3lame', '-q:a', '4', outPath], { stdio: ['ignore', 'pipe', 'pipe'] });
+    fs.rmSync(dir, { recursive: true, force: true });
+    const duration = probeDuration(outPath);
+    const words = el.alignmentToWords(r.alignment);
+    if (!opts.quiet) console.error(`[tts] elevenlabs ${r.cached ? 'cache hit' : 'generated'} (${duration.toFixed(2)}s)`);
+    return words && words.length ? { duration, words, wordsEstimated: false } : { duration, words: estimateWords(text, duration), wordsEstimated: true };
+  },
 };
+
+let elevenDisabled = null;   // reason string once ElevenLabs failed in this run
+export function _resetFallback() { elevenDisabled = null; el._resetWarnings(); }
 
 export function providerName(cli) {
   return cli || process.env.DSTACK_TTS_PROVIDER || 'silent';
 }
 
 export function checkProvider(name) {
-  if (!providers[name]) throw new Error(`Unknown TTS provider "${name}". Available: ${Object.keys(providers).join(', ')}. dstack ships no cloud TTS; see references/voiceover-pipeline.md.`);
+  if (!providers[name]) throw new Error(`Unknown TTS provider "${name}". Available: ${Object.keys(providers).join(', ')}. See references/voiceover-pipeline.md.`);
   if (name === 'command' && !process.env.DSTACK_TTS_COMMAND) throw new Error('TTS provider "command" needs DSTACK_TTS_COMMAND, e.g. DSTACK_TTS_COMMAND=\'espeak-ng -w {out} -f {text_file}\'. Or use --tts silent.');
+  if (name === 'elevenlabs' && !el.hasKey()) {
+    el.warnOnce('tts-nokey', '[tts] WARNING: DSTACK_TTS_PROVIDER=elevenlabs but no ElevenLabs key (ELEVENLABS_API_KEY or DSTACK_ELEVENLABS_KEY_FILE): using the silent provider instead.');
+  }
 }
 
-export function synthesize(name, text, outPath, opts = {}) {
+export async function synthesize(name, text, outPath, opts = {}) {
   checkProvider(name);
-  const p = providers[name];
-  return p(text, outPath, opts);
+  if (name === 'elevenlabs') {
+    if (!el.hasKey()) elevenDisabled = elevenDisabled || 'no API key';
+    if (!elevenDisabled) {
+      try {
+        return { ...(await providers.elevenlabs(text, outPath, opts)), provider: 'elevenlabs' };
+      } catch (e) {
+        elevenDisabled = el.mask(e && e.message ? e.message : String(e));
+        el.warnOnce('tts-fail', `[tts] WARNING: ElevenLabs failed (${elevenDisabled}); this and the remaining chunks use the silent provider.`);
+      }
+    }
+    return { ...providers.silent(text, outPath, opts), provider: 'silent', fallback: elevenDisabled };
+  }
+  return { ...(await providers[name](text, outPath, opts)), provider: name };
 }

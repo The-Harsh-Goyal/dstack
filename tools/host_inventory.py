@@ -4,6 +4,7 @@ hosts/patterns. Writes HOSTS.md. Exit 1 if any China pattern is found outside th
 
 Classes: runtime-load (fetched when a page/script runs: src=, href= stylesheet, @import, url(), fetch, import from URL)
          doc-link (a link a person may click; nothing fetched automatically)
+         api-call (opt-in) (an API host a script calls only when you switch its provider on; see OPT_IN_API)
 """
 import re
 import subprocess
@@ -19,6 +20,9 @@ CHINA_HOST = re.compile(r'(\.cn$|\.cn\.|npmmirror|taobao|aliyun|alicdn|alibaba|b
                         r'jsdelivr\.net/gh/.*\.cn|gitee|csdn|zhihu|weibo|douyin|163\.com|126\.net|sohu|sina)', re.I)
 CHINA_WORD = re.compile(r'(Volcengine|Doubao|ByteDance|DashScope|Aliyun|Tencent Cloud|Baidu|npmmirror|ARK_API_KEY|VOLC_|DOUBAO_)', re.I)
 RUNTIME = re.compile(r'(src=|<link[^>]*href=|@import|url\(|fetch\(|import .* from ["\']https?:|requests\.|urllib|page\.goto|https?\.get\()', re.I)
+# API hosts dstack's own code calls when a provider is switched on (off by default). Listed by hand: adding
+# a host here is a deliberate, reviewed change (it must also be added to SECURITY.md).
+OPT_IN_API = {'api.elevenlabs.io': 'ElevenLabs (US), scripts/audio/elevenlabs.mjs; DSTACK_TTS_PROVIDER / DSTACK_AUDIO_PROVIDER=elevenlabs'}
 SKIP_EXT = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.mp4', '.mp3', '.wav', '.woff', '.woff2', '.ttf', '.otf', '.pdf', '.pptx', '.ico'}
 SKIP_FILES = {'HOSTS.md', 'tools/host_inventory.py', 'package-lock.json'}
 # Lines that name China services only to say they were removed / must not be used
@@ -42,6 +46,9 @@ def main():
                 host = m.group(1).lower().rstrip('.')
                 if host in ('localhost',) or re.match(r'^\d', host) or host.endswith(('.js', '.md', '.py', '.html', '.json', '.css', '.mjs', '.jsx', '.png', '.svg')):
                     continue
+                if host in OPT_IN_API and Path(f).suffix in ('.js', '.mjs', '.py', '.sh'):
+                    rows.append((host, f, n, 'api-call (opt-in)'))
+                    continue
                 cls = 'runtime-load' if (RUNTIME.search(line) and Path(f).suffix in ('.html', '.js', '.mjs', '.jsx', '.py', '.css', '.sh')) else 'doc-link'
                 rows.append((host, f, n, cls))
                 if CHINA_HOST.search(host):
@@ -57,6 +64,16 @@ def main():
            f'China-linked hits (outside lines that say a service was removed or banned): **{len(china)}**', '']
     for f, n, what, line in china:
         out.append(f'- `{f}:{n}` {what}: {line}')
+    # bare host constants in code (e.g. HOST = 'api.elevenlabs.io') count as api-call rows too
+    for f in files():
+        if Path(f).suffix not in ('.js', '.mjs', '.py'):
+            continue
+        for n, line in enumerate((ROOT / f).read_text(encoding='utf-8', errors='replace').splitlines(), 1):
+            for h in OPT_IN_API:
+                if re.search(rf"HOST\s*=\s*['\"]{re.escape(h)}['\"]", line):
+                    by_host[h].append((f, n, 'api-call (opt-in)'))
+    out += ['', 'Opt-in API hosts (called only when you switch the provider on; off by default):', '']
+    out += [f'- `{h}`: {why}' for h, why in OPT_IN_API.items()]
     out += ['', '| Host | Class | Count | Where (file:line) |', '|---|---|---|---|']
     for h in sorted(by_host, key=lambda h: (-sum(c == "runtime-load" for _, _, c in by_host[h]), h)):
         refs = by_host[h]

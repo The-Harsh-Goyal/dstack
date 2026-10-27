@@ -1,6 +1,6 @@
 # Audio Design Rules · huashu-design
 
-> **dstack note (audio):** dstack ships **no music or sound effects**. The upstream `assets/bgm-*.mp3` (generated with Suno) and `assets/sfx/**` (generated with ElevenLabs) were removed because their licences couldn't be verified. File names below are kept only as a naming scheme: put your own licensed files in `~/.dstack/audio/` (`bgm-<mood>.mp3`) and `~/.dstack/audio/sfx/<category>/<name>.mp3` (override with `DSTACK_AUDIO_DIR` / `DSTACK_SFX_DIR`). If a file is missing, `add-music.sh`, `mix-voiceover.sh` and `sfx-cues.sh` warn and carry on without it.
+> **dstack note (audio):** dstack ships **no music or sound effects**. The upstream `assets/bgm-*.mp3` (generated with Suno) and `assets/sfx/**` (generated with ElevenLabs) were removed because their licences couldn't be verified. File names below are kept as a naming scheme: put your own licensed files in `~/.dstack/audio/` (`bgm-<mood>.mp3`) and `~/.dstack/audio/sfx/<category>/<name>.mp3` (override with `DSTACK_AUDIO_DIR` / `DSTACK_SFX_DIR`), or, only when a task asks for it, generate them with ElevenLabs (the one approved outside audio service, off by default): `DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs sfx ui/click` / `... bgm tech`. Free-plan ElevenLabs output is non-commercial and needs attribution; see "Licensing" in `references/audio-design-rules.md`. If a file is missing, `add-music.sh`, `mix-voiceover.sh` and `sfx-cues.sh` warn and carry on without it.
 
 
 > Audio application recipes for all animation demos. Use together with `sfx-library.md` (the asset list).
@@ -94,7 +94,7 @@ Not every visual beat needs an SFX. Choose by this priority:
 
 ## BGM selection decision tree
 
-The huashu-design skill ships with 6 BGM tracks (`assets/bgm-*.mp3`):
+The upstream skill shipped 6 BGM tracks; dstack ships none. Use your own `bgm-<mood>.mp3`, or generate one when a task asks for it (`DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs bgm tech`). Mood names:
 
 ```
 What is the animation's personality?
@@ -252,6 +252,19 @@ Because every SFX cue is a "clock tick", visual animation that adapts to the SFX
 - [ ] Listen once with the SFX off: does the BGM alone have emotional rise and fall?
 
 Each of the two layers should hold together when heard alone. If it only sounds good with both layers stacked, it isn't done well.
+
+## Licensing (dstack: ElevenLabs output)
+
+dstack generates audio only through ElevenLabs, and only when a task asks for it (`DSTACK_TTS_PROVIDER=elevenlabs` for narration, `DSTACK_AUDIO_PROVIDER=elevenlabs` for `scripts/gen-audio.mjs`). What you may do with the output depends on the ElevenLabs plan **at the time it was generated**. What the official pages say (checked 28 Oct 2026):
+
+- Help center, "Can I publish the content I generate on the platform?" (https://elevenlabs.io/docs/help-center/legal/can-i-publish-the-content-i-generate-on-the-platform, same text at https://help.elevenlabs.io/hc/en-us/articles/13313564601361): "The free plan does not include a commercial license and cannot be used for any commercial purpose. If you publish content generated using our Services on a free plan or without being signed-in to your account, you must attribute it to ElevenLabs by including "elevenlabs.io" or "11.ai" in the title (except in the case where your content is generated using Eleven Music on a free plan or without being signed-in to your account, you must attribute it to ElevenLabs by referencing "Eleven Music" when distributing such content)." and "All paid plans include a commercial license, provided you're not using Beta Services." It also says "Content created outside of a paid subscription (before or after) cannot be used commercially and always requires attribution when shared non-commercially." and "Attribution requirement is subject to the agreement you have with ElevenLabs."
+- Terms of Service (https://elevenlabs.io/terms-of-use): "if you access or use our Services free of charge (such a user, a "Free User"), you may only use the Services for non-commercial purposes; (ii) if you access or use our Services through a paid subscription plan (such a user, a "Paid User"), you may use the Services for commercial purposes".
+- Pricing (https://elevenlabs.io/pricing): Starter, the lowest paid plan, lists "Commercial License" and "Music commercial use" ("Everything in free, plus"). The pages say "all paid plans", i.e. Starter or above; the attribution rule is "elevenlabs.io" **or** "11.ai" in the title (music: "Eleven Music").
+- Music: "The Music API is only available to paid users." (https://elevenlabs.io/docs/eleven-api/guides/cookbooks/music). Music rights also follow the Music Terms' "Music Commercial Rights Table" (https://elevenlabs.io/music-terms, last updated 09 October 2026), which varies by plan; check it before distributing music (e.g. to streaming platforms).
+
+Practical rule: on the free plan, treat output as drafts (non-commercial, title must carry "elevenlabs.io" or "11.ai"; music: "Eleven Music"). For client or commercial work, generate on a paid plan. `gen-audio.mjs` writes a `<file>.provenance.json` next to each generated file so you can tell later where it came from.
+
+Credits (pricing FAQ): text to speech about 1 credit per character, Sound Effects 200 credits per generation, Eleven Music 900 credits per minute. Generate only what the task needs; repeats come from the local cache for free.
 
 ---
 

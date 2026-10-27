@@ -11,7 +11,7 @@
  * Narration script format:
  *   ---
  *   title: What is an LLM
- *   voice: en-us         # optional; passed to the TTS provider as {voice}
+ *   voice: en-us         # optional; passed to the TTS provider as {voice} (elevenlabs: a voice id)
  *   speed: 1.0           # optional
  *   gap: 0.3             # seconds of silence between sections, default 0.3
  *   ---
@@ -32,7 +32,8 @@
  *
  * TTS: pluggable and off by default (scripts/tts/providers.mjs). The default
  *   provider "silent" writes a silent track with estimated timings, so the
- *   subtitle/timeline path works with no voice and no network.
+ *   subtitle/timeline path works with no voice and no network. "elevenlabs"
+ *   (opt-in, needs a key) gives a real voice with measured word timings.
  * Dependencies: ffmpeg, ffprobe
  */
 
@@ -66,7 +67,8 @@ narrate-pipeline.mjs · L2 long-narration orchestrator
   --out-dir <path>    output directory (required)
   --no-timestamps     don't request character-level timestamps (requested by default; chunks carry words for karaoke subtitles)
   --tts <provider>    silent (default: no voice, estimated timings) | command (local DSTACK_TTS_COMMAND)
-                      or set DSTACK_TTS_PROVIDER. dstack ships no cloud TTS.
+                      | elevenlabs (ElevenLabs API, needs ELEVENLABS_API_KEY; falls back to silent)
+                      or set DSTACK_TTS_PROVIDER.
 
 Output: <out-dir>/voiceover.mp3 + <out-dir>/timeline.json
 `.trim());
@@ -138,7 +140,7 @@ function getDuration(filePath) {
   return parseFloat(out.trim());
 }
 
-function callTTS(provider, text, outPath, opts) {
+async function callTTS(provider, text, outPath, opts) {
   return synthesize(provider, text, outPath, opts);
 }
 
@@ -234,7 +236,8 @@ async function main() {
         continue;
       }
       const chunkPath = path.join(tmpDir, `${scene.id}-${j}.mp3`);
-      const result = callTTS(provider, chunk.text, chunkPath, { voice, speed, timestamps });
+      const result = await callTTS(provider, chunk.text, chunkPath, { voice, speed, timestamps });
+      if (result.fallback) { timeline.ttsRequested = provider; timeline.tts = 'silent'; timeline.ttsFallback = result.fallback; }
       const chunkStart = sceneInternalCursor;
       chunkFiles.push(chunkPath);
       sceneInternalCursor += result.duration;

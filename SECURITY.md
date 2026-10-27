@@ -2,7 +2,7 @@
 
 This document exhaustively declares every network destination, credential touchpoint, subprocess, and deletion this skill can perform, so that users and automated security reviewers can verify the claims against the code.
 
-**TL;DR (dstack): the core pipeline (HTML design → render → MP4/GIF/PDF/PPTX export, narration, video review) runs locally with zero API keys. dstack contains no cloud client: the upstream ByteDance/Volcengine integrations (Doubao TTS, Ark video review) were removed, and so was the startup version check. There is no telemetry. The only outbound requests are the optional, user-triggered ones listed below. Policy for this fork: no data to China-based services, CDNs or mirrors.**
+**TL;DR (dstack): the core pipeline (HTML design → render → MP4/GIF/PDF/PPTX export, narration, video review) runs locally with zero API keys. The only cloud client is ElevenLabs (`api.elevenlabs.io`, Eleven Labs Inc., US), approved as the replacement for the removed audio; it is off by default and runs only when you set `DSTACK_TTS_PROVIDER=elevenlabs` or `DSTACK_AUDIO_PROVIDER=elevenlabs` for a task. The upstream ByteDance/Volcengine integrations (Doubao TTS, Ark video review) were removed, and so was the startup version check. There is no telemetry. The only outbound requests are the optional, user-triggered ones listed below. Policy for this fork: no data to China-based services, CDNs or mirrors.**
 
 ## Complete list of network destinations
 
@@ -12,6 +12,7 @@ This document exhaustively declares every network destination, credential touchp
 | Brand official websites, `simpleicons.org`, Google favicon service | `references/brand-asset-protocol.md` (instructions, no script) | Plain GET requests to download publicly served logos/brand assets | Only when you ask for a brand-specific design |
 | Reference works the agent chose (any URL it passes; not filtered) | `scripts/ref_board.py` | Plain GET via headless Chromium to screenshot a reference page or image | Only when the agent builds a reference board |
 | `fonts.googleapis.com` / `fonts.gstatic.com` (Google, US), `unpkg.com`, `cdn.jsdelivr.net` | Static `<link>`/`<script>` tags inside demo/output HTML and style specimens | Standard browser font/library fetches when a page is opened or rendered | Browser-side only |
+| `api.elevenlabs.io` (ElevenLabs global API host, Eleven Labs Inc., US; the host is a constant in `scripts/audio/elevenlabs.mjs` and cannot be overridden) | `scripts/audio/elevenlabs.mjs`, used by `scripts/tts/providers.mjs` (`elevenlabs` provider) and `scripts/gen-audio.mjs` | Narration text per chunk (`/v1/text-to-speech/{voice}/with-timestamps`), SFX prompts (`/v1/sound-generation`), music prompts (`/v1/music`), plus the API key in the `xi-api-key` header | Off by default; only with `DSTACK_TTS_PROVIDER=elevenlabs` / `DSTACK_AUDIO_PROVIDER=elevenlabs` and a key. Identical requests are served from the local cache, no request |
 | Whatever *you* configure in `DSTACK_TTS_COMMAND` / `DSTACK_REVIEW_COMMAND` | `scripts/tts/providers.mjs`, `scripts/review-video.py` | Narration text / video clips, only if your command sends them | Off by default; the command is printed before it runs |
 
 `grep -rn "https://" --include="*.py" --include="*.mjs" --include="*.js" --include="*.sh" scripts/` to verify.
@@ -20,11 +21,19 @@ Full file:line inventory of every host named in the pack: `HOSTS.md` (regenerate
 
 ## API keys
 
-dstack itself reads no API keys. `.env.example` lists only optional local settings. `references/react-setup.md` option B (pasting a key into a demo page input) is local-demo-only and not recommended.
+dstack reads exactly one API key, and only when an ElevenLabs provider is selected: `ELEVENLABS_API_KEY` from the environment, or the first line of the file named by `DSTACK_ELEVENLABS_KEY_FILE`.
 
-## Optional hooks instead of cloud scripts
+- The key file must be outside the dstack folder (a path inside it is refused with a warning); keep it `chmod 600`, e.g. `~/.config/dstack/elevenlabs.key`.
+- The key is sent only to `https://api.elevenlabs.io`, only in the `xi-api-key` header. It is never written to disk (not to the cache, timeline.json or `*.provenance.json`), never logged, never echoed; every error and warning passes through a mask that replaces it with `****` (tested in `scripts/tests/test_elevenlabs.py`).
+- No key: one warning, then narration falls back to `silent` and `gen-audio.mjs` to `none`. Nothing crashes.
+- `.gitignore` blocks `.env`, `.env.*` (except `.env.example`), `*.env`, `*.key`, `*.pem`, `*api_key*`, `*apikey*`, `*.secret`, `secrets/`, `.elevenlabs*`. `.env.example` has no values.
+- `tools/doctor.sh` reports only whether a key is present (env / file / absent), never its value.
 
-Narration defaults to `--tts silent` (silent track, estimated timings, subtitle-only). Video review defaults to local ffmpeg checks plus contact sheets. Both have an off-by-default `command` hook that runs a local command you configure; asking for it without configuring it exits with a clear error.
+Generated audio is cached in `~/.dstack/cache/elevenlabs/` (audio + request parameters, never the key) so the same request is never paid for twice. `.env.example` lists only optional settings. `references/react-setup.md` option B (pasting a key into a demo page input) is local-demo-only and not recommended.
+
+## Optional providers and hooks
+
+Narration defaults to `--tts silent` (silent track, estimated timings, subtitle-only). Music/SFX default to `DSTACK_AUDIO_PROVIDER=none` (you supply the files). Video review defaults to local ffmpeg checks plus contact sheets. Opt-ins: `elevenlabs` for narration and audio (above), and an off-by-default `command` hook for TTS and review that runs a local command you configure; asking for it without configuring it exits with a clear error. ElevenLabs uses paid credits (about 1 per character of narration, 200 per sound effect, 900 per minute of music): generate only what the task needs.
 
 ## Local files written outside the skill directory
 
@@ -43,7 +52,7 @@ Set `DSTACK_HOME` (or the upstream `HUASHU_DESIGN_HOME`) to move them; delete th
 
 ## Subprocesses
 
-All subprocess calls invoke local media tools only: `ffmpeg`, `ffprobe`, `ffplay`, Playwright/Chromium for HTML rendering and screenshots. No shell-to-network combinations, no curl-pipe-sh patterns.
+All subprocess calls invoke local media tools only (the ElevenLabs client uses Node's built-in `fetch`, not a subprocess): `ffmpeg`, `ffprobe`, `ffplay`, Playwright/Chromium for HTML rendering and screenshots. No shell-to-network combinations, no curl-pipe-sh patterns.
 
 ## File deletion
 

@@ -71,7 +71,7 @@ INPUT_NAME="$(basename "$INPUT" .mp4)"
 [ -z "$OUTPUT" ] && OUTPUT="$INPUT_DIR/$INPUT_NAME-bgm.mp4"
 
 if [ -z "$MUSIC" ] || [ ! -f "$MUSIC" ]; then
-  echo "⚠ No music: ${MUSIC:-none given}. dstack ships no music; pass --music=<licensed file> or put bgm-<mood>.mp3 in $AUDIO_DIR." >&2
+  echo "⚠ No music: ${MUSIC:-none given}. dstack ships no music; pass --music=<licensed file> or put bgm-<mood>.mp3 in $AUDIO_DIR (or, if the task asks for it: DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs bgm <mood>)." >&2
   if [ "$(cd "$(dirname "$OUTPUT")" && pwd)/$(basename "$OUTPUT")" != "$INPUT_DIR/$(basename "$INPUT")" ]; then
     cp "$INPUT" "$OUTPUT"
   fi

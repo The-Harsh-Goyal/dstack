@@ -1,6 +1,6 @@
 # Video Export: exporting HTML animations to MP4/GIF
 
-> **dstack note (audio):** dstack ships **no music or sound effects**. The upstream `assets/bgm-*.mp3` (generated with Suno) and `assets/sfx/**` (generated with ElevenLabs) were removed because their licences couldn't be verified. File names below are kept only as a naming scheme: put your own licensed files in `~/.dstack/audio/` (`bgm-<mood>.mp3`) and `~/.dstack/audio/sfx/<category>/<name>.mp3` (override with `DSTACK_AUDIO_DIR` / `DSTACK_SFX_DIR`). If a file is missing, `add-music.sh`, `mix-voiceover.sh` and `sfx-cues.sh` warn and carry on without it.
+> **dstack note (audio):** dstack ships **no music or sound effects**. The upstream `assets/bgm-*.mp3` (generated with Suno) and `assets/sfx/**` (generated with ElevenLabs) were removed because their licences couldn't be verified. File names below are kept as a naming scheme: put your own licensed files in `~/.dstack/audio/` (`bgm-<mood>.mp3`) and `~/.dstack/audio/sfx/<category>/<name>.mp3` (override with `DSTACK_AUDIO_DIR` / `DSTACK_SFX_DIR`), or, only when a task asks for it, generate them with ElevenLabs (the one approved outside audio service, off by default): `DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs sfx ui/click` / `... bgm tech`. Free-plan ElevenLabs output is non-commercial and needs attribution; see "Licensing" in `references/audio-design-rules.md`. If a file is missing, `add-music.sh`, `mix-voiceover.sh` and `sfx-cues.sh` warn and carry on without it.
 
 
 Once an animation HTML is done, users often want to know "can I export this as a video?" This guide gives the complete workflow.
@@ -50,13 +50,13 @@ Output: same directory as the HTML, a `.mp4` with the same name.
 
 ### 2. `add-music.sh`: MP4 + BGM → MP4
 
-Mixes background music into a silent MP4, picking from the built-in BGM library by scenario (mood), or you can bring your own audio. Duration is matched automatically, with fade-in and fade-out added.
+Mixes background music into a silent MP4, picking `bgm-<mood>.mp3` from your audio library by scenario (mood), or you can bring your own audio. Duration is matched automatically, with fade-in and fade-out added.
 
 ```bash
 bash add-music.sh <input.mp4> [--mood=<name>] [--music=<path>] [--out=<path>]
 ```
 
-**Built-in BGM library** (in `assets/bgm-<mood>.mp3`):
+**BGM moods** (dstack: not shipped; looked up as `bgm-<mood>.mp3` in `$DSTACK_AUDIO_DIR`, default `~/.dstack/audio/`. Bring your own, or, when the task asks for it, `DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs bgm <mood> [--seconds 60]`, which uses the ElevenLabs Music API: paid plans only, about 900 credits per minute):
 
 | `--mood=` | Style | Fits |
 |-----------|------|---------|

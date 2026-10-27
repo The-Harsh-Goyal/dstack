@@ -27,7 +27,7 @@ while IFS=$'\t' read -r t f db; do
   [ -z "$t" ] && continue
   case "$t" in \#*) continue;; esac
   case "$f" in /*) src="$f";; *) src="$SFX_DIR/$f";; esac
-  [ ! -f "$src" ] && { echo "⚠ SFX not found, cue skipped: $src" >&2; continue; }
+  [ ! -f "$src" ] && { echo "⚠ SFX not found, cue skipped: $src (supply it, or: DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs sfx <category>/<name>)" >&2; continue; }
   INPUTS+=(-i "$src")
   ms=$(python3 -c "print(int(float('$t')*1000))")
   FILTER+="[$i:a]adelay=${ms}:all=1,volume=${db}dB[s$i];"

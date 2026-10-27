@@ -20,7 +20,8 @@ def test_install_body_paths_are_absolute_and_rules_present():
     assert '$HD' not in body
     assert not re.search(r'(?<![\w/.:-])(references|scripts|assets|demos)/\S', text.split('## Index')[0].replace(
         '("write it into\n   references/experience.md")', ''))
-    for must in ('DRAFTS ONLY', 'NO DATA TO CHINA', 'DSTACK_TTS_PROVIDER=silent', 'DSTACK_REVIEWER=none',
+    for must in ('DRAFTS ONLY', 'NO DATA TO CHINA', 'DSTACK_TTS_PROVIDER=silent', 'DSTACK_REVIEWER=none', 'DSTACK_AUDIO_PROVIDER=none',
+                 'ElevenLabs is the only approved outside audio service', 'api.elevenlabs.io',
                  "No installs without Harsh's OK", 'Cloudflare', 'alchaincyf/huashu-design', 'MIT',
                  'x-article` 2500×1000', 'x-infeed` 1600×900'):
         assert must in text, must

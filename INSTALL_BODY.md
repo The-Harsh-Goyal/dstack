@@ -20,9 +20,22 @@ Credit: dstack is a modified fork of [huashu-design](https://github.com/alchainc
 2. **NO DATA TO CHINA.** Never configure, call or fetch from China-based services.
    Never use: ByteDance/Volcengine/Doubao/Ark, Alibaba/Aliyun, Tencent, Baidu, China CDNs or mirrors (npm/pip/font/asset mirrors included), China-hosted telemetry.
    Only India- or US-based services, and only after Harsh approves that service or key through Chief.
-   dstack wires in no outside service; keep it that way.
-3. **TTS and review hooks stay OFF**: `DSTACK_TTS_PROVIDER=silent` and `DSTACK_REVIEWER=none` (the defaults). Do not set
-   `DSTACK_TTS_COMMAND`, `DSTACK_REVIEW_COMMAND` or switch either hook on unless Harsh has approved it.
+   The only outside service wired into dstack is ElevenLabs (rule 3); add no other.
+3. **Providers stay OFF by default**: `DSTACK_TTS_PROVIDER=silent`, `DSTACK_AUDIO_PROVIDER=none` and `DSTACK_REVIEWER=none`.
+   - **ElevenLabs is the only approved outside audio service** (US host `api.elevenlabs.io` only; approved by Harsh
+     via Chief). Still off by default. Switch it on (`DSTACK_TTS_PROVIDER=elevenlabs` for a narration voice,
+     `DSTACK_AUDIO_PROVIDER=elevenlabs` for `gen-audio.mjs` music/SFX) only for a task that asks for real voice or
+     generated audio, and only for that run.
+   - ElevenLabs spends paid credits (about 1 per narration character, 200 per sound effect, 900 per minute of music):
+     generate only what the task needs (no test batches, no "spare" variants, no whole SFX library), keep text final
+     before narrating, and rely on the cache for repeats.
+   - Key: only `ELEVENLABS_API_KEY` in the environment or `DSTACK_ELEVENLABS_KEY_FILE` (a file outside `/workspace/dstack`).
+     Never write, print or paste the key anywhere. No key means dstack falls back to silent/none with one
+     warning: report that, do not hunt for a key.
+   - Free-plan output is non-commercial and must carry "elevenlabs.io" or "11.ai" in the title when published
+     (music: "Eleven Music"); say which plan made it in the delivery note (`/workspace/dstack/references/audio-design-rules.md`, Licensing).
+   - Never use an ElevenLabs MCP connector or any other audio service for generation. Do not set `DSTACK_TTS_COMMAND`,
+     `DSTACK_REVIEW_COMMAND` or switch the review hook on unless Harsh has approved it.
 4. **No installs without Harsh's OK**: no pip/npm/apt/brew/`playwright install`, global or local, beyond the
    one-time setup in section 2 (which is already done on the box). If a script prints an install hint, do not run it:
    run `bash /workspace/dstack/tools/doctor.sh` and report what is missing.
@@ -42,7 +55,7 @@ Credit: dstack is a modified fork of [huashu-design](https://github.com/alchainc
 - Chromium comes from the local Playwright cache; ffmpeg/ffprobe from the system PATH.
 - Data home (look ledger, taste profile, lessons): `~/.dstack/` (override with `DSTACK_HOME`). Never written into the pack.
 
-Check before the first job of a session (read-only; exit 0 = ready, hooks off):
+Check before the first job of a session (read-only; exit 0 = ready and providers in an approved state; it shows whether an ElevenLabs key is present, never the key):
 
 ```bash
 bash /workspace/dstack/tools/doctor.sh
@@ -97,7 +110,11 @@ cd /workspace/dstack && python3 -m venv .venv && .venv/bin/pip install --index-u
    none): `/workspace/dstack/.venv/bin/python /workspace/dstack/scripts/review-video.py --video anim.mp4` writes `anim-review.md` and contact sheets next to it. Narrated video:
    `node /workspace/dstack/scripts/narrate-pipeline.mjs --script script.md --out-dir _narration` (the script needs `## scene-id`
    sections, cues marked `[[cue:id]]`; example `/workspace/dstack/demos/md-html-narration/script.md`. Silent provider: estimated
-   timings, no voice), then `bash /workspace/dstack/scripts/render-narration.sh page.html --timeline=_narration/timeline.json`.
+   timings, no voice; `--tts elevenlabs` only when the task asks for a voice, rule 3), then
+   `bash /workspace/dstack/scripts/render-narration.sh page.html --timeline=_narration/timeline.json`. Music/SFX: your own
+   `~/.dstack/audio/bgm-<mood>.mp3` and `~/.dstack/audio/sfx/<category>/<name>.mp3`, or, if the task asks for generated
+   audio, `DSTACK_AUDIO_PROVIDER=elevenlabs node /workspace/dstack/scripts/gen-audio.mjs bgm <mood>` / `... sfx <category>/<name>`
+   (`/workspace/dstack/references/sfx-library.md`).
 9. **Decks** (`/workspace/dstack/references/modules/deck.md`, `/workspace/dstack/references/slide-decks.md`, `/workspace/dstack/references/editable-pptx.md`):
    2 representative slides per direction first. PDF: `node /workspace/dstack/scripts/export_deck_pdf.mjs --slides <dir> --out deck.pdf`.
    Editable PPTX: `node /workspace/dstack/scripts/export_deck_pptx.mjs --slides <dir> --out deck.pptx` (slides must be
@@ -317,6 +334,7 @@ dstack does no automatic version or update check and makes no network call on it
 ### Scripts
 
 - `/workspace/dstack/scripts/add-music.sh`: Mix a user-supplied BGM track into an MP4 video
+- `/workspace/dstack/scripts/audio/elevenlabs.mjs`: dstack ElevenLabs client: the ONLY outside audio service dstack talks to (approved by Harsh, US host)
 - `/workspace/dstack/scripts/build_specimens.py`: Render the style specimens to images, and assemble an overview sheet for each section
 - `/workspace/dstack/scripts/capabilities.py`: check what the user actually has, to decide which tier the materials go to (see references/materials.md)
 - `/workspace/dstack/scripts/convert-formats.sh`: Convert MP4 animations to 60fps MP4 and optimized GIF
@@ -328,6 +346,7 @@ dstack does no automatic version or update check and makes no network call on it
 - `/workspace/dstack/scripts/export_deck_stage_pdf.mjs`: PDF export dedicated to the single-file <deck-stage> architecture
 - `/workspace/dstack/scripts/fetch_images.py`: Fetch real images (public domain / CC) from Wikimedia Commons, for dstack's "use real images for content-driven design" (Phase 3.5)
 - `/workspace/dstack/scripts/gate.py`: the three-direction gate when no human is there to choose (dstack)
+- `/workspace/dstack/scripts/gen-audio.mjs`: fill the audio library slots (background music + SFX) that dstack no longer ships
 - `/workspace/dstack/scripts/gen_deck_thumbs.mjs`: generate a thumbnail for every slide of a multi-file deck (for the "infinite gallery" overview in deck_index.html)
 - `/workspace/dstack/scripts/html2pptx.js`: HTML slide → native PowerPoint objects; the engine behind export_deck_pptx.mjs
 - `/workspace/dstack/scripts/learn.py`: help dstack understand this user a little better with every project

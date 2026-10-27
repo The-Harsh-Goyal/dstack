@@ -11,7 +11,20 @@ assets/personal-asset-index.json
 
 # Environment variables (sensitive info such as API keys, only the .env.example template is kept)
 .env
-.env.local
+.env.*
+!.env.example
+*.env
+# API keys / secrets must never be committed (dstack reads ELEVENLABS_API_KEY from the env,
+# or from DSTACK_ELEVENLABS_KEY_FILE outside the repo)
+*.key
+*.pem
+*api_key*
+*apikey*
+*.secret
+secrets/
+.secrets/
+.elevenlabs*
+elevenlabs*.txt
 
 # Voiceover working directory (TTS mp3s, timeline.json temporary output, can be regenerated)
 **/_narration/

@@ -15,7 +15,7 @@ you configure in DSTACK_REVIEW_COMMAND, once per segment, the whole-film pass an
 the synthesis. Placeholders: {video} (compressed clip, or empty for the synthesis
 call), {prompt_file} (UTF-8 prompt). The command prints the review markdown on
 stdout. This is the plug-in point for a vetted provider adapter added later;
-dstack itself contains no cloud client (the upstream Volcengine Ark integration was removed).
+dstack contains no cloud video reviewer (the upstream Volcengine Ark integration was removed).
 
 Usage:
     python3 scripts/review-video.py --video final.mp4

@@ -360,23 +360,33 @@ NarrationStage automatically detects `window.__recording`:
 
 | Script | Input | Output |
 |---|---|---|
-| `scripts/tts/providers.mjs` | A single segment of text | A single mp3 + duration + word timings (silent estimate, or your local TTS command) |
+| `scripts/tts/providers.mjs` | A single segment of text | A single mp3 + duration + word timings (silent estimate, your local TTS command, or ElevenLabs) |
+| `scripts/audio/elevenlabs.mjs` | Text / prompt | ElevenLabs client: fixed host, key handling, cache (used by the elevenlabs provider and `gen-audio.mjs`) |
+| `scripts/gen-audio.mjs` | Mood / SFX slot | `bgm-<mood>.mp3` or `sfx/<category>/<name>.mp3` in your audio library (`DSTACK_AUDIO_PROVIDER=elevenlabs`) |
 | `scripts/narrate-pipeline.mjs` | Narration script .md | voiceover.mp3 + timeline.json |
 | `scripts/mix-voiceover.sh` | Video + voiceover.mp3 [+ BGM] | MP4 with audio |
 | `scripts/render-narration.sh` | Narration HTML + timeline.json | Final MP4 (recording + mixing in one go) |
 
 ## TTS providers (dstack)
 
-> dstack note: the upstream Doubao (ByteDance) TTS client was removed. dstack ships no cloud TTS and sends narration text nowhere by default.
+> dstack note: the upstream Doubao (ByteDance) TTS client was removed. By default dstack sends narration text nowhere. The only cloud provider is ElevenLabs (approved, US host `api.elevenlabs.io`), and it runs only when you select it for a task.
 
 - `--tts silent` (default, or `DSTACK_TTS_PROVIDER=silent`): no voice. Each chunk gets a silent track whose length is estimated from the text (English ~155 words/min, set `DSTACK_TTS_WPM`; CJK ~4.2 chars/s; small pauses for punctuation). timeline.json keeps the same schema, with estimated word timings, so subtitle-only films and karaoke layout still work. Record a real voice later and re-run with a provider.
 - `--tts command` with `DSTACK_TTS_COMMAND`: runs a local command per chunk. Placeholders `{text_file}`, `{out}` (audio to write), `{voice}`, `{speed}`. If it prints `{"words":[{"text","start","end"}]}` on its last stdout line, those timings are used. This is also where a vetted provider adapter can be plugged in later.
+- `--tts elevenlabs` (or `DSTACK_TTS_PROVIDER=elevenlabs`): real voice from ElevenLabs. Each chunk goes to `POST https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps?output_format=mp3_44100_128`; the character alignment it returns becomes measured word timings (`wordsEstimated: false`), and the audio is re-encoded to 24 kHz mono so it joins the silent gaps cleanly.
+  - Voice: `DSTACK_ELEVENLABS_VOICE` (default `JBFqnCBsd6RMkjVDRZzb`, "George"). A script's `voice:` is used only if it looks like an ElevenLabs voice id (20 letters/digits). Find ids in the ElevenLabs voice library or with `GET /v1/voices`.
+  - Model: `DSTACK_ELEVENLABS_MODEL` (default `eleven_multilingual_v2`, stable on long-form, 1 credit per character; `eleven_flash_v2_5` is cheaper and faster, `eleven_v3`/`eleven_v4` are more expressive).
+  - `speed:` maps to `voice_settings.speed` (clamped to 0.7–1.2).
+  - Key: `ELEVENLABS_API_KEY` in the environment, or `DSTACK_ELEVENLABS_KEY_FILE` pointing at a file outside the repo. Never in the script, the repo or `.env.example`.
+  - No key: one warning, then the whole run uses `silent` (timeline.json records `ttsRequested`/`ttsFallback`). An API error (bad key, no credits, rate limit) does the same for the failing chunk and every later one; the run never crashes and the key is masked in every message.
+  - Cache: each chunk is cached in `~/.dstack/cache/elevenlabs/` by voice + model + speed + text, so re-running after editing one scene only pays for the changed chunks.
+  - Licensing: free-plan output is non-commercial and must carry "elevenlabs.io" or "11.ai" in the title when published; paid plans include a commercial licence. Quotes and links: "Licensing" in `audio-design-rules.md`.
 - Anything else errors out with a clear message before any work starts.
 
 ## Standard workflow (10 steps)
 
 1. **Write the narration script**: the narration script is the source code. First write the complete voiceover, mark segment headings `## scene-id`, and add `[[cue:xx]]` before key lines
-2. **Run narrate-pipeline**: `node scripts/narrate-pipeline.mjs --script script.md --out-dir _narration` (add `--tts command` if you configured a local TTS)
+2. **Run narrate-pipeline**: `node scripts/narrate-pipeline.mjs --script script.md --out-dir _narration` (add `--tts command` for a local TTS, or `--tts elevenlabs` when the task asks for a real voice)
 3. **Listen to the whole voiceover.mp3**: if the pacing is off, go back and revise the script. **This step sets the ceiling on the whole film's quality**
 4. **🛑 Answer the iron rules before designing**: what is the hero element? What state is it in for each segment? How does it morph across scenes? If you can't answer, don't write code
 5. **Write the animation HTML**: use NarrationStage + one or a few hero elements performing across scenes
@@ -391,6 +401,7 @@ NarrationStage automatically detects `window.__recording`:
 | Problem | Fix |
 |---|---|
 | TTS error | `--tts command` needs `DSTACK_TTS_COMMAND`; run the command by hand on one line of text to check it writes `{out}` |
+| elevenlabs fell back to silent | Read the one `[tts] WARNING` line (and `ttsFallback` in timeline.json): no key, 401 bad key, 402 no credits / plan, 429 rate limit. Fix it and re-run; finished chunks come from the cache |
 | A segment's audio is noticeably longer/shorter than the script | That segment's text has odd punctuation or emoji and TTS parsed it abnormally → revise the script |
 | cue absoluteTime is inaccurate | Something went wrong with ffmpeg when concatenating sub-segments within the segment → check mp3 encoding consistency |
 | The recorded video has black screens | render-video.js didn't receive the `window.__ready` signal → check whether NarrationStage mounted properly |
@@ -400,7 +411,7 @@ NarrationStage automatically detects `window.__recording`:
 ## When not to use this pipeline
 
 - **Short animations <60s**: just make a silent animation + add voiceover in post (add-music.sh + a single separate TTS segment); no timeline driving needed
-- **BGM-only videos**: use `add-music.sh` to add a preset BGM
+- **BGM-only videos**: use `add-music.sh` with your own `bgm-<mood>.mp3` (or one made with `gen-audio.mjs bgm <mood>`)
 - **Replacing TTS with a human recording**: replace `voiceover.mp3` with the human recording, and write the timeline by hand or measure segment durations with ffprobe + generate it with a utility script → the rest of the workflow is the same
 
 ---
