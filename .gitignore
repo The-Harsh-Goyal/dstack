@@ -1,0 +1,43 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Video render temp (render-video.js output)
+.video-tmp-*/
+**/.video-tmp-*/
+
+# Personal asset index (personal real data, only the .example.json template is kept)
+assets/personal-asset-index.json
+
+# Environment variables (sensitive info such as API keys, only the .env.example template is kept)
+.env
+.env.local
+
+# Voiceover working directory (TTS mp3s, timeline.json temporary output, can be regenerated)
+**/_narration/
+**/_narration_*/
+
+# Node / editor / OS
+node_modules/
+*.swp
+.idea/
+.vscode/
+Thumbs.db
+
+# Verification artifacts (screenshots, temporary test scripts)
+demos/_frames_*.png
+demos/_verify.js
+demos/_verify.mjs
+
+# Development/test intermediate output (for the skill's internal R&D, not distributed to users)
+_style-research/
+**/design-demos/
+
+# Large demo videos (distributed via GitHub Releases, kept out of the repo to avoid bloat)
+demos/**/*.mp4
+__pycache__/
+.last-update-check
+
+# Python test/cache dirs
+.pytest_cache/
+**/.pytest_cache/

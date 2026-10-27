@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>md or html? That's a dumb question · narration demo (v3 · subtitles + continuous motion + overflow fix)</title>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@300;400;600;700;800&family=Noto+Serif+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #0a0a0a; min-height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 20px; box-sizing: border-box; font-family: -apple-system, sans-serif; }
+  #root { box-shadow: 0 30px 80px rgba(0,0,0,0.6); border-radius: 4px; overflow: hidden; }
+  * { box-sizing: border-box; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+// ── timeline.json (inline; each segment has chunks for subtitles) ───
+// dstack: regenerated from script.md with the silent TTS provider (estimated timings; regenerate after recording a real voiceover)
+const TIMELINE = {"title": "md or html? That's a dumb question", "tts": "silent", "totalDuration": 272.544, "scenes": [{"id": "opening", "start": 0, "end": 33.888, "duration": 33.888, "audio": "audio/opening.mp3", "text": "A couple of days ago, Thariq from the Claude Code team published a viral post.\nThe title was a single sentence: HTML is the new markdown.\nHe said he barely writes md files anymore and has AI generate HTML for him instead.\n5 million views, and X immediately erupted into an argument.\nOne side is the md camp, who think md is the source code of the AI era.\nThe other side thinks Thariq is right and HTML is the ultimate answer.", "chunks": [{"text": "A couple of days ago,", "start": 0, "end": 2.112, "absoluteStart": 0, "absoluteEnd": 2.112, "wordsEstimated": true}, {"text": "Thariq from the Claude Code team published a viral post.\nThe title was a single sentence: HTML is the new markdown.\nHe said he barely writes md files anymore and has AI generate HTML for him instead.\n5 million views, and X immediately erupted into an argument.\nOne side is the md camp,", "start": 2.112, "end": 24.048000000000002, "absoluteStart": 2.112, "absoluteEnd": 24.048000000000002, "wordsEstimated": true}, {"text": "who think md is the source code of the AI era.\nThe other side thinks Thariq is right and HTML is the ultimate answer.", "start": 24.048000000000002, "end": 33.888000000000005, "absoluteStart": 24.048000000000002, "absoluteEnd": 33.888000000000005, "wordsEstimated": true}], "cues": [{"id": "thariq", "offset": 2.112, "absoluteTime": 2.112}, {"id": "two-camps", "offset": 24.048000000000002, "absoluteTime": 24.048000000000002}]}, {"id": "md-side", "start": 34.388, "end": 76.22, "duration": 41.832, "audio": "audio/md-side.mp3", "text": "The md camp's evidence is actually pretty solid.\nLook at AGENTS.md, which OpenAI released last year: over 60,000 projects use it, and AWS, Anthropic, Google, Microsoft and OpenAI, half of the AI world, donated it together to the Linux Foundation as an open standard.\nKarpathy's llm-wiki is basically three layers of markdown, and a single CLAUDE.md file got 50,000 stars.\nCloudflare measured it: the same blog post is sixteen thousand tokens as HTML and only three thousand once converted to md.\nAn 80% saving.\nGitHub has also said it officially: documentation no longer describes code, documentation is code.", "chunks": [{"text": "The md camp's evidence is actually pretty solid.\nLook at AGENTS.md, which OpenAI released last year:", "start": 0, "end": 6.984, "absoluteStart": 34.388, "absoluteEnd": 41.372, "wordsEstimated": true}, {"text": "over 60,000 projects use it, and AWS, Anthropic, Google, Microsoft and OpenAI, half of the AI world, donated it together to the Linux Foundation as an open standard.\nKarpathy's llm-wiki is basically three layers of markdown, and a single CLAUDE.md file got 50,000 stars.\nCloudflare measured it:", "start": 6.984, "end": 27.192, "absoluteStart": 41.372, "absoluteEnd": 61.58, "wordsEstimated": true}, {"text": "the same blog post is sixteen thousand tokens as HTML and only three thousand once converted to md.\nAn 80% saving.\nGitHub has also said it officially: documentation no longer describes code,", "start": 27.192, "end": 40.368, "absoluteStart": 61.58, "absoluteEnd": 74.756, "wordsEstimated": true}, {"text": "documentation is code.", "start": 40.368, "end": 41.832, "absoluteStart": 74.756, "absoluteEnd": 76.22, "wordsEstimated": true}], "cues": [{"id": "agents-md", "offset": 6.984, "absoluteTime": 41.372}, {"id": "token-saving", "offset": 27.192, "absoluteTime": 61.58}, {"id": "doc-is-code", "offset": 40.368, "absoluteTime": 74.756}]}, {"id": "html-side", "start": 76.72, "end": 135.59199999999998, "duration": 58.872, "audio": "audio/html-side.mp3", "text": "But the html camp isn't wrong either.\nI agree with several of the arguments in Thariq's post.\nFirst, spatial information. Diffs, call graphs and architecture diagrams have a spatial dimension to begin with. md squashes them into a line of text, while html can lay them out side by side, and the difference in comprehension is an order of magnitude.\nSecond, dynamic experience. When you're building a product prototype, what color a button turns when pressed, what easing curve it uses, no amount of written description helps. html lets you see it directly.\nThird, structured reading. Collapsible sections, tabbed code blocks and a sidebar glossary are a different thing from the same words piled up in a line.\nWith Anthropic's Live Artifacts today, HTML has gone from a static artifact to a dashboard you can interact with that pulls live data.", "chunks": [{"text": "But the html camp isn't wrong either.\nI agree with several of the arguments in Thariq's post.\nFirst, spatial information.", "start": 0, "end": 8.664, "absoluteStart": 76.72, "absoluteEnd": 85.384, "wordsEstimated": true}, {"text": "Diffs, call graphs and architecture diagrams have a spatial dimension to begin with. md squashes them into a line of text, while html can lay them out side by side, and the difference in comprehension is an order of magnitude.\nSecond, dynamic experience.", "start": 8.664, "end": 26.592, "absoluteStart": 85.384, "absoluteEnd": 103.312, "wordsEstimated": true}, {"text": "When you're building a product prototype, what color a button turns when pressed, what easing curve it uses, no amount of written description helps. html lets you see it directly.\nThird, structured reading.", "start": 26.592, "end": 40.656, "absoluteStart": 103.312, "absoluteEnd": 117.376, "wordsEstimated": true}, {"text": "Collapsible sections, tabbed code blocks and a sidebar glossary are a different thing from the same words piled up in a line.\nWith Anthropic's Live Artifacts today, HTML has gone from a static artifact to a dashboard you can interact with that pulls live data.", "start": 40.656, "end": 58.872, "absoluteStart": 117.376, "absoluteEnd": 135.59199999999998, "wordsEstimated": true}], "cues": [{"id": "spatial", "offset": 8.664, "absoluteTime": 85.384}, {"id": "dynamic", "offset": 26.592, "absoluteTime": 103.312}, {"id": "structured", "offset": 40.656, "absoluteTime": 117.376}]}, {"id": "the-real-question", "start": 136.09199999999998, "end": 160.236, "duration": 24.144, "audio": "audio/the-real-question.mp3", "text": "After reading all this, what I want to say is, both sides are fighting over a dumb question.\nBoth sides won.\nBut they won different questions.\nThe md camp is answering, what do we write in.\nThe html camp is answering, what do we show people.\nThese are two questions.\nHow could one replace the other?", "chunks": [{"text": "After reading all this, what I want to say is,", "start": 0, "end": 4.176, "absoluteStart": 136.09199999999998, "absoluteEnd": 140.26799999999997, "wordsEstimated": true}, {"text": "both sides are fighting over a dumb question.\nBoth sides won.\nBut they won different questions.\nThe md camp is answering,", "start": 4.176, "end": 13.224, "absoluteStart": 140.26799999999997, "absoluteEnd": 149.31599999999997, "wordsEstimated": true}, {"text": "what do we write in.\nThe html camp is answering,", "start": 13.224, "end": 17.52, "absoluteStart": 149.31599999999997, "absoluteEnd": 153.612, "wordsEstimated": true}, {"text": "what do we show people.\nThese are two questions.\nHow could one replace the other?", "start": 17.52, "end": 24.144, "absoluteStart": 153.612, "absoluteEnd": 160.236, "wordsEstimated": true}], "cues": [{"id": "reveal", "offset": 4.176, "absoluteTime": 140.26799999999997}, {"id": "question-md", "offset": 13.224, "absoluteTime": 149.31599999999997}, {"id": "question-html", "offset": 17.52, "absoluteTime": 153.612}]}, {"id": "the-split", "start": 160.736, "end": 218.024, "duration": 57.288, "audio": "audio/the-split.mp3", "text": "I think this is the real question.\nmd and html aren't substitutes for each other; they divide the work.\nBefore, you wrote md and read md yourself.\nBack then you had to compromise, so md won.\nBut once AI arrived, there was a new situation for the first time.\nThe cost of production can be absorbed by AI.\nThe heavy cost of the HTML part, AI carries for you.\nYou're only responsible for consuming it.\nA need that used to require a compromise got split into an extreme optimum at each end.\nThe production end needs to be light, fast and token efficient, and that's md.\nThe consumption end needs to be rich, visual and easy to share, and that's html.\nEach end reaches its own peak.\nNobody needs the compromise position in the middle anymore.", "chunks": [{"text": "I think this is the real question.\nmd and html aren't substitutes for each other;", "start": 0, "end": 6.24, "absoluteStart": 160.736, "absoluteEnd": 166.976, "wordsEstimated": true}, {"text": "they divide the work.\nBefore, you wrote md and read md yourself.\nBack then you had to compromise, so md won.\nBut once AI arrived,", "start": 6.24, "end": 17.088, "absoluteStart": 166.976, "absoluteEnd": 177.82399999999998, "wordsEstimated": true}, {"text": "there was a new situation for the first time.\nThe cost of production can be absorbed by AI.\nThe heavy cost of the HTML part, AI carries for you.\nYou're only responsible for consuming it.\nA need that used to require a compromise got split into an extreme optimum at each end.\nThe production end needs to be light, fast and token efficient,", "start": 17.088, "end": 43.152, "absoluteStart": 177.82399999999998, "absoluteEnd": 203.88799999999998, "wordsEstimated": true}, {"text": "and that's md.\nThe consumption end needs to be rich, visual and easy to share,", "start": 43.152, "end": 49.512, "absoluteStart": 203.88799999999998, "absoluteEnd": 210.248, "wordsEstimated": true}, {"text": "and that's html.\nEach end reaches its own peak.\nNobody needs the compromise position in the middle anymore.", "start": 49.512, "end": 57.288, "absoluteStart": 210.248, "absoluteEnd": 218.024, "wordsEstimated": true}], "cues": [{"id": "split", "offset": 6.24, "absoluteTime": 166.976}, {"id": "ai-changes", "offset": 17.088, "absoluteTime": 177.82399999999998}, {"id": "md-side-win", "offset": 43.152, "absoluteTime": 203.88799999999998}, {"id": "html-side-win", "offset": 49.512, "absoluteTime": 210.248}]}, {"id": "activity-proof", "start": 218.524, "end": 252.484, "duration": 33.96, "audio": "audio/activity-proof.mp3", "text": "The cleanest living example is Thariq himself.\nIn March he published a Skills guide, stressing that the core is still markdown.\nIn May he published HTML is the new markdown.\nThe same person, each end reaching its own peak, with no conflict between them.\nThe Karpathy and Lex Fridman pairing is the same.\nThe core is a markdown wiki, and the shell is dynamic HTML.\nIt's not that Lex replaced Karpathy; he added a consumption layer on top of Karpathy's foundation.", "chunks": [{"text": "The cleanest living example is Thariq himself.\nIn March he published a Skills guide,", "start": 0, "end": 5.856, "absoluteStart": 218.524, "absoluteEnd": 224.38, "wordsEstimated": true}, {"text": "stressing that the core is still markdown.\nIn May he published HTML is the new markdown.\nThe same person,", "start": 5.856, "end": 13.895999999999999, "absoluteStart": 224.38, "absoluteEnd": 232.42, "wordsEstimated": true}, {"text": "each end reaching its own peak, with no conflict between them.\nThe Karpathy and Lex Fridman pairing is the same.\nThe core is a markdown wiki,", "start": 13.895999999999999, "end": 24.768, "absoluteStart": 232.42, "absoluteEnd": 243.292, "wordsEstimated": true}, {"text": "and the shell is dynamic HTML.\nIt's not that Lex replaced Karpathy; he added a consumption layer on top of Karpathy's foundation.", "start": 24.768, "end": 33.96, "absoluteStart": 243.292, "absoluteEnd": 252.484, "wordsEstimated": true}], "cues": [{"id": "thariq-march", "offset": 5.856, "absoluteTime": 224.38}, {"id": "same-person", "offset": 13.895999999999999, "absoluteTime": 232.42}, {"id": "karpathy-lex", "offset": 24.768, "absoluteTime": 243.292}]}, {"id": "closing", "start": 252.984, "end": 272.232, "duration": 19.248, "audio": "audio/closing.mp3", "text": "So next time you want to argue about this, first ask yourself one thing.\nAre you facing \"writing\" right now, or \"reading\"?\nWriting, use md.\nReading, use html.\nThe tools handle the switch for you.\nYou can put down your side in the argument.", "chunks": [{"text": "So next time you want to argue about this,", "start": 0, "end": 3.672, "absoluteStart": 252.984, "absoluteEnd": 256.656, "wordsEstimated": true}, {"text": "first ask yourself one thing.\nAre you facing \"writing\" right now, or \"reading\"?\nWriting,", "start": 3.672, "end": 9.888, "absoluteStart": 256.656, "absoluteEnd": 262.872, "wordsEstimated": true}, {"text": "use md.\nReading,", "start": 9.888, "end": 11.472, "absoluteStart": 262.872, "absoluteEnd": 264.456, "wordsEstimated": true}, {"text": "use html.\nThe tools handle the switch for you.\nYou can put down your side in the argument.", "start": 11.472, "end": 19.247999999999998, "absoluteStart": 264.456, "absoluteEnd": 272.232, "wordsEstimated": true}], "cues": [{"id": "final", "offset": 3.672, "absoluteTime": 256.656}, {"id": "md-final", "offset": 9.888, "absoluteTime": 262.872}, {"id": "html-final", "offset": 11.472, "absoluteTime": 264.456}]}], "voiceover": "voiceover.mp3"};
+
+// ── narration_stage.jsx (inline) ─────────────────────────────
+const NarrationStageLib = (() => {
+  const NarrationContext = React.createContext({});
+  function NarrationStage({ timeline, audioSrc, width = 1920, height = 1080, background = '#0e0e0e', controls = true, children }) {
+    const audioRef = React.useRef(null);
+    const [time, setTime] = React.useState(0);
+    const [playing, setPlaying] = React.useState(false);
+    const recording = typeof window !== 'undefined' && window.__recording === true;
+    React.useEffect(() => { if (typeof window !== 'undefined') { window.__totalDuration = timeline.totalDuration; window.__ready = true; } }, [timeline.totalDuration]);
+    React.useEffect(() => {
+      let raf;
+      if (recording) {
+        let startedAt = null;
+        const tick = (now) => {
+          if (startedAt === null) startedAt = now;
+          setTime(Math.min((now - startedAt) / 1000, timeline.totalDuration));
+          raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+        if (typeof window !== 'undefined') window.__seek = (t) => { startedAt = performance.now() - t * 1000; setTime(t); };
+      } else {
+        const tick = () => {
+          if (audioRef.current && !audioRef.current.paused) setTime(audioRef.current.currentTime);
+          raf = requestAnimationFrame(tick);
+        };
+        tick();
+      }
+      return () => cancelAnimationFrame(raf);
+    }, [recording, timeline.totalDuration]);
+    const currentScene = React.useMemo(() => {
+      if (!timeline.scenes) return null;
+      for (let i = 0; i < timeline.scenes.length; i++) {
+        const s = timeline.scenes[i]; const next = timeline.scenes[i + 1];
+        if (time >= s.start && (!next || time < next.start)) return s;
+      }
+      return timeline.scenes[0];
+    }, [time, timeline.scenes]);
+    const sceneTime = currentScene ? Math.max(0, time - currentScene.start) : 0;
+    const allCues = React.useMemo(() => { const m = {}; for (const s of timeline.scenes || []) for (const c of s.cues || []) m[c.id] = c; return m; }, [timeline.scenes]);
+    const isCueTriggered = React.useCallback(id => { const c = allCues[id]; return c ? time >= c.absoluteTime : false; }, [allCues, time]);
+    const cueProgress = React.useCallback((id, ramp = 0.6) => { const c = allCues[id]; if (!c) return 0; const dt = time - c.absoluteTime; if (dt <= 0) return 0; if (dt >= ramp) return 1; return dt / ramp; }, [allCues, time]);
+    const ctx = { time, scene: currentScene, sceneTime, isCueTriggered, cueProgress, timeline };
+    return (
+      <NarrationContext.Provider value={ctx}>
+        <div style={{ position: 'relative', width, height, background, overflow: 'hidden', color: '#1a1a1a' }}>{children}</div>
+        {!recording && <audio ref={audioRef} src={audioSrc} preload="auto" onEnded={() => setPlaying(false)} />}
+        {!recording && controls && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', background: '#1a1a1a', color: '#ddd', fontFamily: 'monospace', fontSize: 13, width, boxSizing: 'border-box' }}>
+            <button onClick={() => { if (audioRef.current.paused) { audioRef.current.play(); setPlaying(true); } else { audioRef.current.pause(); setPlaying(false); } }} style={{ padding: '6px 14px', background: '#fff', color: '#000', border: 0, borderRadius: 4, cursor: 'pointer', fontWeight: 600 }}>{playing ? '❚❚ Pause' : '▶ Play'}</button>
+            <input type="range" min={0} max={timeline.totalDuration} step={0.01} value={time} onChange={e => { const t = parseFloat(e.target.value); audioRef.current.currentTime = t; setTime(t); }} style={{ flex: 1 }} />
+            <span style={{ minWidth: 130, textAlign: 'right' }}>{time.toFixed(2)} / {timeline.totalDuration.toFixed(2)}s</span>
+            <span style={{ padding: '4px 10px', background: '#2a2a2a', borderRadius: 4, minWidth: 130, textAlign: 'center' }}>{currentScene ? currentScene.id : '—'}</span>
+          </div>
+        )}
+      </NarrationContext.Provider>
+    );
+  }
+  function useNarration() { return React.useContext(NarrationContext); }
+  function useSceneFade(sceneId, fadeIn = 0.5, fadeOut = 0.5) {
+    const { time, timeline } = React.useContext(NarrationContext);
+    if (!timeline) return 0;
+    const s = timeline.scenes.find(x => x.id === sceneId);
+    if (!s) return 0;
+    const inT = (time - s.start) / fadeIn;
+    const outT = (s.end - time) / fadeOut;
+    return Math.max(0, Math.min(1, Math.min(inT, outT)));
+  }
+  function Cue({ id, ramp = 0.6, children }) {
+    const { isCueTriggered, cueProgress } = React.useContext(NarrationContext);
+    return children(isCueTriggered(id), cueProgress(id, ramp));
+  }
+  return { NarrationStage, Cue, useNarration, useSceneFade };
+})();
+const { NarrationStage, Cue, useNarration, useSceneFade } = NarrationStageLib;
+
+// ── Design tokens ────────────────────────────────────────────
+const C = {
+  paper: '#f5f1e8', paperDeep: '#ebe5d4',
+  ink: '#1a1a1a', inkSoft: '#3a3a3a', inkMute: '#888',
+  md: '#1B4965', html: '#C04A1A', green: '#7BC47F',
+};
+const F = {
+  display: '"Source Serif 4", "Noto Serif SC", Georgia, serif',
+  body: '"Noto Sans SC", "Noto Serif SC", "Source Serif 4", sans-serif',
+  mono: '"JetBrains Mono", Menlo, monospace',
+};
+
+// ── easing & interpolate ──────────────────────────────────
+const expoOut = t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+const lerp = (a, b, t) => a + (b - a) * t;
+const lerpC = (from, to, t) => ({
+  x: lerp(from.x, to.x, t), y: lerp(from.y, to.y, t),
+  scale: lerp(from.scale, to.scale, t),
+  opacity: lerp(from.opacity ?? 1, to.opacity ?? 1, t),
+});
+
+// ── HERO state table (v3: smaller scale to avoid overflow, y leaves room for the subtitle area) ──
+// The subtitle bar occupies the y=88-100 region, so hero y ≤ 70%
+const HERO_KEYS = {
+  opening:             { md: { x: 50, y: 28, scale: 1.0, opacity: 1 }, html: { x: 50, y: 55, scale: 1.0, opacity: 1 } },
+  'md-side':           { md: { x: 72, y: 48, scale: 1.4, opacity: 1 }, html: { x: 92, y: 12, scale: 0.3, opacity: 0.5 } },
+  'html-side':         { md: { x: 8,  y: 12, scale: 0.3, opacity: 0.5 }, html: { x: 28, y: 48, scale: 1.4, opacity: 1 } },
+  'the-real-question': { md: { x: 30, y: 30, scale: 0.85, opacity: 1 }, html: { x: 70, y: 30, scale: 0.85, opacity: 1 } },
+  'the-split':         { md: { x: 22, y: 60, scale: 1.15, opacity: 1 }, html: { x: 78, y: 60, scale: 1.15, opacity: 1 } },
+  'activity-proof':    { md: { x: 18, y: 18, scale: 0.5, opacity: 1 }, html: { x: 82, y: 18, scale: 0.5, opacity: 1 } },
+  closing:             { md: { x: 28, y: 50, scale: 1.3, opacity: 1 }, html: { x: 72, y: 50, scale: 1.3, opacity: 1 } },
+};
+const SCENE_ORDER = ['opening', 'md-side', 'html-side', 'the-real-question', 'the-split', 'activity-proof', 'closing'];
+
+// ── HeroAnchor: cross-scene hero + continuous micro-motion (removes 3s of stillness) ──
+const HeroAnchor = () => {
+  const { time, scene } = useNarration();
+  if (!scene) return null;
+  const idx = SCENE_ORDER.indexOf(scene.id);
+  const prevId = idx > 0 ? SCENE_ORDER[idx - 1] : scene.id;
+  const fromPos = HERO_KEYS[prevId];
+  const toPos = HERO_KEYS[scene.id];
+  const transitionDur = Math.min(2.0, scene.duration * 0.45);
+  const t = expoOut(Math.min(1, Math.max(0, (time - scene.start) / transitionDur)));
+  const md = lerpC(fromPos.md, toPos.md, t);
+  const html = lerpC(fromPos.html, toPos.html, t);
+
+  // ── Continuous micro-motion: scale breathing + figure-8 drift (guarantees change in any 3s window) ──
+  const breath = 1 + Math.sin(time * 0.7) * 0.018;
+  const driftXm = Math.cos(time * 0.32) * 0.6;
+  const driftYm = Math.sin(time * 0.41) * 0.5;
+  const driftXh = Math.sin(time * 0.28) * 0.6;
+  const driftYh = Math.cos(time * 0.37) * 0.5;
+
+  const baseSize = 240; // reduced from 360
+  const renderHero = (label, pos, color, dx, dy) => {
+    const px = (pos.x + dx) * 19.2;
+    const py = (pos.y + dy) * 10.8;
+    return (
+      <div key={label} style={{
+        position: 'absolute', left: px, top: py,
+        transform: `translate(-50%, -50%) scale(${pos.scale * breath})`,
+        opacity: pos.opacity,
+        fontSize: baseSize, fontFamily: F.display, fontWeight: 800,
+        color, lineHeight: 1, letterSpacing: '-0.02em',
+        willChange: 'transform, opacity', pointerEvents: 'none',
+      }}>{label}</div>
+    );
+  };
+  return (
+    <div style={{ position: 'absolute', inset: 0, perspective: '2400px' }}>
+      <div style={{ position: 'absolute', inset: 0, transformStyle: 'preserve-3d', transform: 'rotateX(2deg) rotateY(-1deg)' }}>
+        {renderHero('md', md, C.md, driftXm, driftYm)}
+        {renderHero('html', html, C.html, driftXh, driftYh)}
+      </div>
+    </div>
+  );
+};
+
+// ── BackgroundDrift ────────────────────────────────────────
+const BackgroundDrift = () => {
+  const { time } = useNarration();
+  const dx = Math.sin(time * 0.08) * 16;
+  const dy = Math.cos(time * 0.06) * 12;
+  return (
+    <div style={{
+      position: 'absolute', inset: -40,
+      background: `radial-gradient(ellipse 1400px 800px at ${50 + dx/4}% ${50 + dy/4}%, ${C.paperDeep} 0%, ${C.paper} 60%, ${C.paper} 100%)`,
+      pointerEvents: 'none',
+    }} />
+  );
+};
+
+// ── Subtitles: Bilibili-style subtitles (white text + black outline, no background, ≤12 characters per line, never cutting a sentence) ──
+// Split each chunk at punctuation into short lines, and allocate the chunk's time window in proportion to character count
+
+// Split algorithm: first split into sentences at strong punctuation (。！？\n), then merge each sentence at weak punctuation (，、；：) up to maxLen
+// Mixed Chinese and English: English letters count as 0.5 character (approximate visual width)
+function visualLen(s) {
+  let n = 0;
+  for (const ch of s) n += /[a-zA-Z0-9 .,'":;\-]/.test(ch) ? 0.5 : 1;
+  return n;
+}
+// dstack: English-aware splitting (same rules as assets/narration_stage.jsx): Latin text breaks at sentence ends,
+// then commas/semicolons, then word boundaries, ≤42 characters per line; CJK text keeps the original rules below.
+const CJK_RE = /[\u3040-\u30ff\u3400-\u9fff\uf900-\ufaff\uac00-\ud7af\u3000-\u303f\uff00-\uffef]/;
+const EN_MAX = 42;
+function isLatinText(s) {
+  let cjk = 0, latin = 0;
+  for (const ch of s) { if (CJK_RE.test(ch)) cjk++; else if (/[A-Za-z]/.test(ch)) latin++; }
+  return latin > 0 && cjk * 2 < latin * 0.2;
+}
+function wrapWords(text, max) {
+  const out = []; let cur = '';
+  for (const w of text.split(/\s+/).filter(Boolean)) {
+    if (cur && cur.length + 1 + w.length > max) { out.push(cur); cur = w; } else cur = cur ? cur + ' ' + w : w;
+  }
+  if (cur) out.push(cur);
+  return out;
+}
+function splitLatinToLines(text, max) {
+  const lines = [];
+  const sentences = text.split(/\n+|(?<=[.!?…]["')\]”’]*)\s+/).map(x => x.trim()).filter(Boolean);
+  for (const sent of sentences) {
+    if (sent.length <= max) { lines.push(sent); continue; }
+    const parts = sent.split(/(?<=[,;:])\s+/).filter(Boolean);
+    let merged = '';
+    for (const p of parts) {
+      if (!merged) merged = p;
+      else if (merged.length + 1 + p.length <= max) merged += ' ' + p;
+      else { lines.push(...wrapWords(merged, max)); merged = p; }
+    }
+    if (merged) lines.push(...wrapWords(merged, max));
+  }
+  return lines;
+}
+function splitChunkToLines(text, maxLen = 13) {
+  if (isLatinText(text)) return splitLatinToLines(text, EN_MAX);
+  const lines = [];
+  // 1. Split into sentences at strong punctuation (keeping the punctuation)
+  const sentences = [];
+  let buf = '';
+  for (const ch of text) {
+    buf += ch;
+    if ('。！？\n'.includes(ch)) {
+      if (buf.trim()) sentences.push(buf.trim());
+      buf = '';
+    }
+  }
+  if (buf.trim()) sentences.push(buf.trim());
+
+  // 2. Split each sentence at weak punctuation and merge within maxLen (never crossing a full-stop boundary)
+  for (const sent of sentences) {
+    if (visualLen(sent) <= maxLen) { lines.push(sent); continue; }
+    // Split at weak punctuation (the punctuation stays with the preceding part)
+    const parts = [];
+    let pbuf = '';
+    for (const ch of sent) {
+      pbuf += ch;
+      if ('，、；：'.includes(ch)) { parts.push(pbuf); pbuf = ''; }
+    }
+    if (pbuf) parts.push(pbuf);
+    // Merge up to maxLen
+    let merged = '';
+    for (const p of parts) {
+      if (visualLen(merged) + visualLen(p) <= maxLen) merged += p;
+      else { if (merged) lines.push(merged); merged = p; }
+    }
+    if (merged) {
+      if (visualLen(merged) <= maxLen) lines.push(merged);
+      else {
+        // Hard-cut fallback (rare: a single punctuation segment exceeds maxLen)
+        let hbuf = '';
+        for (const ch of merged) {
+          hbuf += ch;
+          if (visualLen(hbuf) >= maxLen) { lines.push(hbuf); hbuf = ''; }
+        }
+        if (hbuf) lines.push(hbuf);
+      }
+    }
+  }
+  return lines.filter(l => l.trim());
+}
+
+const Subtitles = () => {
+  const { time, scene } = useNarration();
+  if (!scene || !scene.chunks) return null;
+  const active = scene.chunks.find(c => time >= c.absoluteStart && time < c.absoluteEnd);
+  if (!active) return null;
+  const lines = splitChunkToLines(active.text);
+  if (lines.length === 0) return null;
+  // Allocate the chunk duration to each line in proportion to character count
+  const totalLen = lines.reduce((s, l) => s + visualLen(l), 0);
+  const chunkDur = active.absoluteEnd - active.absoluteStart;
+  let acc = active.absoluteStart;
+  let activeLine = lines[lines.length - 1];
+  let lineStart = active.absoluteStart;
+  for (const line of lines) {
+    const dur = (visualLen(line) / totalLen) * chunkDur;
+    if (time < acc + dur) { activeLine = line; lineStart = acc; break; }
+    acc += dur;
+  }
+  // Per-line fade-in 0.15s
+  const lineProg = Math.min(1, (time - lineStart) / 0.15);
+  return (
+    <div style={{
+      position: 'absolute', left: 0, right: 0, bottom: 90,
+      display: 'flex', justifyContent: 'center', pointerEvents: 'none', zIndex: 50,
+    }}>
+      <div key={lineStart} style={{
+        fontFamily: '"PingFang SC", "Noto Sans SC", -apple-system, sans-serif',
+        fontSize: 32, fontWeight: 600, color: C.ink,
+        letterSpacing: '0.04em', lineHeight: 1.2, textAlign: 'center',
+        // On a light paper-white background: dark ink text + a very fine white halo, so the text pops off the background without feeling heavy
+        textShadow: '0 0 6px rgba(245,241,232,0.9), 0 0 12px rgba(245,241,232,0.7), 0 1px 2px rgba(255,255,255,0.5)',
+        opacity: lineProg, transform: `translateY(${(1 - lineProg) * 4}px)`,
+      }}>
+        {activeLine}
+      </div>
+    </div>
+  );
+};
+
+// ── Segment labels ─────────────────────────────────────────────
+const SceneLabel = ({ sceneId, text }) => {
+  const op = useSceneFade(sceneId, 0.4, 0.4);
+  return (
+    <div style={{
+      position: 'absolute', top: 56, left: 80, fontFamily: F.mono, fontSize: 14,
+      color: C.inkMute, letterSpacing: '0.22em', textTransform: 'uppercase', opacity: op,
+    }}>{text}</div>
+  );
+};
+
+// ── Supporting elements for each scene ──────────────────────────────────
+const OpeningAux = () => {
+  const op = useSceneFade('opening', 0.6, 1.0);
+  return (
+    <>
+      <Cue id="thariq">{(t, p) => (
+        <div style={{ position: 'absolute', top: 110, left: 100, opacity: op * p, transform: `translateY(${(1-p)*20}px)`, maxWidth: 700 }}>
+          <div style={{ fontFamily: F.mono, fontSize: 14, color: C.inkMute, marginBottom: 10, letterSpacing: '0.12em' }}>2026.05.07 · @THARIQ · CLAUDE CODE</div>
+          <div style={{ fontSize: 56, fontFamily: F.display, fontWeight: 700, lineHeight: 1.05, color: C.ink, fontStyle: 'italic' }}>
+            HTML is the new<br/>markdown.
+          </div>
+        </div>
+      )}</Cue>
+      <Cue id="two-camps">{(t, p) => t && (
+        <div style={{ position: 'absolute', top: 110, right: 100, opacity: op * p, transform: `translateY(${(1-p)*16}px)`, fontFamily: F.mono, fontSize: 18, color: C.inkSoft, textAlign: 'right' }}>
+          <div style={{ fontSize: 38, fontWeight: 700, color: C.ink, letterSpacing: '-0.02em' }}>5,000,000</div>
+          <div style={{ fontSize: 13, color: C.inkMute, letterSpacing: '0.18em', marginTop: 4 }}>VIEWS · &lt; 24H</div>
+        </div>
+      )}</Cue>
+    </>
+  );
+};
+
+const MdSideAux = () => {
+  const op = useSceneFade('md-side', 0.6, 0.8);
+  return (
+    <>
+      <Cue id="agents-md">{(t, p) => (
+        <div style={{ position: 'absolute', left: 80, top: 200, opacity: op * p, transform: `translateY(${(1-p)*16}px)` }}>
+          <div style={{ fontFamily: F.mono, fontSize: 13, color: C.inkMute, marginBottom: 6, letterSpacing: '0.12em' }}>AGENTS.md · OpenAI 2025</div>
+          <div style={{ fontSize: 76, fontFamily: F.display, fontWeight: 700, color: C.ink, lineHeight: 0.95 }}>60,000<span style={{ color: C.html }}>+</span></div>
+          <div style={{ fontSize: 18, color: C.inkSoft, marginTop: 4, fontFamily: F.body }}>open-source projects use it</div>
+          <div style={{ marginTop: 14, fontFamily: F.mono, fontSize: 12, color: C.inkMute, letterSpacing: '0.1em' }}>AWS · ANTHROPIC · GOOGLE · MICROSOFT · OPENAI</div>
+        </div>
+      )}</Cue>
+      <Cue id="agents-md">{(t, p) => (
+        <div style={{ position: 'absolute', left: 80, top: 460, opacity: op * Math.max(0, p - 0.25) * 1.33, transform: `translateY(${(1-p)*16}px)` }}>
+          <div style={{ fontFamily: F.mono, fontSize: 13, color: C.inkMute, marginBottom: 4, letterSpacing: '0.12em' }}>karpathy/llm-wiki · CLAUDE.md</div>
+          <div style={{ fontSize: 64, fontFamily: F.display, fontWeight: 700, color: C.ink, lineHeight: 0.95 }}>50,000<span style={{ color: C.html }}>★</span></div>
+        </div>
+      )}</Cue>
+      <Cue id="token-saving">{(t, p) => t && (
+        <div style={{ position: 'absolute', left: 80, top: 640, opacity: op * p, transform: `translateY(${(1-p)*14}px)`, padding: '28px 36px', background: C.ink, color: C.paper, minWidth: 540, fontFamily: F.mono }}>
+          <div style={{ fontSize: 11, color: '#999', letterSpacing: '0.2em', marginBottom: 14 }}>CLOUDFLARE MEASURED · SAME BLOG POST</div>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 20, marginBottom: 14 }}>
+            <div>
+              <div style={{ fontSize: 11, color: '#777', marginBottom: 2 }}>HTML</div>
+              <div style={{ fontSize: 50, fontWeight: 700, color: C.html, lineHeight: 1 }}>16,180</div>
+            </div>
+            <div style={{ fontSize: 32, color: '#555' }}>→</div>
+            <div>
+              <div style={{ fontSize: 11, color: '#777', marginBottom: 2 }}>md</div>
+              <div style={{ fontSize: 50, fontWeight: 700, color: C.green, lineHeight: 1 }}>3,150</div>
+            </div>
+          </div>
+          <div style={{ fontSize: 70, fontFamily: F.display, fontWeight: 700, color: C.html, lineHeight: 0.95, fontStyle: 'italic' }}>−80% token</div>
+        </div>
+      )}</Cue>
+    </>
+  );
+};
+
+const HtmlSideAux = () => {
+  const op = useSceneFade('html-side', 0.6, 0.8);
+  const items = [
+    { cue: 'spatial', label: 'Spatial information', desc: 'diff · call graph · architecture diagram', md: 'one line of text', html: 'side by side', topPx: 220 },
+    { cue: 'dynamic', label: 'Dynamic experience', desc: 'buttons · easing · motion', md: 'written description', html: 'see it directly', topPx: 410 },
+    { cue: 'structured', label: 'Structured reading', desc: 'collapsible · tabs · sidebar', md: 'words piled up linearly', html: 'actually gets read', topPx: 600 },
+  ];
+  return (
+    <>
+      {items.map((it, i) => (
+        <Cue key={it.cue} id={it.cue}>{(t, p) => (
+          <div style={{ position: 'absolute', right: 80, top: it.topPx, opacity: op * p, transform: `translateX(${(1-p)*40}px)`, display: 'flex', alignItems: 'baseline', gap: 22, justifyContent: 'flex-end' }}>
+            <div style={{ fontFamily: F.mono, fontSize: 16, color: C.html, fontWeight: 700, letterSpacing: '0.18em' }}>0{i+1}</div>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ fontSize: 32, fontFamily: F.display, fontWeight: 600, color: C.ink }}>{it.label}</div>
+              <div style={{ fontSize: 16, color: C.inkMute, fontFamily: F.mono, marginTop: 3 }}>{it.desc}</div>
+              <div style={{ marginTop: 10, display: 'flex', alignItems: 'baseline', gap: 12, justifyContent: 'flex-end', fontFamily: F.body }}>
+                <span style={{ fontSize: 19, color: C.inkMute, textDecoration: 'line-through' }}>md: {it.md}</span>
+                <span style={{ fontSize: 16, color: C.html }}>→</span>
+                <span style={{ fontSize: 19, color: C.html, fontWeight: 600 }}>html: {it.html}</span>
+              </div>
+            </div>
+          </div>
+        )}</Cue>
+      ))}
+    </>
+  );
+};
+
+const RealQuestionAux = () => {
+  const op = useSceneFade('the-real-question', 0.4, 0.4);
+  return (
+    <>
+      <Cue id="reveal">{(t, p) => (
+        <div style={{ position: 'absolute', top: 480, left: 0, right: 0, textAlign: 'center', opacity: op * p }}>
+          <div style={{ fontSize: 26, fontFamily: F.body, color: C.inkMute, marginBottom: 14, fontWeight: 300 }}>Both sides are fighting over a</div>
+          <div style={{ fontSize: 170, fontFamily: F.display, fontWeight: 800, color: C.html, lineHeight: 0.95, letterSpacing: '0.05em', fontStyle: 'italic' }}>dumb question</div>
+        </div>
+      )}</Cue>
+      <Cue id="question-md">{(t, p) => (
+        <div style={{ position: 'absolute', top: 770, left: 200, opacity: op * p, transform: `translateX(${(1-p)*-20}px)`, fontFamily: F.body, fontSize: 32, color: C.ink, textAlign: 'right', maxWidth: 360 }}>
+          <div style={{ fontFamily: F.mono, fontSize: 13, color: C.md, letterSpacing: '0.18em', marginBottom: 8 }}>THE MD CAMP IS ANSWERING</div>
+          What do we <span style={{ color: C.md, fontStyle: 'italic', fontWeight: 700 }}>write</span> in?
+        </div>
+      )}</Cue>
+      <div style={{ position: 'absolute', top: 800, left: 0, right: 0, fontSize: 48, color: C.inkMute, textAlign: 'center', fontFamily: F.mono, opacity: op * 0.6 }}>≠</div>
+      <Cue id="question-html">{(t, p) => (
+        <div style={{ position: 'absolute', top: 770, right: 200, opacity: op * p, transform: `translateX(${(1-p)*20}px)`, fontFamily: F.body, fontSize: 32, color: C.ink, maxWidth: 360 }}>
+          <div style={{ fontFamily: F.mono, fontSize: 13, color: C.html, letterSpacing: '0.18em', marginBottom: 8 }}>THE HTML CAMP IS ANSWERING</div>
+          What do we <span style={{ color: C.html, fontStyle: 'italic', fontWeight: 700 }}>show</span> people?
+        </div>
+      )}</Cue>
+    </>
+  );
+};
+
+const SplitAux = () => {
+  const op = useSceneFade('the-split', 0.4, 0.6);
+  return (
+    <>
+      <Cue id="split">{(t, p) => (
+        <div style={{ position: 'absolute', top: 110, left: 0, right: 0, textAlign: 'center', opacity: op * p, transform: `translateY(${(1-p)*15}px)` }}>
+          <div style={{ fontSize: 22, color: C.inkMute, fontFamily: F.body, marginBottom: 6 }}>md and html aren't substitutes; it's a</div>
+          <div style={{ fontSize: 110, fontFamily: F.display, fontWeight: 800, color: C.ink, letterSpacing: '0.04em', lineHeight: 1 }}>
+            division of <span style={{ color: C.html }}>labor</span>
+          </div>
+        </div>
+      )}</Cue>
+      <Cue id="ai-changes">{(t, p) => t && (
+        <div style={{ position: 'absolute', top: 320, left: 0, right: 0, textAlign: 'center', opacity: op * p, fontFamily: F.body, fontSize: 20, color: C.inkSoft, lineHeight: 1.7, maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{ maxWidth: 980, margin: '0 auto' }}>
+            Before, you wrote md and read md yourself, so you compromised.<br/>
+            Once AI arrived, AI absorbed the cost of production, and a need that used to require a compromise <strong>got split into an extreme optimum at each end.</strong>
+          </div>
+        </div>
+      )}</Cue>
+      {/* Production-end / consumption-end labels sit above the hero so they don't get covered */}
+      <Cue id="md-side-win">{(t, p) => (
+        <div style={{ position: 'absolute', top: 470, left: '22%', transform: `translateX(-50%) translateY(${(1-p)*30}px)`, opacity: op * p, textAlign: 'center' }}>
+          <div style={{ fontFamily: F.mono, fontSize: 13, color: C.md, letterSpacing: '0.22em', marginBottom: 6 }}>PRODUCTION END</div>
+          <div style={{ fontSize: 19, color: C.inkSoft, fontFamily: F.body }}>light · fast · token-efficient</div>
+        </div>
+      )}</Cue>
+      <Cue id="html-side-win">{(t, p) => (
+        <div style={{ position: 'absolute', top: 470, left: '78%', transform: `translateX(-50%) translateY(${(1-p)*30}px)`, opacity: op * p, textAlign: 'center' }}>
+          <div style={{ fontFamily: F.mono, fontSize: 13, color: C.html, letterSpacing: '0.22em', marginBottom: 6 }}>CONSUMPTION END</div>
+          <div style={{ fontSize: 19, color: C.inkSoft, fontFamily: F.body }}>rich · visual · easy to share</div>
+        </div>
+      )}</Cue>
+    </>
+  );
+};
+
+const ProofAux = () => {
+  const op = useSceneFade('activity-proof', 0.4, 0.5);
+  return (
+    <>
+      <div style={{ position: 'absolute', top: 320, left: 0, right: 0, textAlign: 'center', opacity: op, fontSize: 28, fontFamily: F.body, color: C.ink }}>
+        The cleanest living example is <span style={{ color: C.html, fontFamily: F.mono, fontWeight: 700 }}>@thariq</span>
+      </div>
+      <Cue id="thariq-march">{(t, p) => (
+        <div style={{ position: 'absolute', top: 410, left: '50%', transform: `translateX(-50%) translateY(${(1-p)*16}px)`, opacity: op * p, display: 'flex', alignItems: 'center', gap: 22 }}>
+          <div style={{ fontFamily: F.mono, fontSize: 19, color: C.md, fontWeight: 700, minWidth: 90, textAlign: 'right' }}>2026.03</div>
+          <div style={{ width: 12, height: 12, borderRadius: 6, background: C.md }} />
+          <div style={{ fontSize: 23, fontFamily: F.body, color: C.ink, minWidth: 380 }}>"Skills guide": <span style={{ color: C.md }}>the core is still markdown</span></div>
+        </div>
+      )}</Cue>
+      <Cue id="same-person">{(t, p) => (
+        <div style={{ position: 'absolute', top: 480, left: '50%', transform: `translateX(-50%) translateY(${(1-p)*16}px)`, opacity: op * p, display: 'flex', alignItems: 'center', gap: 22 }}>
+          <div style={{ fontFamily: F.mono, fontSize: 19, color: C.html, fontWeight: 700, minWidth: 90, textAlign: 'right' }}>2026.05</div>
+          <div style={{ width: 12, height: 12, borderRadius: 6, background: C.html }} />
+          <div style={{ fontSize: 23, fontFamily: F.body, color: C.ink, minWidth: 380 }}>"HTML is the new markdown"</div>
+        </div>
+      )}</Cue>
+      <Cue id="same-person">{(t, p) => t && (
+        <div style={{ position: 'absolute', top: 580, left: 0, right: 0, textAlign: 'center', opacity: op * p, fontFamily: F.display, fontSize: 28, color: C.ink, fontStyle: 'italic' }}>
+          Same person · each end reaches its own peak · no conflict
+        </div>
+      )}</Cue>
+      <Cue id="karpathy-lex">{(t, p) => t && (
+        <div style={{ position: 'absolute', top: 700, left: '50%', transform: `translateX(-50%) translateY(${(1-p)*14}px)`, opacity: op * p, padding: '18px 28px', background: C.ink, color: C.paper, display: 'flex', alignItems: 'center', gap: 30 }}>
+          <div style={{ fontFamily: F.mono, fontSize: 12, color: '#999', letterSpacing: '0.2em' }}>KARPATHY × LEX</div>
+          <div style={{ display: 'flex', gap: 20, alignItems: 'center', fontFamily: F.body }}>
+            <div>
+              <div style={{ fontSize: 10, color: '#999', fontFamily: F.mono, marginBottom: 2, letterSpacing: '0.12em' }}>CORE</div>
+              <div style={{ fontSize: 19, color: C.md, fontWeight: 600 }}>markdown wiki</div>
+            </div>
+            <div style={{ fontSize: 19, color: '#666' }}>+</div>
+            <div>
+              <div style={{ fontSize: 10, color: '#999', fontFamily: F.mono, marginBottom: 2, letterSpacing: '0.12em' }}>SHELL</div>
+              <div style={{ fontSize: 19, color: C.html, fontWeight: 600 }}>dynamic HTML</div>
+            </div>
+          </div>
+        </div>
+      )}</Cue>
+    </>
+  );
+};
+
+const ClosingAux = () => {
+  const op = useSceneFade('closing', 0.3, 0.6);
+  return (
+    <>
+      <Cue id="final">{(t, p) => (
+        <div style={{ position: 'absolute', top: 110, left: 0, right: 0, textAlign: 'center', opacity: op * p, transform: `translateY(${(1-p)*12}px)` }}>
+          <div style={{ fontSize: 22, color: C.inkMute, fontFamily: F.body, marginBottom: 12 }}>Next time you want to argue, first ask yourself:</div>
+          <div style={{ fontSize: 68, fontFamily: F.display, fontWeight: 700, color: C.ink, lineHeight: 1.15 }}>
+            Are you facing "<span style={{ color: C.md }}>writing</span>",
+            or "<span style={{ color: C.html }}>reading</span>"?
+          </div>
+        </div>
+      )}</Cue>
+      <Cue id="md-final">{(t, p) => (
+        <div style={{ position: 'absolute', top: 740, left: '28%', transform: `translateX(-50%) translateY(${(1-p)*16}px)`, opacity: op * p, textAlign: 'center' }}>
+          <div style={{ fontSize: 42, fontFamily: F.display, fontWeight: 600, color: C.md, letterSpacing: '0.04em' }}>Write</div>
+          <div style={{ fontSize: 22, color: C.inkMute, fontFamily: F.mono, marginTop: 4 }}>↓</div>
+        </div>
+      )}</Cue>
+      <Cue id="html-final">{(t, p) => (
+        <div style={{ position: 'absolute', top: 740, left: '72%', transform: `translateX(-50%) translateY(${(1-p)*16}px)`, opacity: op * p, textAlign: 'center' }}>
+          <div style={{ fontSize: 42, fontFamily: F.display, fontWeight: 600, color: C.html, letterSpacing: '0.04em' }}>Read</div>
+          <div style={{ fontSize: 22, color: C.inkMute, fontFamily: F.mono, marginTop: 4 }}>↓</div>
+        </div>
+      )}</Cue>
+    </>
+  );
+};
+
+// ── Main App ─────────────────────────────────────────
+const App = () => (
+  <NarrationStage timeline={TIMELINE} audioSrc="_narration/voiceover.mp3" width={1920} height={1080} background={C.paper}>
+    <BackgroundDrift />
+    <HeroAnchor />
+    <SceneLabel sceneId="opening" text="2026.05.07 · X" />
+    <SceneLabel sceneId="md-side" text="THE MD CAMP'S EVIDENCE" />
+    <SceneLabel sceneId="html-side" text="THE HTML CAMP'S EVIDENCE" />
+    <SceneLabel sceneId="the-real-question" text="THE REAL QUESTION" />
+    <SceneLabel sceneId="the-split" text="MD PRODUCES · HTML CONSUMES" />
+    <SceneLabel sceneId="activity-proof" text="LIVING EXAMPLE" />
+    <SceneLabel sceneId="closing" text="CLOSING" />
+    <OpeningAux />
+    <MdSideAux />
+    <HtmlSideAux />
+    <RealQuestionAux />
+    <SplitAux />
+    <ProofAux />
+    <ClosingAux />
+    {/* The subtitle bar goes on the top layer (its z-index is naturally last in DOM order), covering the content below */}
+    <Subtitles />
+    <div style={{ position: 'absolute', bottom: 24, right: 36, fontSize: 11, color: 'rgba(26,26,26,0.35)', letterSpacing: '0.2em', fontFamily: F.mono, pointerEvents: 'none' }}>
+      Created by Huashu-Design
+    </div>
+  </NarrationStage>
+);
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+<script>
+  // ── Fit 1920 stage to viewport ─────────────────────────────────
+  // At ≥1920 (including the 1920×1080 used for recording) keep the original 1:1 size without scaling;
+  // only scale down when narrower than 1920; the minus 40 is the body's 20px left and right padding
+  (function () {
+    var root = document.getElementById('root');
+    function rescale() {
+      var cw = document.documentElement.clientWidth;
+      root.style.zoom = cw >= 1920 ? 1 : (cw - 40) / 1920;
+    }
+    rescale();
+    window.addEventListener('resize', rescale);
+  })();
+</script>
+</body>
+</html>

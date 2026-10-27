@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "prompt": "I want to make a login page for a SaaS product. Show me 3 style directions to compare",
+    "expected": "First run the three kickoff steps (learn / ledger / capabilities); ask only one round of questions and ask for references; each of the three logics produces two candidates, six direction cards in total (real-world references screenshotted with ref_board.py, the roulette looks at the specimen images first); after the six-cell thumbnails, pick three to build as full HTML + screenshots (don't crowd one family, don't collide with the look ledger, at most one that tries too hard), design_lint compare shows no collisions; lay out the three full versions together with the thumbnail alternates and stop",
+    "tests": "three-direction gate + pick three of six candidates + reference board and specimens + compare and look ledger self-check"
+  },
+  {
+    "id": 2,
+    "prompt": "Make me a 10-slide product pitch deck about an AI tool startup",
+    "expected": "Each of the three directions produces 2 representative slides (cover + the slide that differs most), with the deck shell using the assets/deck_index.html multi-file overview wall; lay them out and stop; once one is chosen, set the 2-slide showcase grammar first, then batch; body ≥24px, labels ≥16px; individual slides don't carry their own page numbers; automatically export a PDF when done",
+    "tests": "three-direction gate + deck module delivery chain + multi-file architecture + type size floor"
+  },
+  {
+    "id": 3,
+    "prompt": "Make a 30-second HTML animation explaining how neural networks work",
+    "expected": "Use Stage+Sprite from animations.jsx; write the timeline first, then the components; easeOut for entrances, easeIn for exits; tell the story in phases instead of piling on animations; text stays on screen ≥3 seconds",
+    "tests": "animations workflow + correct easing + pacing design + duration control"
+  },
+  {
+    "id": 4,
+    "prompt": "Make a Habit Tracker App prototype",
+    "expected": "Ask the user whether they want an overview spread or a flow demo (overview by default); use assets/ios_frame.jsx, don't hand-write the Dynamic Island; a Tracker is the high-density type, with ≥ 3 information-density elements per screen (habit completion rate, streak days, trend curve, achievement badges, etc., not decoration); at least 5-7 screens side by side (home/new habit/details/stats/settings)",
+    "tests": "overview/flow form routing + ios_frame hard binding + information density typing (high-density type) + multiple screens side by side"
+  },
+  {
+    "id": 5,
+    "prompt": "Make a reading notes App prototype",
+    "expected": "Mainly an overview spread; ios_frame.jsx; reading notes lean toward content display, so the information density requirement is less extreme than a Tracker, but the notes list page still needs ≥ 3 layers of information (book, quote, tags, progress); at least 4-6 screens (home bookshelf/note details/annotation highlights/search/notebook management); prefer a serif display font",
+    "tests": "overview default + ios_frame + information hierarchy + content-first visual rhythm"
+  },
+  {
+    "id": 6,
+    "prompt": "Make a running log App prototype",
+    "expected": "Overview spread; ios_frame.jsx; a running App is the high-density type (map, pace curve, heart rate zones, per-kilometer split data), with ≥ 3 pieces of product-differentiating information per screen; at least 5 screens (today's overview/live data during a run/route map/history/monthly stats); avoid AI slop (no purple gradients, no piles of decorative icons, but data visualization icons may stay)",
+    "tests": "overview + ios_frame + high-density data visualization + mixed map/chart layout + slop boundary conditions"
+  }
+]
