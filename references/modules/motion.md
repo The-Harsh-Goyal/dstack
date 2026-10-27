@@ -19,7 +19,7 @@ Everything timeline-driven goes through here: HTML animation, product feature de
 ## General flow
 
 1. **Three-direction direction boards**: 1 direction board per direction: 1–2 real HTML still-frame screenshots of the hero keyframe + a palette strip + a one-line positioning of its character + names of reference works. Not three finished films, but they must be rendered images (`references/directions.md`). The differences between the three directions lie in motion language and materials, not just color.
-2. **Storyboard cards**: before starting any animation, produce lightweight storyboard cards first, with each shot starting as a moving cover (the format in `storyboard-basics.md` §5, including the [CAMERA] column and acceptance frame numbers). For films ≥20s, write the storyboard cards into `导演稿.md` (director's script), along with **visual density clauses**. A director's script that covers only narrative and camera moves produces wireframes (`animation-best-practices.md` §6.5).
+2. **Storyboard cards**: before starting any animation, produce lightweight storyboard cards first, with each shot starting as a moving cover (the format in `storyboard-basics.md` §5, including the [CAMERA] column and acceptance frame numbers). For films ≥20s, write the storyboard cards into `director-script.md` (director's script), along with **visual density clauses**. A director's script that covers only narrative and camera moves produces wireframes (`animation-best-practices.md` §6.5).
 3. **Camera language**: for shot-level motion such as zoom / pan / transitions, read `camera-language.md` first (budget system, inter-shot grammar); for implementation see `gsap-recipes.md` §9.
 4. **Choose the backend** (table below) and write the animation. Reading `animation-pitfalls.md` before starting is required.
 5. **Look at frames**: capture frames at key moments and actually look at them: clipping, collisions, empty frames, rhythm that only works on paper. Also capture the first second after every scene change.
@@ -58,7 +58,7 @@ A silent version is a half-finished product. Do BGM + SFX as two tracks together
 - After the final render, a local video review: `python3 "$HD/scripts/review-video.py" --video <finished film> --context director-notes.md` (ffmpeg checks + contact sheets, nothing sent anywhere; `ai-video-review.md`)
 - Full explanation: `video-export.md`
 
-**Watermark**: animation output carries "Created by Huashu-Design" by default (never added to slides, infographics, prototypes or web pages); unofficial tribute animations for third-party brands get the prefix "Unofficial · "; remove it if the user says so. Template in the last section of `video-export.md`.
+**Watermark**: none by default (dstack adds no promo watermark). Unofficial tribute animations for third-party brands carry a small "Unofficial" label; add any other watermark only when the user asks. Template in the last section of `video-export.md`.
 
 **Gate**: before rendering a long film ≥45s, `scripts/design-gate-hook.sh` checks for `direction-approved.md` and blocks the render if the file is missing; when the user explicitly says to skip, let it through with `SKIP_DESIGN_GATE=1`.
 

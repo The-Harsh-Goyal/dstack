@@ -56,7 +56,7 @@ Mixes background music into a silent MP4, picking `bgm-<mood>.mp3` from your aud
 bash add-music.sh <input.mp4> [--mood=<name>] [--music=<path>] [--out=<path>]
 ```
 
-**BGM moods** (dstack: not shipped; looked up as `bgm-<mood>.mp3` in `$DSTACK_AUDIO_DIR`, default `~/.dstack/audio/`. Bring your own, or, when the task asks for it, `DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs bgm <mood> [--seconds 60]`, which uses the ElevenLabs Music API: paid plans only, about 900 credits per minute):
+**BGM moods** (dstack: not shipped; looked up as `bgm-<mood>.mp3` in `$DSTACK_AUDIO_DIR`, default `~/.dstack/audio/`. Bring your own, use the offline local library (`DSTACK_AUDIO_PROVIDER=local`, see `audio-design-rules.md#local-music-library`), or, when the task asks for it, `DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs bgm <mood> [--seconds 60]`, which uses the ElevenLabs Music API: paid plans only, about 900 credits per minute):
 
 | `--mood=` | Style | Fits |
 |-----------|------|---------|
@@ -201,7 +201,7 @@ A 30-second self-check before exporting:
 - [ ] The duration argument matches the actual animation duration in the HTML
 - [ ] The Stage in the HTML detects `window.__recording` and forces loop=false (must check for hand-written Stages; `assets/animations.jsx` has it built in)
 - [ ] The final Sprite has `fadeOut={0}` (the last video frame doesn't fade out)
-- [ ] Includes the "Created by Huashu-Design" watermark (required only for animations; for works featuring third-party brands, add the prefix "Unofficial · ". See SKILL.md §"Skill promo watermark")
+- [ ] No promo watermark unless the user asked for one; works featuring third-party brands carry a small "Unofficial" label
 
 ## Notes to include with the delivery
 
@@ -234,9 +234,9 @@ Let me know if you want a different size or frame rate.
 | "I need a transparent background" | MP4 doesn't support alpha; use WebM VP9 + alpha or APNG |
 | "I need lossless" | Set CRF to 0 + preset veryslow (the file will be 10x larger) |
 
-## Skill promo watermark template (for animation export only)
+## Corner label template (only when needed)
 
-SKILL.md specifies that animation MP4s/GIFs carry a watermark by default. The template is below (on dark backgrounds use `rgba(255,255,255,0.35)` instead; for animations featuring third-party brands, prefix "Unofficial · "):
+dstack adds no watermark by default. When the user asks for a credit or watermark, or a tribute animation for a third-party brand needs its "Unofficial" label, use this (on dark backgrounds use `rgba(255,255,255,0.35)` instead):
 
 ```jsx
 <div style={{
@@ -245,6 +245,6 @@ SKILL.md specifies that animation MP4s/GIFs carry a watermark by default. The te
   letterSpacing: '0.15em', fontFamily: 'monospace',
   pointerEvents: 'none', zIndex: 100,
 }}>
-  Created by Huashu-Design
+  Unofficial · <your label>
 </div>
 ```

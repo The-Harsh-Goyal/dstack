@@ -108,10 +108,16 @@ Credit: dstack is a modified fork of [huashu-design](https://github.com/alchainc
      via Chief). Still off by default. Switch it on (`DSTACK_TTS_PROVIDER=elevenlabs` for a narration voice,
      `DSTACK_AUDIO_PROVIDER=elevenlabs` for `gen-audio.mjs` music/SFX) only for a task that asks for real voice or
      generated audio, and only for that run.
+   - `DSTACK_AUDIO_PROVIDER=local` is free and offline (not an outside service): background music from the library in
+     `$DSTACK_MUSIC_DIR` (default `~/.dstack/music`, `manifest.json` per track with licence + attribution). ElevenLabs
+     bgm falls back to it (no key, free plan, error); with no library the video stays silent. Tracks marked
+     `"commercial": false` are refused unless `DSTACK_MUSIC_ALLOW_NONCOMMERCIAL=1`. Put any "Attribution required"
+     line that `gen-audio.mjs`/`add-music.sh` print (also `<video>.credits.txt`) in the delivery note.
    - ElevenLabs spends paid credits (about 1 per narration character, 200 per sound effect, 900 per minute of music):
      generate only what the task needs (no test batches, no "spare" variants, no whole SFX library), keep text final
      before narrating, and rely on the cache for repeats.
-   - Key: only `ELEVENLABS_API_KEY` in the environment or `DSTACK_ELEVENLABS_KEY_FILE` (a file outside `{root}`).
+   - Key: only `ELEVENLABS_API_KEY` in the environment or `DSTACK_ELEVENLABS_KEY_FILE` (a file outside `{root}`
+     holding a dotenv line `ELEVENLABS_API_KEY=...` or the bare key on line 1).
      Never write, print or paste the key anywhere. No key means dstack falls back to silent/none with one
      warning: report that, do not hunt for a key.
    - Free-plan output is non-commercial and must carry "elevenlabs.io" or "11.ai" in the title when published
@@ -194,7 +200,8 @@ cd {root} && python3 -m venv .venv && .venv/bin/pip install --index-url https://
    sections, cues marked `[[cue:id]]`; example `{root}/demos/md-html-narration/script.md`. Silent provider: estimated
    timings, no voice; `--tts elevenlabs` only when the task asks for a voice, rule 3), then
    `bash {root}/scripts/render-narration.sh page.html --timeline=_narration/timeline.json`. Music/SFX: your own
-   `~/.dstack/audio/bgm-<mood>.mp3` and `~/.dstack/audio/sfx/<category>/<name>.mp3`, or, if the task asks for generated
+   `~/.dstack/audio/bgm-<mood>.mp3` and `~/.dstack/audio/sfx/<category>/<name>.mp3`, the local music library
+   (`DSTACK_AUDIO_PROVIDER=local bash {root}/scripts/add-music.sh anim.mp4 --mood=tech`), or, if the task asks for generated
    audio, `DSTACK_AUDIO_PROVIDER=elevenlabs node {root}/scripts/gen-audio.mjs bgm <mood>` / `... sfx <category>/<name>`
    (`{root}/references/sfx-library.md`).
 9. **Decks** (`{root}/references/modules/deck.md`, `{root}/references/slide-decks.md`, `{root}/references/editable-pptx.md`):
@@ -223,7 +230,7 @@ def index(root):
     lines += ['', '### Other\n',
               f'- `{root}/tools/doctor.sh`: setup and hook check (read-only)',
               f'- `{root}/assets/`: starter components (`animations.jsx`, `deck_stage.js`, device frames) and `style-specimens/`',
-              f'- `{root}/demos/`: worked examples (`*-en.html` are the English versions)',
+              f'- `{root}/demos/`: worked examples',
               f'- `{root}/HOSTS.md`, `{root}/SECURITY.md`: every outside host the pack can touch, and why',
               f'- `{root}/NOTICE`, `{root}/LICENSE`: MIT credit to alchaincyf/huashu-design', '']
     return '\n'.join(lines)

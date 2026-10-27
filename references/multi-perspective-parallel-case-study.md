@@ -1,13 +1,13 @@
 # Multi-perspective parallel experiment · Case Study
 
-> huashu-md-html v2.0 launch film project · 2026-05-11
+> md-html v2.0 launch film project · 2026-05-11
 > Parallel director's notes + HTML + keyframe experiments from 6 artists' perspectives
 
 ---
 
 ## Background
 
-When the user asked to "make a 30-second upgrade promo film for huashu-md-html v2.0", the main thread first produced a v5 baseline (Anthropic / Penguin Classics publisher taste). But the user felt it could be better and gave a critical instruction:
+When the user asked to "make a 30-second upgrade promo film for md-html v2.0", the main thread first produced a v5 baseline (Anthropic / Penguin Classics publisher taste). But the user felt it could be better and gave a critical instruction:
 
 > "Call different subagents to each generate 6 completely different versions in expression and visual design. You can try bringing in different directors and artists. Then once they're all done, judge and review them."
 
@@ -145,7 +145,7 @@ See REVIEW.md in the same directory as `assets/director-notes-samples/launch-fil
 
 ---
 
-## Key insights (for future users of huashu-design)
+## Key insights (for future users of this skill)
 
 ### Insight 1 · The "write ten thousand characters of director's notes first" methodology is **fully reproducible**
 
@@ -264,4 +264,4 @@ User brief (including quality expectations)
 ---
 
 *Last updated: 2026-05-11*
-*Real case study: huashu-md-html v2.0 launch film 6-perspective parallel experiment*
+*Real case study: md-html v2.0 launch film 6-perspective parallel experiment*

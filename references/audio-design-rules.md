@@ -1,10 +1,10 @@
-# Audio Design Rules · huashu-design
+# Audio Design Rules · dstack
 
 > **dstack note (audio):** dstack ships **no music or sound effects**. The upstream `assets/bgm-*.mp3` (generated with Suno) and `assets/sfx/**` (generated with ElevenLabs) were removed because their licences couldn't be verified. File names below are kept as a naming scheme: put your own licensed files in `~/.dstack/audio/` (`bgm-<mood>.mp3`) and `~/.dstack/audio/sfx/<category>/<name>.mp3` (override with `DSTACK_AUDIO_DIR` / `DSTACK_SFX_DIR`), or, only when a task asks for it, generate them with ElevenLabs (the one approved outside audio service, off by default): `DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs sfx ui/click` / `... bgm tech`. Free-plan ElevenLabs output is non-commercial and needs attribution; see "Licensing" in `references/audio-design-rules.md`. If a file is missing, `add-music.sh`, `mix-voiceover.sh` and `sfx-cues.sh` warn and carry on without it.
 
 
 > Audio application recipes for all animation demos. Use together with `sfx-library.md` (the asset list).
-> Battle-tested through: the huashu-design launch hero v1-v9 iterations · Gemini deep breakdowns of Anthropic's three official films · 8000+ A/B comparisons
+> Battle-tested through: the upstream launch hero v1-v9 iterations · Gemini deep breakdowns of Anthropic's three official films · 8000+ A/B comparisons
 
 ---
 
@@ -94,7 +94,7 @@ Not every visual beat needs an SFX. Choose by this priority:
 
 ## BGM selection decision tree
 
-The upstream skill shipped 6 BGM tracks; dstack ships none. Use your own `bgm-<mood>.mp3`, or generate one when a task asks for it (`DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs bgm tech`). Mood names:
+The upstream skill shipped 6 BGM tracks; dstack ships none. Use your own `bgm-<mood>.mp3`, a track from your local library (see "Local music library"), or generate one when a task asks for it (`DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs bgm tech`). Mood names:
 
 ```
 What is the animation's personality?
@@ -118,7 +118,7 @@ See Anthropic Code Desktop (ref-2): **0 SFX + pure lo-fi BGM** can also be very 
 
 ## Scene recipes (ready to use)
 
-### Recipe A · Product launch hero (same as huashu-design v9)
+### Recipe A · Product launch hero (same as the upstream v9 hero)
 ```
 Duration: 25 seconds
 BGM: bgm-tech.mp3 · 45% · band <4kHz
@@ -253,6 +253,34 @@ Because every SFX cue is a "clock tick", visual animation that adapts to the SFX
 
 Each of the two layers should hold together when heard alone. If it only sounds good with both layers stacked, it isn't done well.
 
+## Local music library
+
+Free background music that stays on this machine. `DSTACK_AUDIO_PROVIDER=local node scripts/gen-audio.mjs bgm <mood>` (or `DSTACK_AUDIO_PROVIDER=local bash scripts/add-music.sh anim.mp4 --mood=<mood>`) picks a track tagged `<mood>` from `$DSTACK_MUSIC_DIR` (default `~/.dstack/music`), copies it to `bgm-<mood>.mp3` with a `.provenance.json`, and prints the credit line. With `DSTACK_AUDIO_PROVIDER=elevenlabs`, bgm falls back to the library when there is no key, the plan is free (the Music API is paid-only) or the request fails; with no usable track the video stays silent. Selection is deterministic (same library + mood + `--seed`/`DSTACK_MUSIC_SEED` → same track) and makes no network calls. `bash tools/doctor.sh` validates the manifest.
+
+Rules: a track is used only if it has a complete `manifest.json` entry; tracks with `"commercial": false` are refused unless `DSTACK_MUSIC_ALLOW_NONCOMMERCIAL=1` (then only for non-commercial work). `add-music.sh` prints the credit and writes `<output>.credits.txt`; put any "Attribution required" line in the delivery note. The library must be outside the repo, and `.gitignore` blocks all audio files.
+
+### Adding tracks
+
+1. Download a track from a source whose licence you have read, without logging in or getting past a captcha or bot check. No China-based hosts or mirrors.
+2. Save it in `~/.dstack/music/` (mp3, wav, ogg, flac, m4a…; non-mp3 is converted locally).
+3. Add an entry to `~/.dstack/music/manifest.json`:
+
+```json
+{ "version": 1, "tracks": [ {
+  "file": "komiku-13-the-wind.ogg",
+  "moods": ["calm", "ambient"],
+  "duration": 114.0,
+  "title": "The Wind", "artist": "Komiku",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Komiku_-_13_-_The_Wind.ogg",
+  "licence": { "name": "CC0", "url": "https://creativecommons.org/publicdomain/zero/1.0/" },
+  "attribution": "",
+  "commercial": true,
+  "fetched": "2026-10-28"
+} ] }
+```
+
+Required fields are `file` (relative to the folder), `moods` (tags such as `tech`, `tutorial`, `educational`, `ad`, `calm`), `duration` (seconds), `source_url`, `licence.name` and `licence.url`, `attribution` (the exact credit text the licence asks for, `""` if none), `commercial` (true only if the licence allows commercial use) and `fetched` (YYYY-MM-DD). Extra fields (title, artist, sha1, the licence terms) are kept in the provenance. For CC BY music the attribution needs the title, the creator, the licence with a link, and the source. Then run `bash tools/doctor.sh` or `node scripts/audio/music-library.mjs list`.
+
 ## Licensing (dstack: ElevenLabs output)
 
 dstack generates audio only through ElevenLabs, and only when a task asks for it (`DSTACK_TTS_PROVIDER=elevenlabs` for narration, `DSTACK_AUDIO_PROVIDER=elevenlabs` for `scripts/gen-audio.mjs`). What you may do with the output depends on the ElevenLabs plan **at the time it was generated**. What the official pages say (checked 28 Oct 2026):
@@ -273,4 +301,4 @@ Credits (pricing FAQ): text to speech about 1 credit per character, Sound Effect
 - SFX asset list: `sfx-library.md`
 - Visual style reference: `apple-gallery-showcase.md`
 - In-depth audio analysis of Anthropic's three films: AUDIO-BEST-PRACTICES.md (the author's local material, not distributed with the repo)
-- huashu-design v9 field case: hero-animation-v9-final.mp4 (the author's local sample, not distributed with the repo)
+- Upstream v9 field case: hero-animation-v9-final.mp4 (not distributed with the repo)

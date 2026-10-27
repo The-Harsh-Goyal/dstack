@@ -88,7 +88,7 @@ An example (subject: the official website of a handmade soy sauce brewery run fo
 
 - Best designer | Kenya Hara | borrowed: lots of white space, the material itself as the protagonist, very little text | hero asset: real photos of the clay vats and the drying yard | skeleton: one image and one sentence per screen, a slow vertical rhythm | boldness: a full first screen of a salt-frost close-up | form: soy sauce sun-dries for 180 days, so the rhythm slows down
 - Real-world reference | an award-winning website of an old Japanese food brand (screenshot attached) | borrowed: the relationship between vertical headings and horizontal captions, the ratio of two colors, thin-framed sections | hero asset: real photos of the bottle + vertical headings | skeleton: vertical heading on the left, three columns of content on the right | boldness: only two colors | form: the "recipe" temperament of an old brand
-- Seconds roulette | drew "Editorial Brutalism" | borrowed: huge type-size contrast and a modular grid | hero asset: an oversized Chinese character 「酱」 ("sauce") cutting into the first screen | skeleton: modular grid, alternating images and text | boldness: the type-size contrast on the first screen | form: one character tells the whole story of a sauce brewery
+- Seconds roulette | drew "Editorial Brutalism" | borrowed: huge type-size contrast and a modular grid | hero asset: an oversized ampersand "&" cutting into the first screen | skeleton: modular grid, alternating images and text | boldness: the type-size contrast on the first screen | form: one character tells the whole story of a sauce brewery
 
 ### Phase 5 · Build in parallel, self-check each version
 

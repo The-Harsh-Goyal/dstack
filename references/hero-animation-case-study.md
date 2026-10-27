@@ -1,8 +1,8 @@
 # Gallery Ripple + Multi-Focus · a philosophy of scene choreography
 
-> **A reusable visual choreography structure** distilled from the huashu-design hero animation v9 (25 seconds, 8 scenes).
+> **A reusable visual choreography structure** distilled from the upstream hero animation v9 (25 seconds, 8 scenes).
 > Not an animation production pipeline, but **in which situations this choreography is "right"**.
-> Real-world reference: [demos/hero-animation-v9.mp4](../demos/hero-animation-v9.mp4) · (upstream site, not linked in dstack)
+> Real-world reference: the upstream v9 render (`hero-animation-v9.mp4`, not distributed with dstack); the current source is [demos/hero-animation-v10.html](../demos/hero-animation-v10.html).
 
 ## The one-line version
 
@@ -204,7 +204,7 @@ The brand wordmark transitions from Thin → Bold over 0.9s, together with a sli
 
 ### 5. **Corner Brand: a low-intensity persistent signature**
 
-During the Gallery phase there's a small `HUASHU · DESIGN` mark in the top-left corner, at 16% opacity, 12px font size, wide letter spacing.
+During the Gallery phase there's a small `DSTACK` mark in the top-left corner, at 16% opacity, 12px font size, wide letter spacing.
 
 **Why add it**:
 - After the Ripple burst, viewers easily "lose focus" and forget what they're watching; a light mark in the top-left helps anchor them
@@ -249,4 +249,3 @@ If all three are yes, fork the v6 HTML directly; change the `SLIDE_FILES` array 
 - Animation export pipeline: [references/video-export.md](video-export.md)
 - Audio setup (BGM + SFX dual track): [references/audio-design-rules.md](audio-design-rules.md)
 - A parallel reference for the Apple gallery style: [references/apple-gallery-showcase.md](apple-gallery-showcase.md)
-- Source HTML (v6 + audio-integrated version): `www.huasheng.ai/huashu-design-hero/index.html`

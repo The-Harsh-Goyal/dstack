@@ -2,7 +2,7 @@
 
 > The storyboarding method before starting any animation, whether 5 seconds or 50. The core in one sentence: **every shot is first a cover that moves**.
 >
-> Sources of the methodology: the freeze-frame rules (S1-S11) distilled from 300+ covers tested in Huashu's illustration library, the energy-skeleton precedents from video-shotcraft's 106 shot cards, and the camera-budget axioms of the HuaRec Studio camera-direction system.
+> Sources of the methodology: the freeze-frame rules (S1-S11) distilled from 300+ covers tested in the upstream author's illustration work, the energy-skeleton precedents from video-shotcraft's 106 shot cards, and the camera-budget axioms of a camera-direction system.
 
 ---
 
@@ -13,7 +13,7 @@ This file is the **everyday lightweight version** of `launch-film-director-notes
 | Length / type | Storyboard requirement | Basis |
 |---|---|---|
 | < 20s animation, motion graphic, demo | This file's **lightweight storyboard card** (§5, one line per shot) | Under 20s isn't worth 10,000 characters, but each shot's frame composition must be thought through first |
-| ≥ 20s animation | The `导演稿.md` (director's script) required by the Gate file protocol, **minimum requirement = this file's storyboard card format** (none of the eight fields in §5 can be missing), freely thickened on top of that | SKILL.md "Gate file protocol" |
+| ≥ 20s animation | The `director-script.md` (director's script) required by the Gate file protocol, **minimum requirement = this file's storyboard card format** (none of the eight fields in §5 can be missing), freely thickened on top of that | SKILL.md "Gate file protocol" |
 | launch film / brand promo film / "Apple-level" expectations | Upgrade from the storyboard card baseline to 10,000-character director's notes | `launch-film-director-notes.md`, whose Part IV 10 fields per shot are the heavyweight version of this file's eight fields |
 
 Trigger boundary: when the user says "quickly make an animation" or "a simple demo", don't throw the 10,000-character process at them, but **still draw the storyboard card**. The storyboard card costs a dozen or so minutes; skipping it costs reworking the whole film (measured on B00, 2026-07-17: skipping frame design and going straight to code, the motion was all green, but the visuals were rejected outright).
@@ -121,7 +121,7 @@ Scene switch = composition switch, never a style switch. Changing styles through
 
 ### Law ten · inherited no-go zones (S10)
 
-All of the illustration library's aesthetic no-go zones are inherited, and be especially wary of animation's occupational hazards: **glowing particles, data streams, holographic HUDs and cyber neon are motion graphics' handiest lazy materials, and they're exactly all in Huashu's no-go zones**. Your hands itch more when animating than when making static images; keep them in check.
+All of the illustration library's aesthetic no-go zones are inherited, and be especially wary of animation's occupational hazards: **glowing particles, data streams, holographic HUDs and cyber neon are motion graphics' handiest lazy materials, and they're exactly all in the no-go zones**. Your hands itch more when animating than when making static images; keep them in check.
 
 The right answer for a tech feel = real UI screenshots (in a 3D floating card form) + clean big type + a light background. The combination of a dark blue background #0D1117 + neon glow remains forbidden (details as in SKILL.md §6.2).
 
@@ -284,7 +284,7 @@ Narrated films get one more rule: **move on pause** (HuaRec precedent). Camera s
 
 Before writing code, confirm that all of the following exist:
 
-- [ ] Storyboard table: one line per shot, all eight fields complete, saved in the project directory (for ≥20s it's the core section of `导演稿.md`, the director's script)
+- [ ] Storyboard table: one line per shot, all eight fields complete, saved in the project directory (for ≥20s it's the core section of `director-script.md`, the director's script)
 - [ ] Each shot's freeze frame has passed the applicable laws among the eleven, with at least law one (cover test), law three (guide line) and law five (percentage composition) checked explicitly
 - [ ] The shot size column has no consecutive same-level cuts and no two-level jumps (§3)
 - [ ] The hold / rest budget was carved out first, and breathing title cards were inserted (§4)

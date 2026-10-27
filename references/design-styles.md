@@ -423,7 +423,7 @@ Choosing a color isn't just choosing a hue; it's choosing the cultural coordinat
 - Reference: Nigel Holmes (TIME's graphics director 1978–1994, founded Explanation Graphics in 1994); he advocated explaining abstract numbers with pictures and humor, and was also the bullseye of the chartjunk debate
 - Fits: science explainers, explaining complex concepts to laypeople, illustrations for mass-media columns, children's and education-oriented work
 - Visual DNA: palette = three or four high-saturation flat colors + black outlines. Font = rounded sans-serif + handwritten-style annotations. Master = drawing the chart itself as a real-object metaphor (banknotes stacked into bars, a thermometer as the scale, a running track as the progress bar). Signature = skeuomorphic charts, humor, little figures, thick outlines, zero gradients
-- HTML implementation: the chart skeleton can be done in CSS/SVG, but **the soul is in the hand-drawn illustration**. In pure HTML it can only be downgraded to geometric color blocks, and the downgrade must be clearly stated; with image generation, use huashu-gpt-image to generate the illustration elements and then composite them
+- HTML implementation: the chart skeleton can be done in CSS/SVG, but **the soul is in the hand-drawn illustration**. In pure HTML it can only be downgraded to geometric color blocks, and the downgrade must be clearly stated; with image generation, use an image-generation tool to generate the illustration elements and then composite them
 - Fonts: Nunito / Baloo 2 (rounded) + Caveat (handwritten annotations)
 - Specimen: assets/style-specimens/info/02-explanation-graphics.jpg
 
@@ -793,7 +793,7 @@ Choosing a color isn't just choosing a hue; it's choosing the cultural coordinat
 
 ## ⚠️ Styles exclusive to AI image generation (only recommend once you've confirmed the user has image generation; not selectable by default)
 
-The soul of the styles below lies in **dynamically generated visuals / 3D / particles / cinematic lighting / hand-drawn illustration**. In pure HTML/CSS without image generation, you can only make a badly degraded mock, so they are **removed from the default recommendation pool**. Only when the user clearly has image generation (via `huashu-gpt-image`) are they candidates:
+The soul of the styles below lies in **dynamically generated visuals / 3D / particles / cinematic lighting / hand-drawn illustration**. In pure HTML/CSS without image generation, you can only make a badly degraded mock, so they are **removed from the default recommendation pool**. Only when the user clearly has image generation (an image-generation tool) are they candidates:
 
 | Style | Soul | Why HTML can't do it |
 |------|------|------------------|
@@ -832,7 +832,7 @@ Short prompts > long prompts. Describing mood and content works better than pili
 | Prescribing layout positions | Citing a specific aesthetic ("Pentagram editorial feel") |
 | Listing every visual element | Describing what the audience should feel |
 
-Full AI image generation methodology → the `huashu-gpt-image` skill.
+Full AI image generation methodology → whatever image-generation tool the runtime has (see `materials.md` T1).
 
 ---
 

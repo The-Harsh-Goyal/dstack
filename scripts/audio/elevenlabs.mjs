@@ -6,7 +6,8 @@
 // is a constant on purpose: no env var can point dstack at another server, residency host or proxy API.
 //
 // Key: ELEVENLABS_API_KEY from the environment, or the first line of the file named by
-// DSTACK_ELEVENLABS_KEY_FILE (must live outside the dstack folder). The key is sent only in the
+// DSTACK_ELEVENLABS_KEY_FILE (must live outside the dstack folder; the bare key on line 1, or a dotenv
+// line `ELEVENLABS_API_KEY=...`, see keyfile.mjs). The key is sent only in the
 // xi-api-key header and is never written, logged or echoed; every message passes through mask().
 //
 // Endpoints (https://elevenlabs.io/docs/api-reference):
@@ -22,6 +23,9 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { parseKeyFile, readKeyFile } from './keyfile.mjs';
+
+export { parseKeyFile };
 
 export const HOST = 'api.elevenlabs.io';
 export const BASE_URL = `https://${HOST}`;
@@ -49,7 +53,7 @@ function keyFromFile(file) {
     return null;
   }
   try {
-    return fs.readFileSync(abs, 'utf8').split(/\r?\n/)[0].trim() || null;
+    return readKeyFile(abs, 'ELEVENLABS_API_KEY');
   } catch {
     warnOnce('keyfile-unreadable', `[elevenlabs] DSTACK_ELEVENLABS_KEY_FILE is set but ${abs} can't be read.`);
     return null;
@@ -74,7 +78,7 @@ export function mask(text, env = process.env) {
   let s = String(text);
   const candidates = [(env.ELEVENLABS_API_KEY || '').trim()];
   if (env.DSTACK_ELEVENLABS_KEY_FILE) {
-    try { candidates.push(fs.readFileSync(path.resolve(env.DSTACK_ELEVENLABS_KEY_FILE.replace(/^~(?=\/|$)/, os.homedir())), 'utf8').split(/\r?\n/)[0].trim()); } catch { /* none */ }
+    try { candidates.push(readKeyFile(env.DSTACK_ELEVENLABS_KEY_FILE, 'ELEVENLABS_API_KEY') || ''); } catch { /* none */ }
   }
   for (const k of candidates) if (k && k.length >= 4) s = s.split(k).join('****');
   return s.replace(/(xi-api-key["']?\s*[:=]\s*["']?)[^\s"',}]+/gi, '$1****').replace(/\bsk_[A-Za-z0-9]{8,}\b/g, 'sk_****');

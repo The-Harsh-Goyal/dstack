@@ -162,7 +162,7 @@ Why this order: font-family matching is per character, and Latin fonts don't con
 
 **Number rule**: numbers always go through the Latin font (the fallback chain guarantees this), and data tables must add `font-variant-numeric: tabular-nums`, otherwise 1 and 8 have different widths and columns jitter.
 
-**No spaces between Chinese and English**: this is this repo's convention (Huashu explicitly doesn't use "Pangu spacing"); rely on the spacing built into the fonts in the fallback chain, not manually typed spaces.
+**No spaces between Chinese and English**: this is this repo's convention (inherited from upstream: no "Pangu spacing"); rely on the spacing built into the fonts in the fallback chain, not manually typed spaces.
 
 ### 4.3 Chinese has no italics
 

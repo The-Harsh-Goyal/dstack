@@ -3,9 +3,9 @@
 > **dstack note (audio):** dstack ships **no music or sound effects**. The upstream `assets/bgm-*.mp3` (generated with Suno) and `assets/sfx/**` (generated with ElevenLabs) were removed because their licences couldn't be verified. File names below are kept only as a naming scheme: put your own licensed files in `~/.dstack/audio/` (`bgm-<mood>.mp3`) and `~/.dstack/audio/sfx/<category>/<name>.mp3` (override with `DSTACK_AUDIO_DIR` / `DSTACK_SFX_DIR`). If a file is missing, `add-music.sh`, `mix-voiceover.sh` and `sfx-cues.sh` warn and carry on without it.
 
 
-> Director's Notes for the **huashu-md-html v2.0** launch film
+> Director's Notes for the **md-html v2.0** launch film
 > 30 seconds · 1920×1080 · 25 fps · no voiceover
-> Director: huashu-design (acting as Apple-tier launch film director)
+> Director: dstack (acting as Apple-tier launch film director)
 > Composer: TBD (target: Max Richter / Ólafur Arnalds / Jóhann Jóhannsson minimal-cinematic register)
 > Color base: ivory white #FAFAF6 · ink #1A1A1A · terracotta #C2410C
 > Type: Newsreader (display + body) · JetBrains Mono (interface) · Noto Serif SC (Chinese)
@@ -34,7 +34,7 @@ We are going to tell a story. The story is a single line:
 
 > **"md is the source code; everything else is product."**
 
-This is not a slogan; it's a worldview. Markdown is not "a lightweight document format". It is the source of writing. Every downstream form (html, docx, pdf, epub) is a product derived from this same source. huashu-md-html v2.0 extends this product chain from 4 to 6, but what it extends is not the "feature list"; it's **the radius of the source's influence**.
+This is not a slogan; it's a worldview. Markdown is not "a lightweight document format". It is the source of writing. Every downstream form (html, docx, pdf, epub) is a product derived from this same source. md-html v2.0 extends this product chain from 4 to 6, but what it extends is not the "feature list"; it's **the radius of the source's influence**.
 
 If viewers remember only one thing after watching this film, I want it to be: "so md is actually the source code". However much of the feature list they remember is a bonus.
 
@@ -77,7 +77,7 @@ Our grid system (Part II.3) comes from this tradition.
 
 **Kenya Hara, *White* (2008)**
 
-Hara wrote: "White is not a color; it is a sensibility." (白は色彩ではなく、感受性なのだ)
+Hara wrote: "White is not a color; it is a sensibility."
 
 The real lead of this film is not `md.`; it's **the field of ivory white** surrounding it. Every shot has to leave at least 60% negative space. Negative space is not "not filled yet"; it is the content itself.
 
@@ -91,7 +91,7 @@ Our design system doesn't allow "adding a font just for this shot" or "adding a 
 
 Three kinds of viewers, ranked by importance:
 
-**Primary audience A · existing users of huashu-md-html v1 (about 60% of traffic)**
+**Primary audience A · existing users of md-html v1 (about 60% of traffic)**
 
 They open the film to find out "what got upgraded". Our promise to them: within 30 seconds, you must know clearly that:
 - New capability 5: md → publication-grade PDF
@@ -100,7 +100,7 @@ They open the film to find out "what got upgraded". Our promise to them: within 
 
 → Shot 08 and Shot 09 get 3 seconds each, must carry a "★ NEW" tag, and the destination card must show **visible professional-grade details** like "printer's crop marks" and "Apple Books frame", so existing users instantly get that "this isn't a filler feature; it was built properly".
 
-**Secondary audience B · AI-native creators who've heard of huashu-md-html but haven't used it (about 25%)**
+**Secondary audience B · AI-native creators who've heard of md-html but haven't used it (about 25%)**
 
 What they care about is "what does this skill have to do with me". Our promise to them: within 30 seconds, you must realize that:
 - When you write articles / do research / write white papers, **md should be your source of truth**
@@ -286,7 +286,7 @@ These are **small things that stay in the frame throughout**, giving the feeling
 
 ```
    ╔═════════════════════════╗
-   ║ ● HUASHU-MD-HTML · v2.0 ║
+   ║ ● MD-HTML · v2.0        ║
    ╚═════════════════════════╝
 ```
 
@@ -309,7 +309,7 @@ These are **small things that stay in the frame throughout**, giving the feeling
 **Chrome D · bottom-right · watermark (persistent)**
 
 ```
-   CREATED BY HUASHU-DESIGN
+   DSTACK · SAMPLE FILM
 ```
 
 - Type: JetBrains Mono 10px, letter-spacing 0.24em
@@ -628,7 +628,7 @@ At 03.00s: `# markdown.md` (56px mono) starts gathering toward the center, scali
 **[CHROME]**
 
 - 04.50s · Chrome B (version chip top-right) starts emerging (fade-in 600ms)
-  - Form: `● HUASHU-MD-HTML · v2.0`
+  - Form: `● MD-HTML · v2.0`
   - terracotta dot, mono text, Ink color
   - Entry position: top: 78px, right: 80px
 - Still hidden: Chrome A, C, E (visible only ≥ 06s)
@@ -677,7 +677,7 @@ Each card is 130×180px, white background + Mica border + a 24° top-right corne
 
 Absorption timing: starting at 05.60s, one card launches every 0.18s. Each card flies for 1.1s and is then absorbed. The last card finishes absorbing at about 07.60s.
 
-After absorption completes (07.60-08.20s), a tagline appears 60px below: "万物 → md" ("everything → md"; Chinese serif, 36px, Ink, italic)
+After absorption completes (07.60-08.20s), a tagline appears 60px below: "everything → md" (serif, 36px, Ink, italic)
 
 08.20-08.50s · the whole frame holds, getting ready for Shot 05.
 
@@ -685,7 +685,7 @@ After absorption completes (07.60-08.20s), a tagline appears 60px below: "万物
 
 - hero `md.`: shrinks to 220px (same type spec as SHOT 03)
 - Typesetting inside the 6 cards: JetBrains Mono 12-14px for labels, Newsreader 12-16px for content
-- tagline "万物 → md": Noto Serif SC 36px italic + the → in the middle is Newsreader italic + Terracotta
+- tagline "everything → md": Newsreader 36px italic + the → in the middle is Newsreader italic + Terracotta
 - Top Chrome A text: JetBrains Mono 12px
 
 **[ANIM]**
@@ -693,7 +693,7 @@ After absorption completes (07.60-08.20s), a tagline appears 60px below: "万物
 - 05.00-05.30s · hero md scales + moves up (300ms expoOut)
 - 05.30s · Chrome A capability counter enters (shows CAPABILITY · 01, the first dot filled)
 - 05.60-07.60s · 6 cards launch one after another (each card's launch delay = 5.60 + i × 0.18s, flight 1.1s, absorb at launch+1.1)
-- 07.60-08.20s · the tagline "万物 → md" enters (fade-in 400ms + slight y slide 12px → 0)
+- 07.60-08.20s · the tagline "everything → md" enters (fade-in 400ms + slight y slide 12px → 0)
 - 08.20-08.50s · hold
 
 **[AUDIO]**
@@ -718,7 +718,7 @@ After absorption completes (07.60-08.20s), a tagline appears 60px below: "万物
 - ✅ Gathering is "absorption" (scale + position converge together), not "stacking"
 - ✅ No glow or particle effects on the md characters (no need to explain "md is absorbing"; viewers can see it for themselves)
 - ✅ pause-and-look signature: pause on any card mid-flight and you can read "this is a PDF / this is a DOCX". That's the detail done to 120%
-- ✅ The tagline uses "→" rather than "to" or "至" (Chinese for "to"); it's a character native to markdown
+- ✅ The tagline uses "→" rather than "to"; it's a character native to markdown
 
 **[WHY]**
 
@@ -758,7 +758,7 @@ Destination card design (**real readable content, not bar lines**):
 │  ways. The river forks; the      │
 │  spring stays the same.          │
 │                                  │
-│  ─ huashu, 2026.05.11            │  ← italic 14px, Smoke
+│  ─ the author, 2026.05.11        │  ← italic 14px, Smoke
 │                                  │
 │  article.html · TUFTE THEME      │  ← Mono 10px, 0.18em, Smoke (bottom)
 └─────────────────────────────────┘
@@ -1000,7 +1000,7 @@ Enters with a cross-dissolve. The visual intensity of this shot is **noticeably 
 
 Visual differences:
 1. **NEW tag**: a Terracotta rectangular frame lights up top-left next to the capability counter, containing the characters "★ NEW" (JetBrains Mono Bold 13px, Terracotta, letter-spacing 0.22em, 4px Terracotta border, 6px×12px padding)
-2. **The destination isn't a single card but two PDFs fanned out**: A4 at the back (slight +5° rotation) and large 32-kai (大32开, 176×240mm, a common Chinese print-book format) at the front (slight -3° rotation), conveying visually that "both page sizes are supported"
+2. **The destination isn't a single card but two PDFs fanned out**: A4 at the back (slight +5° rotation) and large 32mo (176×240mm, a common print-book format) at the front (slight -3° rotation), conveying visually that "both page sizes are supported"
 3. **Each PDF has "printer's crop marks"**: a small L-shaped line in each corner, 2px thick, Smoke color. This is a detail of real print-shop PDFs
 4. The arrow + label colors are all Terracotta (not Ink), so the overall palette is warmer
 
@@ -1029,7 +1029,7 @@ PDF B (large 32-kai, at the front):
 ```
 ┌────────────────────┐
 │ ┌                ┐ │  ← crop marks
-│  大32开 · 176×240mm│  ← Mono Bold 10px Terracotta
+│  32MO · 176×240mm  │  ← Mono Bold 10px Terracotta
 │  ───                │
 │  On Markdown        │  ← Newsreader 19px
 │  ──────────         │
@@ -1080,7 +1080,7 @@ PDF B (large 32-kai, at the front):
 - ✅ The two PDFs aren't cheaply "stacked on top of each other"; they're fanned + rotated (implying the physical act of "opening it up to look")
 - ✅ The crop marks are a visual expression of real print-shop terminology; when paused you can see "ah, this is print-ready"
 - ✅ No glow or particles are used to emphasize "NEW"; typography and SFX speak for themselves
-- ✅ pause-and-look signature: the mixed Chinese-English "大32开 · 176×240mm" at the top of PDF B is the Huashu ecosystem's respect for Chinese print book formats
+- ✅ pause-and-look signature: the "32MO · 176×240mm" label at the top of PDF B shows respect for real print-book formats
 
 **[WHY]**
 
@@ -1109,7 +1109,7 @@ Destination card design: **an Apple Books-style EPUB reader frame** (emphasizing
    ║ ● ● ●                              ║  ← window chrome (Apple Books)
    ╠════════════════════════════════════╣
    ║                                    ║
-   ║  HUASHU · ORANGE BOOK              ║  ← Mono Bold 10px Terracotta 0.22em
+   ║  MD-HTML · ORANGE BOOK             ║  ← Mono Bold 10px Terracotta 0.22em
    ║                                    ║
    ║                                    ║
    ║  On                                ║  ← Newsreader 700, 30px, Ivory paper
@@ -1117,7 +1117,7 @@ Destination card design: **an Apple Books-style EPUB reader frame** (emphasizing
    ║                                    ║
    ║  ───                               ║  ← Terracotta rule 40×2px
    ║                                    ║
-   ║  an essay · 花叔                   ║  ← italic 14px Smoke on Charred
+   ║  an essay · the author             ║  ← italic 14px Smoke on Charred
    ║                                    ║
    ╠════════════════════════════════════╣
    ║ Apple Books · 1 of 24    EPUB 3   ║  ← Mono 10px Smoke 0.14em
@@ -1134,7 +1134,7 @@ Destination card design: **an Apple Books-style EPUB reader frame** (emphasizing
 
 **[TYPE]**
 
-- HUASHU · ORANGE BOOK: Mono Bold 10px, Terracotta, 0.22em
+- MD-HTML · ORANGE BOOK: Mono Bold 10px, Terracotta, 0.22em
 - book title (On Markdown): Newsreader 700, 30px, Ivory (on Charred bg), line-height 1.0
 - terracotta rule: 40×2px
 - author italic: Noto Serif SC italic 14px, Smoke
@@ -1375,7 +1375,7 @@ Entrance: staggered from left to right, 80ms delay each, fade-in + 4px y slide-u
 27.80-28.30s: the subtitle line enters (y=890):
 
 ```
-md 是源代码，万物是产物。   (md is the source code; everything else is product.)
+md is the source code; everything else is product.
 ```
 
 Font: Noto Serif SC italic 26px, Ink, letter-spacing 0.04em
@@ -1453,14 +1453,14 @@ The next shot is the close: let the strings decay and let the md stamp shine alo
 30.00s: all elements are in place. The final frame is:
 
 ```
-                                                                  ● HUASHU-MD-HTML · v2.0
+                                                                  ● MD-HTML · v2.0
                                                                                               (top-right chrome)
 
 
                                             md.                   ← Newsreader 600, 88px, Ink + Terracotta dot
                                           ───                     ← Terracotta rule, 120×2px
 
-                                                                                CREATED BY HUASHU-DESIGN
+                                                                                DSTACK · SAMPLE FILM
                                                                                               (bottom-right watermark)
 ```
 
@@ -1566,7 +1566,7 @@ no vocals, 30 seconds duration, ivory paper mood
 
 ## 5.4 SFX sources
 
-**First choice**: use the 37 prebuilt assets in the huashu-design skill's `assets/sfx/<category>/*.mp3`:
+**First choice**: use the 37 prebuilt assets in an `assets/sfx/<category>/*.mp3` library (dstack ships none; see references/audio-design-rules.md):
 
 ```
 Event                      Recommended SFX file
@@ -1595,7 +1595,7 @@ t=2.5    ← SHOT 02 mid: typing in progress (check cursor blink + JetBrains Mon
 t=3.8    ← SHOT 03 mid: md morphing (check ghost residual + scale curve)
 t=5.0    ← SHOT 03 end: hero md settled (check 480px + Terracotta dot)
 t=7.0    ← SHOT 04 mid: cards in flight (check the parabola + card content is real and readable)
-t=8.4    ← SHOT 04 tagline (check the Chinese italic "万物 → md")
+t=8.4    ← SHOT 04 tagline (check the italic "everything → md")
 t=10.5   ← SHOT 05 mid: html card complete (check the essay content is readable)
 t=13.5   ← SHOT 06 mid: md source visible (check syntax highlighting)
 t=16.5   ← SHOT 07 mid: docx page complete (check chapter title + page number)

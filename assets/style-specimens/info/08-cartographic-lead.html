@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8">
-<title>08 地图即主角</title>
+<html lang="en"><head><meta charset="utf-8">
+<title>08 Map as Hero</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 html,body{margin:0;width:1200px;height:750px;overflow:hidden}
@@ -14,8 +14,8 @@ svg text{font-family:"IBM Plex Sans","Noto Sans SC",sans-serif}
 .base{position:absolute;left:36px;bottom:24px;font:400 12px/1.5 "IBM Plex Mono","Noto Sans SC";color:#9A968C;border:1px dashed #6a675f;padding:6px 10px}
 </style></head><body>
 <svg width="1200" height="750" viewBox="0 0 1200 750" id="s"></svg>
-<div class="title"><small>TYPHOON NANYUAN · 2025.08.24</small><h1>南鸢过境二十四小时，<br>雨落在了东岸</h1><p>珠江口东侧的惠州、深圳、香港累计雨量都超过 230 毫米，西侧的江门和肇庆不到 150。</p></div>
-<div class="base">底图位：此处应为海岸线与水系底图（需 GeoJSON 或 Toner 瓦片）。当前只画了经纬网与数据层。</div>
+<div class="title"><small>TYPHOON NANYUAN · 2025.08.24</small><h1>Twenty-four hours of Typhoon Nanyuan:<br>the rain fell on the east bank</h1><p>Huizhou, Shenzhen and Hong Kong east of the Pearl River mouth all topped 230 mm; Jiangmen and Zhaoqing to the west stayed under 150.</p></div>
+<div class="base">Basemap slot: coastline and waterways go here (needs GeoJSON or Toner tiles). Only the graticule and data layer are drawn now.</div>
 <script>
 const NS='http://www.w3.org/2000/svg',svg=document.getElementById('s');
 function e(t,a,txt,p){const n=document.createElementNS(NS,t);for(const k in a)n.setAttribute(k,a[k]);if(txt!=null)n.textContent=txt;(p||svg).appendChild(n);return n}
@@ -32,7 +32,7 @@ const tr=[[114.5,21.95,'19:00'],[114.12,22.3,'21:00'],[113.78,22.7,'23:00'],[113
 let d='';tr.forEach(([lo,la],i)=>{const [x,y]=P(lo,la);d+=(i?'L':'M')+x+','+y});
 e('path',{d,fill:'none',stroke:'#fff','stroke-width':2,'stroke-dasharray':'3 7','stroke-linecap':'round'});
 // data circles
-const st=[['惠州',114.42,23.11,268,0,-60],['深圳',114.06,22.54,242,-84,-6],['香港',114.17,22.32,231,62,50],['东莞',113.75,23.02,205,0,-50],['广州',113.26,23.13,186,0,-48],['佛山',113.12,23.02,172,-46,32],['中山',113.39,22.52,163,-46,-10],['珠海',113.58,22.27,158,66,22],['澳门',113.54,22.2,149,-72,34],['江门',113.08,22.58,141,-30,40],['肇庆',112.47,23.05,98,0,50]];
+const st=[['Huizhou',114.42,23.11,268,0,-60],['Shenzhen',114.06,22.54,242,-84,-6],['Hong Kong',114.17,22.32,231,62,50],['Dongguan',113.75,23.02,205,0,-50],['Guangzhou',113.26,23.13,186,0,-48],['Foshan',113.12,23.02,172,-46,32],['Zhongshan',113.39,22.52,163,-46,-10],['Zhuhai',113.58,22.27,158,66,22],['Macau',113.54,22.2,149,-72,34],['Jiangmen',113.08,22.58,141,-30,40],['Zhaoqing',112.47,23.05,98,0,50]];
 st.forEach(([n,lo,la,v,dx,dy])=>{const [x,y]=P(lo,la);const r=Math.sqrt(v)*2.6;
  const hot=v>=230;
  e('circle',{cx:x,cy:y,r,fill:hot?'#FF5B2E':'#4FD1D9','fill-opacity':hot?.62:.42,stroke:hot?'#FF5B2E':'#4FD1D9','stroke-width':1.5});
@@ -41,9 +41,9 @@ st.forEach(([n,lo,la,v,dx,dy])=>{const [x,y]=P(lo,la);const r=Math.sqrt(v)*2.6;
  e('text',{x:x+dx,y:y+dy+17,'text-anchor':'middle','font-size':14,'font-family':'IBM Plex Mono',fill:hot?'#FFB59F':'#9fe6ea'},v+' mm');});
 // track labels
 tr.forEach(([lo,la,t],i)=>{const [x,y]=P(lo,la);e('circle',{cx:x,cy:y,r:5,fill:'#0E0F10',stroke:'#fff','stroke-width':2});e('text',{x:i==0?x-12:x+10,y:i==0?y+4:y+22,'text-anchor':i==0?'end':'start','font-size':13,'font-family':'IBM Plex Mono',fill:'#fff'},t)});
-const [tx,ty]=P(114.95,21.92);e('text',{x:tx-10,y:ty-26,'text-anchor':'end','font-size':14,'font-weight':600,fill:'#fff'},'南鸢路径');
+const [tx,ty]=P(114.95,21.92);e('text',{x:tx-10,y:ty-26,'text-anchor':'end','font-size':14,'font-weight':600,fill:'#fff'},'Nanyuan track');
 // legend
-const lx=1100,ly=140;e('text',{x:lx,y:38,'text-anchor':'middle','font-size':12,'font-family':'IBM Plex Mono',fill:'#9A968C'},'24H 累计雨量 · 面积∝毫米');
+const lx=1100,ly=140;e('text',{x:lx,y:38,'text-anchor':'middle','font-size':12,'font-family':'IBM Plex Mono',fill:'#9A968C'},'24H total rain · area ∝ mm');
 [300,200,100].forEach((v,i)=>{const r=Math.sqrt(v)*2.6;e('circle',{cx:lx,cy:ly-r,r,fill:'none',stroke:'#cfcbc2','stroke-width':1});e('text',{x:lx,y:ly-2*r+14,'text-anchor':'middle','font-size':12,'font-family':'IBM Plex Mono',fill:'#cfcbc2'},v)});
-e('text',{x:1164,y:728,'text-anchor':'end','font-size':12,fill:'#6f6b62'},'虚构数据；站点经纬度为各城市中心位置');
+e('text',{x:1164,y:728,'text-anchor':'end','font-size':12,fill:'#6f6b62'},'Fictional data; station coordinates are city centres');
 </script></body></html>

@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8">
-<title>04 杂志撞色数据页</title>
+<html lang="en"><head><meta charset="utf-8">
+<title>04 Magazine Color-block Data Page</title>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Sans:wght@400;500;600&family=ZCOOL+QingKe+HuangYou&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 html,body{margin:0;width:1200px;height:750px;overflow:hidden}
@@ -24,11 +24,11 @@ h1 span{display:block}
 .rt{position:absolute;font:600 12px/1.3 "IBM Plex Sans","Noto Sans SC";width:130px}
 </style></head><body>
 <div class="left"></div>
-<h1><span>休渔</span><span>三年，</span><span>带鱼</span><span>回来了</span></h1>
-<div class="dek">浙江近海带鱼年渔获量，从休渔前最后一年的 13.4 万吨，涨到 18.9 万吨。渔民的船没有变多，网也没有变密。</div>
-<div class="col">海洋保护年报 2025 · 第 3 页</div>
+<h1><span>Fishing ban,</span><span>three years:</span><span>the hairtail</span><span>came back</span></h1>
+<div class="dek">Zhejiang inshore hairtail catch rose from 134,000 tonnes in the last year before the ban to 189,000 tonnes. No more boats, no finer nets.</div>
+<div class="col">Ocean Conservation Report 2025 · p. 3</div>
 <div class="big">+41<small>%</small></div>
-<div class="cap"><b>浙江近海带鱼年渔获量，万吨。</b>2022 年起每年 5–9 月全面休渔；网目放宽到 54 毫米。虚构数据，仅作风格样张。</div>
+<div class="cap"><b>Zhejiang inshore hairtail catch, 10k tonnes.</b> Full ban May–Sep every year since 2022; mesh widened to 54 mm. Fictional data, style sample only.</div>
 <div class="bars" id="bars"></div>
 <script>
 const d=[[2019,14.0],[2020,12.6],[2021,13.4],[2022,14.8],[2023,16.9],[2024,18.9]];
@@ -40,7 +40,7 @@ data.forEach((r,i)=>{const b=document.createElement('div');b.className='b'+(i==6
 const rx=x0+3*(w+gap)-gap/2-1;
 const rl=document.createElement('div');rl.className='rule';rl.style.cssText=`left:${rx}px;height:448px;border-left:3px dashed #0E0E0E`;
 rl.style.zIndex=2;host.appendChild(rl);
-const t=document.createElement('div');t.className='rt';t.style.cssText=`left:${rx-100}px;top:${750-448-24}px;text-align:right;width:92px`;t.textContent='休渔前';
-const t2=t.cloneNode();t2.style.cssText=`position:absolute;left:${rx+10}px;top:${750-448-24}px;width:120px`;t2.textContent='休渔起 →';host.appendChild(t2);
+const t=document.createElement('div');t.className='rt';t.style.cssText=`left:${rx-100}px;top:${750-448-24}px;text-align:right;width:92px`;t.textContent='Before ban';
+const t2=t.cloneNode();t2.style.cssText=`position:absolute;left:${rx+10}px;top:${750-448-24}px;width:120px`;t2.textContent='Ban starts →';host.appendChild(t2);
 host.appendChild(t);
 </script></body></html>

@@ -513,7 +513,6 @@ The three videos in the reference material correspond to three product personali
 
 ## Appendix · Source material for this file
 
-- Breakdown of Anthropic's official animations: `参考动画/BEST-PRACTICES.md` in Huashu's project directory
 - Anthropic audio breakdown: `AUDIO-BEST-PRACTICES.md` in the same directory
 - 3 reference videos: `ref-{1,2,3}.mp4` + the corresponding `gemini-ref-*.md` / `audio-ref-*.md`
 - **Strict filtering**: this reference includes no specific brand color values, font names, or product names.

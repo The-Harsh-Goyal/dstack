@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>17 白之留白信息图</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>17 Whitespace Infographic</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 <style>
 html,body{margin:0;width:1200px;height:750px;overflow:hidden}
@@ -12,9 +12,9 @@ body{background:#f7f5ef;color:#2b2a28;font-family:'Noto Serif SC',serif;font-wei
 svg{position:absolute;left:0;top:0}
 </style></head><body>
 <div class="en">TEAHOUSE · NIGHT TALKS · 2025</div>
-<div class="tag">老茶馆夜谈 年度记</div>
-<div class="num">37<sup>场</sup></div>
-<div class="line">这一年，茶馆在打烊之后<br>点了三十七盏灯。</div>
+<div class="tag">Old Teahouse Nights · the year</div>
+<div class="num">37<sup>nights</sup></div>
+<div class="line">This year, after closing time, the teahouse<br>lit thirty-seven lamps.</div>
 <svg width="1200" height="750"><g id="g"></g></svg>
 <script>
 const NS='http://www.w3.org/2000/svg',g=document.getElementById('g');
@@ -22,5 +22,5 @@ function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAt
 const x0=459,y=640;
 for(let i=0;i<37;i++){const hot=i==24;el('line',{x1:x0+i*8+.5,x2:x0+i*8+.5,y1:y,y2:y+(hot?30:14),stroke:hot?'#c4402f':'#a9a59b','stroke-width':hot?2:1})}
 el('circle',{cx:x0+24*8+.5,cy:y-14,r:5,fill:'#c4402f'});
-const t=el('text',{x:x0+24*8+18,y:y-9,'font-size':13,fill:'#6b6861','font-family':'Noto Serif SC'});t.textContent='11 月 8 日 · 29 位客人，最满的一夜';
+const t=el('text',{x:x0+24*8+18,y:y-9,'font-size':13,fill:'#6b6861','font-family':'Noto Serif SC'});t.textContent='Nov 8 · 29 guests, the fullest night';
 </script></body></html>

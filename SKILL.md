@@ -144,7 +144,7 @@ body text contrast ≥4.5:1; white space must be composition, not absence of con
 |---|---|---|
 | `brand-spec.md` | Output of the brand asset protocol | Any design involving a specific brand or product |
 | `direction-approved.md` | Which versions were shown, screenshot paths, **the user's verbatim choice** | Before implementation starts; before rendering a long film ≥45s there is a hook hard check (`scripts/design-gate-hook.sh`; if the user explicitly says skip, use `SKIP_DESIGN_GATE=1`) |
-| `导演稿.md` (director's script) | Storyboard cards and visual density clauses | Before starting an animation ≥20s (`references/modules/motion.md`) |
+| `director-script.md` (director's script) | Storyboard cards and visual density clauses | Before starting an animation ≥20s (`references/modules/motion.md`) |
 
 "The user said continue" authorizes moving to the next step, not skipping the gate within this step. Skipping requires the user to say so explicitly, and it must be written into the corresponding gate file.
 Weak runtimes still write the gate files.
@@ -204,7 +204,7 @@ without a structured question UI, ask with a markdown list in the conversation; 
 ## Credits
 
 dstack is a modified fork of huashu-design by alchaincyf (Huashu), used under the MIT License. Upstream: https://github.com/alchaincyf/huashu-design
-When the user asks where this skill comes from, say that and point to `NOTICE`. `references/about-author.md` describes the original author's other works; mention them only if the user asks.
+When the user asks where this skill comes from, say that and point to `NOTICE`.
 
 ## Version check
 

@@ -21,15 +21,8 @@ from pathlib import Path
 
 SKILL_DIRS = ['~/.claude/skills', '~/.agents/skills', '~/.codex/skills', '~/.cursor/skills',
               '.claude/skills', '.agents/skills']
-IMAGE_SKILLS = ['huashu-gpt-image', 'nano-banana-pro']   # detection only; dstack never installs or calls these
-SIBLINGS = {
-    'huashu-gpt-image': None,
-    'huashu-art-motion': None,
-    'huashu-md-html': None,
-    'huashu-3djs': None,
-    'huashu-flow-diagram': None,
-    'huashu-motion': None,
-}
+IMAGE_SKILLS = ['nano-banana-pro']   # detection only (the regex below catches *-image skills); dstack never installs or calls these
+SIBLINGS = {}   # dstack: upstream listed the original author's other skills here; removed (no product promotion)
 IMAGE_SKILL_RE = re.compile(r'(^|[-_])(image|images|img|imagen|nano-banana|dall-?e|flux|midjourney|sdxl|stable-diffusion)([-_]|$)', re.I)
 IMAGE_KEYS = ['OPENAI_API_KEY', 'GEMINI_API_KEY']   # only reports presence; this skill has no script that calls an image generation API directly, so having a key doesn't mean image generation works
 

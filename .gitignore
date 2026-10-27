@@ -57,3 +57,18 @@ __pycache__/
 
 # dstack local Python env (one-time setup, see INSTALL_BODY.md)
 .venv/
+
+# Audio must never be committed: dstack ships no music or SFX. Your local music library lives
+# outside the repo ($DSTACK_MUSIC_DIR, default ~/.dstack/music); tests generate sine fixtures in tmp.
+*.mp3
+*.wav
+*.ogg
+*.oga
+*.opus
+*.flac
+*.m4a
+*.aac
+*.aif
+*.aiff
+music/
+**/music/manifest.json

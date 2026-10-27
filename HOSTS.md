@@ -11,32 +11,26 @@ Opt-in API hosts (called only when you switch the provider on; off by default):
 
 | Host | Class | Count | Where (file:line) |
 |---|---|---|---|
-| fonts.googleapis.com | doc-link 4 / runtime-load 151 | 155 | assets/banner.svg:4, assets/director-notes-samples/launch-film-30s-sample.md:1524, assets/director-notes-samples/launch-film-30s-sample.md:1526, assets/showcases/cover/cover-build.html:7, assets/showcases/cover/cover-takram.html:7, assets/showcases/infographic/infographic-build.html:7 …(+149) |
-| fonts.gstatic.com | doc-link 2 / runtime-load 23 | 25 | assets/director-notes-samples/launch-film-30s-sample.md:202, assets/director-notes-samples/launch-film-30s-sample.md:1525, assets/showcases/website-devdocs/devdocs-build.html:8, assets/showcases/website-devdocs/devdocs-pentagram.html:8, assets/showcases/website-devdocs/devdocs-takram.html:8, demos/c1-ios-prototype-en.html:7 …(+19) |
-| unpkg.com | runtime-load 18 / doc-link 10 | 28 | assets/showcases/website-ai-nav/ainav-build.html:9, assets/showcases/website-ai-nav/ainav-pentagram.html:9, assets/showcases/website-ai-nav/ainav-takram.html:9, assets/showcases/website-ai-writing/aiwriting-build.html:8, assets/showcases/website-ai-writing/aiwriting-pentagram.html:8, assets/showcases/website-ai-writing/aiwriting-takram.html:8 …(+22) |
-| www.w3.org | doc-link 32 / runtime-load 12 | 44 | assets/banner.svg:1, assets/showcases/cover/cover-build.html:190, assets/showcases/cover/cover-build.html:196, assets/showcases/cover/cover-takram.html:167, assets/style-specimens/info/01-personal-annual-report.html:64, assets/style-specimens/info/03-cross-section-epic.html:41 …(+38) |
+| fonts.googleapis.com | doc-link 4 / runtime-load 133 | 137 | assets/banner.svg:4, assets/director-notes-samples/launch-film-30s-sample.md:1524, assets/director-notes-samples/launch-film-30s-sample.md:1526, assets/showcases/cover/cover-build.html:7, assets/showcases/cover/cover-takram.html:7, assets/showcases/infographic/infographic-build.html:7 …(+131) |
+| unpkg.com | runtime-load 21 / doc-link 10 | 31 | assets/showcases/website-ai-nav/ainav-build.html:9, assets/showcases/website-ai-nav/ainav-pentagram.html:9, assets/showcases/website-ai-nav/ainav-takram.html:9, assets/showcases/website-ai-writing/aiwriting-build.html:8, assets/showcases/website-ai-writing/aiwriting-pentagram.html:8, assets/showcases/website-ai-writing/aiwriting-takram.html:8 …(+25) |
+| fonts.gstatic.com | doc-link 2 / runtime-load 14 | 16 | assets/director-notes-samples/launch-film-30s-sample.md:202, assets/director-notes-samples/launch-film-30s-sample.md:1525, assets/showcases/website-devdocs/devdocs-build.html:8, assets/showcases/website-devdocs/devdocs-pentagram.html:8, assets/showcases/website-devdocs/devdocs-takram.html:8, demos/c1-ios-prototype.html:7 …(+10) |
+| www.w3.org | doc-link 25 / runtime-load 6 | 31 | assets/banner.svg:1, assets/showcases/cover/cover-build.html:190, assets/showcases/cover/cover-build.html:196, assets/showcases/cover/cover-takram.html:167, assets/style-specimens/info/01-personal-annual-report.html:64, assets/style-specimens/info/03-cross-section-epic.html:41 …(+25) |
 | cdn.jsdelivr.net | runtime-load 1 / doc-link 1 | 2 | assets/style-specimens/east/03-republic-book-jacket.html:3, references/gsap-recipes.md:19 |
 | aerotwist.com | doc-link 1 | 1 | references/animation-best-practices.md:287 |
 | api.anthropic.com | doc-link 1 | 1 | references/react-setup.md:154 |
-| api.elevenlabs.io | doc-link 3 / api-call (opt-in) 6 | 9 | .env.example:13, SECURITY.md:27, references/voiceover-pipeline.md:376, scripts/audio/elevenlabs.mjs:5, scripts/gen-audio.mjs:8, scripts/tests/test_elevenlabs.py:33 …(+3) |
-| api.star-history.com | doc-link 3 | 3 | README.en.md:163, README.md:163, README.zh.md:163 |
+| api.elevenlabs.io | doc-link 3 / api-call (opt-in) 6 | 9 | .env.example:20, SECURITY.md:27, references/voiceover-pipeline.md:376, scripts/audio/elevenlabs.mjs:5, scripts/gen-audio.mjs:8, scripts/tests/test_elevenlabs.py:33 …(+3) |
 | api.svgl.app | doc-link 1 | 1 | references/brand-asset-protocol.md:79 |
 | cdn.simpleicons.org | doc-link 1 | 1 | references/brand-asset-protocol.md:81 |
-| commons.wikimedia.org | doc-link 2 | 2 | references/app-prototype.md:41, scripts/fetch_images.py:21 |
-| elevenlabs.io | doc-link 6 | 6 | references/audio-design-rules.md:260, references/audio-design-rules.md:261, references/audio-design-rules.md:262, references/audio-design-rules.md:263, references/audio-design-rules.md:263, scripts/audio/elevenlabs.mjs:12 |
+| commons.wikimedia.org | doc-link 3 | 3 | references/app-prototype.md:41, references/audio-design-rules.md:274, scripts/fetch_images.py:21 |
+| creativecommons.org | doc-link 3 | 3 | references/audio-design-rules.md:275, scripts/audio/music-library.mjs:16, scripts/tests/test_music_library.py:28 |
+| elevenlabs.io | doc-link 6 | 6 | references/audio-design-rules.md:288, references/audio-design-rules.md:289, references/audio-design-rules.md:290, references/audio-design-rules.md:291, references/audio-design-rules.md:291, scripts/audio/elevenlabs.mjs:13 |
 | example.com | doc-link 3 | 3 | assets/browser_window.jsx:7, assets/browser_window.jsx:121, references/design-context.md:28 |
-| github.com | doc-link 111 | 111 | INSTALL_BODY.md:11, INSTALL_BODY.md:128, INSTALL_BODY.md:323, NOTICE:6, README.en.md:3, README.en.md:45 …(+105) |
-| help.elevenlabs.io | doc-link 1 | 1 | references/audio-design-rules.md:260 |
-| img.shields.io | doc-link 9 | 9 | README.en.md:12, README.en.md:13, README.en.md:14, README.md:12, README.md:13, README.md:14 …(+3) |
-| img.youtube.com | doc-link 3 | 3 | README.en.md:121, README.md:121, README.zh.md:121 |
-| pypi.org | doc-link 2 | 2 | INSTALL_BODY.md:68, tools/make_install_body.py:150 |
-| raw.githubusercontent.com | doc-link 6 | 6 | README.en.md:429, README.en.md:471, README.md:429, README.md:471, README.zh.md:428, README.zh.md:470 |
-| skill-huasheng.vercel.app | doc-link 6 | 6 | README.en.md:257, README.en.md:257, README.md:257, README.md:257, README.zh.md:257, README.zh.md:257 |
-| skills.sh | doc-link 6 | 6 | README.en.md:13, README.en.md:14, README.md:13, README.md:14, README.zh.md:13, README.zh.md:14 |
-| star-history.com | doc-link 3 | 3 | README.en.md:162, README.md:162, README.zh.md:162 |
+| example.org | doc-link 1 | 1 | scripts/tests/test_music_library.py:28 |
+| github.com | doc-link 14 | 14 | INSTALL_BODY.md:11, INSTALL_BODY.md:135, INSTALL_BODY.md:330, NOTICE:6, README.md:3, SKILL.md:6 …(+8) |
+| help.elevenlabs.io | doc-link 1 | 1 | references/audio-design-rules.md:288 |
+| pypi.org | doc-link 2 | 2 | INSTALL_BODY.md:74, tools/make_install_body.py:156 |
 | ui.shadcn.com | doc-link 1 | 1 | references/design-context.md:149 |
 | www.google.com | doc-link 1 | 1 | references/brand-asset-protocol.md:94 |
 | www.radix-ui.com | doc-link 1 | 1 | references/design-context.md:148 |
-| www.youtube.com | doc-link 11 | 11 | README.en.md:121, README.en.md:124, README.en.md:464, README.md:121, README.md:124, README.md:464 …(+5) |
-| x.com | doc-link 4 | 4 | README.en.md:461, README.md:461, README.zh.md:460, references/about-author.md:10 |
+| www.youtube.com | doc-link 1 | 1 | assets/personal-asset-index.example.json:31 |
 | yoursite.com | doc-link 1 | 1 | assets/personal-asset-index.example.json:39 |

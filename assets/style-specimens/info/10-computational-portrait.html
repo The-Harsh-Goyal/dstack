@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8">
-<title>10 计算式数据肖像</title>
+<html lang="en"><head><meta charset="utf-8">
+<title>10 Computational Data Portrait</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 html,body{margin:0;width:1200px;height:750px;overflow:hidden}
@@ -15,7 +15,7 @@ canvas{position:absolute;left:0;top:0}
 .ax{position:absolute;font:400 12px "Roboto Mono";color:#7F8798}
 </style></head><body>
 <canvas id="c" width="1200" height="750"></canvas>
-<div class="h"><small>37 ROUTES · 06:00–10:30 · <span id="cnt"></span> TRIPS</small><b>37 条公交线，<em>每一班车</em>的早晨</b></div>
+<div class="h"><small>37 ROUTES · 06:00–10:30 · <span id="cnt"></span> TRIPS</small><b>37 bus routes, <em>every bus's</em> morning</b></div>
 <div id="lab"></div>
 <script>
 const cv=document.getElementById('c'),g=cv.getContext('2d');
@@ -57,9 +57,9 @@ g.strokeStyle='rgba(255,255,255,0.45)';g.setLineDash([2,4]);g.beginPath();g.move
 const lab=document.getElementById('lab');
 function add(cls,x,y,html,extra){const d=document.createElement('div');d.className=cls;d.style.left=x+'px';d.style.top=y+'px';if(extra)d.style.cssText+=extra;d.innerHTML=html;lab.appendChild(d)}
 for(let m=360;m<=630;m+=60)add('ax',X(m)-22,PY1+18,String(m/60|0).padStart(2,'0')+':'+String(m%60).padStart(2,'0'));document.getElementById('cnt').textContent=inwin.toLocaleString();
-add('ax',PX0-86,PY1-8,'起点站');add('ax',PX0-86,PY0-8,'终点站');add('ax',PX0-86,(PY0+PY1)/2-8,'沿线位置');
-add('n',X(492)+10,PY0-34,'<b>08:12</b>　此刻同时有 <b>'+at812+'</b> 辆车在路上');
-add('n',860,52,'每条线是一班车。<span style="color:#96C8FF">蓝</span>＝上行，<span style="color:#FFD6AA">暖</span>＝下行。<br>线越密，亮度越高，没有别的编码。');
-add('n',120,Y(0.55)-20,'<b>07:30–09:00</b>　沿线 55% 处所有车都慢下来，<br>斜线在这里被压平，收束成一个结 →',"text-align:right;width:450px");
-add('n',40,722,'虚构数据：按真实站距与班次规律程序生成，仅作风格样张',"font-size:12px;color:#6c7384");
+add('ax',PX0-86,PY1-8,'First stop');add('ax',PX0-86,PY0-8,'Last stop');add('ax',PX0-86,(PY0+PY1)/2-8,'Position along route');
+add('n',X(492)+10,PY0-34,'<b>08:12</b> Right now there are <b>'+at812+'</b> buses on the road');
+add('n',860,52,'Each line is one bus.<span style="color:#96C8FF">Blue</span>= outbound,<span style="color:#FFD6AA">warm</span>= inbound.<br>Denser lines glow brighter; no other encoding.');
+add('n',120,Y(0.55)-20,'<b>07:30–09:00</b> At 55% along the route every bus slows;<br>the diagonals flatten here and knot together →',"text-align:right;width:450px");
+add('n',40,722,'Fictional data: generated from real stop spacing and timetable patterns, style sample only',"font-size:12px;color:#6c7384");
 </script></body></html>

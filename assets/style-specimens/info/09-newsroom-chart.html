@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8">
-<title>09 数据新闻图表规范</title>
+<html lang="en"><head><meta charset="utf-8">
+<title>09 Data Journalism Chart Rules</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 html,body{margin:0;width:1200px;height:750px;overflow:hidden}
@@ -17,11 +17,11 @@ svg text{font-family:Inter,"Noto Sans SC",sans-serif}
 .vv{position:absolute;right:60px;bottom:30px;font:500 12px/1.5 "IBM Plex Mono";color:#8c847d;text-align:right}
 </style></head><body>
 <div class="tag"></div>
-<div class="kick">咖啡烘焙 · 成本压力</div>
-<h1>生豆采购价涨到了三倍多，<br>一杯拿铁只涨了 17%</h1>
-<div class="sub"><b>独立烘焙店</b>的生豆采购价指数与门店拿铁售价指数，2019 年 1 月 = 100</div>
+<div class="kick">Coffee roasting · cost pressure</div>
+<h1>Green-bean prices more than tripled;<br>a latte rose only 17%</h1>
+<div class="sub"><b>Independent roasters'</b>green-bean purchase index vs. latte price index, Jan 2019 = 100</div>
 <svg width="1200" height="750" viewBox="0 0 1200 750" id="s"></svg>
-<div class="src">来源：独立咖啡烘焙协会会员店采购与零售记录（样本 64 家），2019 年 1 月至 2025 年 6 月；虚构数据，仅作风格样张</div>
+<div class="src">Source: purchase and retail records of 64 member shops of an independent roasters' association, Jan 2019 to Jun 2025; fictional data, style sample only</div>
 <div class="vv">VISUAL VOCABULARY<br>CHANGE OVER TIME · LINE</div>
 <script>
 const NS='http://www.w3.org/2000/svg',svg=document.getElementById('s');
@@ -50,14 +50,14 @@ let pl='M'+X(0)+','+Y(latte[0]);for(let i=1;i<N;i++){pl+=' L'+X(i)+','+Y(latte[i
 // end labels
 e('circle',{cx:X(N-1),cy:Y(318),r:5,fill:'#990F3D'});e('circle',{cx:X(N-1),cy:Y(117),r:5,fill:'#0F5499'});
 e('text',{x:X1+22,y:Y(318)-6,'font-size':24,'font-weight':800,fill:'#990F3D'},'318');
-e('text',{x:X1+22,y:Y(318)+18,'font-size':16,'font-weight':600,fill:'#990F3D'},'生豆采购价');
+e('text',{x:X1+22,y:Y(318)+18,'font-size':16,'font-weight':600,fill:'#990F3D'},'Green-bean price');
 e('text',{x:X1+22,y:Y(117)-6,'font-size':24,'font-weight':800,fill:'#0F5499'},'117');
-e('text',{x:X1+22,y:Y(117)+18,'font-size':16,'font-weight':600,fill:'#0F5499'},'拿铁售价');
+e('text',{x:X1+22,y:Y(117)+18,'font-size':16,'font-weight':600,fill:'#0F5499'},'Latte price');
 // gap bracket
 e('path',{d:`M${X1+8},${Y(318)+34} L${X1+8},${Y(117)-30}`,stroke:'#66605C','stroke-width':1.2,'stroke-dasharray':'3 3'});
 // annotation
 const ix=X(40);e('line',{x1:ix,y1:Y(252)-12,x2:ix,y2:Y(252)-52,stroke:'#33302E'});
-e('text',{x:ix-8,y:Y(252)-60,'text-anchor':'end','font-size':16,'font-weight':600,fill:'#33302E'},'2022 年 5 月：巴西霜冻，');
-e('text',{x:ix-8,y:Y(252)-40,'text-anchor':'end','font-size':16,'font-weight':600,fill:'#33302E'},'生豆价格一年涨了近七成');
-e('text',{x:X(60),y:Y(190),'text-anchor':'middle','font-size':16,'font-weight':500,fill:'#990F3D'},'利润被挤压的缺口');
+e('text',{x:ix-8,y:Y(252)-60,'text-anchor':'end','font-size':16,'font-weight':600,fill:'#33302E'},'May 2022: frost in Brazil;');
+e('text',{x:ix-8,y:Y(252)-40,'text-anchor':'end','font-size':16,'font-weight':600,fill:'#33302E'},'green beans rose almost 70% in a year');
+e('text',{x:X(60),y:Y(190),'text-anchor':'middle','font-size':16,'font-weight':500,fill:'#990F3D'},'The squeezed margin');
 </script></body></html>

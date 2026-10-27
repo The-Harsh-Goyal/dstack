@@ -1,6 +1,6 @@
 # GSAP Recipes · the translation layer from design language to GSAP Timeline
 
-> This file does only one thing: it translates the animation design language huashu-design has already settled
+> This file does only one thing: it translates the animation design language this skill has already settled
 > (the five-segment narrative, easing system, 8 rules of motion language and scene recipes in `animation-best-practices.md`,
 > and the 22-second 5-scene template in `cinematic-patterns.md`) into ready-to-paste
 > GSAP timeline implementation recipes, running on the HyperFrames rendering backend.
@@ -187,8 +187,8 @@ both of which are illegal under seek rendering. Translated into "precomputed tim
 ```js
 // why not tl.call(): callbacks aren't reversible, so dragging backwards in preview leaves leftover state
 const rand = mulberry32(42);                              // seeded random, see §7.4
-const text = "为你生成了三个候选方案，第一个最激进。";
-const chunks = text.split(/(?=[，。、；])|(?<=[，。、；])/); // split Chinese into chunks at punctuation
+const text = "Generated three candidate options for you, and the first one is the boldest.";
+const chunks = text.split(/(?<=[ ,.;])/);                 // split into word-sized chunks (for CJK text, split at ，。、； instead)
 const times = []; let acc = 0;
 chunks.forEach(() => { acc += 0.04 + rand() * 0.08; times.push(acc); }); // irregular 40-120ms
 

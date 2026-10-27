@@ -287,7 +287,7 @@ Transitions are an independent layer: choose the type for each seam by **energy 
 | Type | How | Pitfalls |
 |---|---|---|
 | Shared-element homing | An element from the previous shot (logo/card) moves continuously to its new position in the next shot; the camera version of the FLIP idea | The element must have the same identity in both shots; too much deformation breaks the perception of "the same thing" |
-| Letter-counter fly-through | The camera pushes through the counter of a large letter (the hole in O/口/0) into the next scene | The counter must be big enough (≥1/3 of screen height); the zoom during the fly-through uses the logarithmic duration ceiling of 0.94s |
+| Letter-counter fly-through | The camera pushes through the counter of a large letter (the hole in O/D/0) into the next scene | The counter must be big enough (≥1/3 of screen height); the zoom during the fly-through uses the logarithmic duration ceiling of 0.94s |
 
 Quick selection: big energy drop → pick one of the six; don't want it noticed → hidden-cut; two scenes that are spatially continuous → travel.
 Hard cuts aren't banned; they "must be wrapped by any one of the layers above".

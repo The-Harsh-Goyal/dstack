@@ -7,9 +7,15 @@
  *   elevenlabs  ElevenLabs Sound Effects (/v1/sound-generation) and Music (/v1/music, paid plans only)
  *               over https://api.elevenlabs.io, key from ELEVENLABS_API_KEY or DSTACK_ELEVENLABS_KEY_FILE.
  *               No key: one warning, then behaves like `none` (exit 0).
+ *               bgm only: no key, a free plan (the Music API is paid-only) or any error falls back to
+ *               the local library below when it has a track for the mood; otherwise nothing is written.
+ *   local       background music from your local library (scripts/audio/music-library.mjs):
+ *               $DSTACK_MUSIC_DIR (default ~/.dstack/music) + manifest.json. Free, fully offline.
+ *               Picks a track by mood tag, deterministically (--seed S for a different pick); prints
+ *               the attribution the licence needs. No SFX from the local library.
  *
  * Usage:
- *   node scripts/gen-audio.mjs bgm <mood> [--prompt "..."] [--seconds 60] [--force]
+ *   node scripts/gen-audio.mjs bgm <mood> [--prompt "..."] [--seconds 60] [--seed S] [--force]
  *        -> $DSTACK_AUDIO_DIR/bgm-<mood>.mp3          (default ~/.dstack/audio)
  *   node scripts/gen-audio.mjs sfx <category>/<name> [--prompt "..."] [--seconds 0.5] [--loop] [--force]
  *        -> $DSTACK_SFX_DIR/<category>/<name>.mp3     (default ~/.dstack/audio/sfx)
@@ -26,6 +32,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as el from './audio/elevenlabs.mjs';
+import * as lib from './audio/music-library.mjs';
+import { execFileSync } from 'node:child_process';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -53,6 +61,28 @@ export function libraryEntry(slot) {
   return null;
 }
 
+/**
+ * Copy a library track for req.mood to `target` (+ provenance with licence and attribution).
+ * Returns a result, or null when the library has nothing usable (the caller then stays silent).
+ */
+function fromLibrary(req, target, log, env, fallbackFrom = null) {
+  const r = lib.pick(req.mood, { seed: req.seed, env });
+  if (!r.track) { log(`local music: ${r.reason}.${fallbackFrom ? ' No music (silent).' : ''}`); return null; }
+  const t = r.track;
+  fs.mkdirSync(path.dirname(target), { recursive: true });
+  if (/\.mp3$/i.test(t.file)) fs.copyFileSync(t.abs, target);
+  else execFileSync('ffmpeg', ['-y', '-v', 'error', '-i', t.abs, '-vn', '-acodec', 'libmp3lame', '-q:a', '2', target], { stdio: ['ignore', 'pipe', 'pipe'] });
+  const { abs, ...entry } = t;
+  fs.writeFileSync(target + '.provenance.json', JSON.stringify({
+    provider: 'local', library: lib.musicDir(env), mood: req.mood, seed: req.seed || '', ...entry,
+    credit: r.credit, fallback_from: fallbackFrom || undefined, copied: new Date().toISOString(),
+  }, null, 2));
+  log(`✓ ${target} ← local library ${t.file}${fallbackFrom ? ` (fallback: ${fallbackFrom})` : ''}`);
+  if (r.noncommercial) log('WARNING: this track is licensed for NON-COMMERCIAL use only (allowed by DSTACK_MUSIC_ALLOW_NONCOMMERCIAL=1).');
+  log(r.credit);
+  return { status: 'local', target, track: t.file, credit: r.credit, fallback: fallbackFrom || undefined };
+}
+
 function parse(argv) {
   const a = { _: [] };
   for (let i = 0; i < argv.length; i++) {
@@ -67,30 +97,31 @@ function parse(argv) {
 
 export function provider(env = process.env) { return (env.DSTACK_AUDIO_PROVIDER || 'none').toLowerCase(); }
 
-/** Returns { status: 'kept'|'skipped'|'generated'|'cached'|'error', target, message } and never throws. */
+/** Returns { status: 'kept'|'skipped'|'generated'|'cached'|'local'|'error', target, message } and never throws. */
 export async function run(argv, { env = process.env, fetchImpl, log = (m) => console.error(el.mask(m, env)) } = {}) {
   const a = parse(argv);
   const [kind, slot] = a._;
   const d = dirs(env);
   if (kind === 'status') {
     const k = el.loadKey(env);
-    log(`audio provider: ${provider(env)} · ElevenLabs key: ${k.key ? `present (${k.source})` : 'absent'} · bgm dir: ${d.audio} · sfx dir: ${d.sfx} · cache: ${el.cacheDir(env)}`);
+    const L = lib.loadLibrary(env);
+    log(`audio provider: ${provider(env)} · ElevenLabs key: ${k.key ? `present (${k.source})` : 'absent'} · bgm dir: ${d.audio} · sfx dir: ${d.sfx} · cache: ${el.cacheDir(env)} · local music: ${L.exists ? `${L.tracks.length} track(s), ${L.errors.length} error(s)` : 'none'} (${L.dir})`);
     return { status: 'status' };
   }
   let target, req;
   if (kind === 'bgm' && slot && /^[\w-]+$/.test(slot)) {
     target = path.join(d.audio, `bgm-${slot}.mp3`);
     const prompt = a.prompt || BGM_PROMPTS[slot.replace(/-alt$/, '')];
-    if (!prompt) return { status: 'error', message: `no built-in prompt for mood "${slot}"; pass --prompt "..."` };
-    req = { kind: 'music', prompt, seconds: a.seconds ? Number(a.seconds) : 60 };
+    if (!prompt && provider(env) !== 'local') return { status: 'error', message: `no built-in prompt for mood "${slot}"; pass --prompt "..."` };
+    req = { kind: 'music', mood: slot.replace(/-alt$/, ''), prompt, seconds: a.seconds ? Number(a.seconds) : 60, seed: a.seed || '' };
   } else if (kind === 'sfx' && slot && /^[\w-]+\/[\w-]+$/.test(slot)) {
     target = path.join(d.sfx, `${slot}.mp3`);
-    const lib = libraryEntry(slot);
-    const prompt = a.prompt || (lib && lib.prompt);
+    const entry = libraryEntry(slot);
+    const prompt = a.prompt || (entry && entry.prompt);
     if (!prompt) return { status: 'error', message: `"${slot}" isn't in references/sfx-library.md; pass --prompt "..."` };
-    req = { kind: 'sfx', prompt, seconds: a.seconds ? Number(a.seconds) : lib && lib.seconds, loop: !!a.loop };
+    req = { kind: 'sfx', prompt, seconds: a.seconds ? Number(a.seconds) : entry && entry.seconds, loop: !!a.loop };
   } else {
-    return { status: 'error', message: 'usage: gen-audio.mjs bgm <mood> | sfx <category>/<name> | status  [--prompt ..] [--seconds N] [--loop] [--force]' };
+    return { status: 'error', message: 'usage: gen-audio.mjs bgm <mood> | sfx <category>/<name> | status  [--prompt ..] [--seconds N] [--seed S] [--loop] [--force]' };
   }
 
   if (fs.existsSync(target) && !a.force) {
@@ -103,9 +134,16 @@ export async function run(argv, { env = process.env, fetchImpl, log = (m) => con
     log(`DSTACK_AUDIO_PROVIDER=none: dstack generates no audio. ${supply}`);
     return { status: 'skipped', target };
   }
-  if (prov !== 'elevenlabs') return { status: 'error', target, message: `unknown DSTACK_AUDIO_PROVIDER "${prov}" (none | elevenlabs)` };
+  if (prov === 'local') {
+    if (req.kind !== 'music') { log(`DSTACK_AUDIO_PROVIDER=local: the local library holds music only, no SFX. ${supply}`); return { status: 'skipped', target }; }
+    const r = fromLibrary(req, target, log, env);
+    if (r) return r;
+    return { status: 'skipped', target };
+  }
+  if (prov !== 'elevenlabs') return { status: 'error', target, message: `unknown DSTACK_AUDIO_PROVIDER "${prov}" (none | local | elevenlabs)` };
   if (!el.hasKey(env)) {
     log(`WARNING: DSTACK_AUDIO_PROVIDER=elevenlabs but no ElevenLabs key (ELEVENLABS_API_KEY or DSTACK_ELEVENLABS_KEY_FILE); generating nothing. ${supply}`);
+    if (req.kind === 'music') { const r = fromLibrary(req, target, log, env, 'no ElevenLabs key'); if (r) return r; }
     return { status: 'skipped', target };
   }
   try {
@@ -122,7 +160,8 @@ export async function run(argv, { env = process.env, fetchImpl, log = (m) => con
     return { status: r.cached ? 'cached' : 'generated', target };
   } catch (e) {
     const msg = el.mask(e && e.message ? e.message : String(e), env);
-    log(`WARNING: ${msg.replace(/\.$/, '')}. Nothing written. ${supply}`);
+    log(`WARNING: ${msg.replace(/\.$/, '')}. Nothing written by ElevenLabs. ${supply}`);
+    if (req.kind === 'music') { const r = fromLibrary(req, target, log, env, msg); if (r) return r; }
     return { status: 'error', target, message: msg };
   }
 }

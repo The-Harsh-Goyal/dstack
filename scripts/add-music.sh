@@ -5,11 +5,18 @@
 # their licence couldn't be verified). Bring your own licensed track:
 #   --music=<path>    any audio file you have the rights to (wins over --mood)
 #   --mood=<name>     looks up bgm-<name>.mp3 in your own audio library:
-#                     $DSTACK_AUDIO_DIR (default ~/.dstack/audio)
+#                     $DSTACK_AUDIO_DIR (default ~/.dstack/audio). With
+#                     DSTACK_AUDIO_PROVIDER=local a missing bgm-<name>.mp3 is
+#                     first filled from the local music library
+#                     ($DSTACK_MUSIC_DIR, default ~/.dstack/music; offline).
 #   --out=<path>      output path (default: <input-basename>-bgm.mp4)
 #
 # If no music is found, the script does NOT fail: it copies the video unchanged
 # to the output path, prints a notice and exits 0, so pipelines keep working.
+#
+# Credits: when the music file has a .provenance.json (local library or
+# ElevenLabs), its licence/attribution line is printed and written to
+# <output>.credits.txt for the delivery note.
 #
 # Legacy positional form still works: bash add-music.sh in.mp4 music.mp3 out.mp4
 #
@@ -65,13 +72,18 @@ else
   MUSIC=""
 fi
 
+# ── Local library: fill bgm-<mood>.mp3 from $DSTACK_MUSIC_DIR (offline) ─
+if [ -z "$CUSTOM_MUSIC" ] && [ -n "$MOOD" ] && [ ! -f "$MUSIC" ] && [ "${DSTACK_AUDIO_PROVIDER:-none}" = "local" ]; then
+  node "$SCRIPT_DIR/gen-audio.mjs" bgm "$MOOD" ${DSTACK_MUSIC_SEED:+--seed "$DSTACK_MUSIC_SEED"} || true
+fi
+
 # ── Resolve output path ─────────────────────────────────────────────
 INPUT_DIR="$(cd "$(dirname "$INPUT")" && pwd)"
 INPUT_NAME="$(basename "$INPUT" .mp4)"
 [ -z "$OUTPUT" ] && OUTPUT="$INPUT_DIR/$INPUT_NAME-bgm.mp4"
 
 if [ -z "$MUSIC" ] || [ ! -f "$MUSIC" ]; then
-  echo "⚠ No music: ${MUSIC:-none given}. dstack ships no music; pass --music=<licensed file> or put bgm-<mood>.mp3 in $AUDIO_DIR (or, if the task asks for it: DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs bgm <mood>)." >&2
+  echo "⚠ No music: ${MUSIC:-none given}. dstack ships no music; pass --music=<licensed file> or put bgm-<mood>.mp3 in $AUDIO_DIR, add tracks to the local library (DSTACK_AUDIO_PROVIDER=local; see references/audio-design-rules.md#local-music-library) or, if the task asks for it: DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs bgm <mood>." >&2
   if [ "$(cd "$(dirname "$OUTPUT")" && pwd)/$(basename "$OUTPUT")" != "$INPUT_DIR/$(basename "$INPUT")" ]; then
     cp "$INPUT" "$OUTPUT"
   fi
@@ -103,3 +115,13 @@ ffmpeg -y -loglevel error \
 
 SIZE=$(du -h "$OUTPUT" | cut -f1)
 echo "✓ Done: $OUTPUT ($SIZE)"
+
+# ── Credits: print the licence/attribution recorded next to the music file ─
+if [ -f "$MUSIC.provenance.json" ]; then
+  CREDIT=$(node -e 'const p=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));const l=p.licence&&typeof p.licence==="object"?p.licence.name+" "+p.licence.url:(p.licence||"");process.stdout.write(p.credit||("Music: "+p.provider+(l?"; licence: "+l:"")))' "$MUSIC.provenance.json" 2>/dev/null || true)
+  if [ -n "$CREDIT" ]; then
+    echo "♪ $CREDIT"
+    printf '%s\n' "$CREDIT" > "${OUTPUT%.*}.credits.txt"
+    echo "  credits:  ${OUTPUT%.*}.credits.txt (include it in the delivery note)"
+  fi
+fi

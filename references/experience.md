@@ -1,4 +1,4 @@
-# Shipped experience (huashu-design)
+# Shipped experience (dstack)
 
 Findings that have reproduced across projects, or been measured, and hold for any user. Before work starts, `learn.py` brings out the entries that match the topic.
 

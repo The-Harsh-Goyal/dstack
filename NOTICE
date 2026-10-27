@@ -1,7 +1,7 @@
 dstack
 ======
 
-dstack is a modified fork of huashu-design by alchaincyf (Huashu, 花叔 · 花生).
+dstack is a modified fork of huashu-design by alchaincyf (Huashu).
 
   Upstream:  https://github.com/alchaincyf/huashu-design
   Licence:   MIT (see LICENSE; the original copyright notice is kept unchanged)
@@ -14,10 +14,15 @@ Changes in dstack (summary; see git log for detail):
     (DSTACK_HOME; HUASHU_DESIGN_HOME still honoured as a fallback).
   - Removed bundled audio whose licence could not be verified:
     assets/bgm-*.mp3 (generated with Suno) and assets/sfx/** (generated with
-    ElevenLabs). Music and sound effects are now user-supplied files.
+    ElevenLabs). Music and sound effects are now user-supplied files, plus an
+    optional offline music library outside the repo (DSTACK_AUDIO_PROVIDER=local,
+    ~/.dstack/music + manifest.json with licence and attribution); no audio
+    files are committed (.gitignore guard).
   - Removed every China-hosted cloud integration (ByteDance/Volcengine Doubao
-    TTS, Volcengine Ark video review: removed). TTS and AI review are optional,
-    off-by-default provider hooks; no provider is wired in.
+    TTS, Volcengine Ark video review: removed). AI review is an optional,
+    off-by-default hook with no provider wired in. TTS, sound effects and
+    music have one optional, off-by-default provider: ElevenLabs (US host
+    api.elevenlabs.io, REST API, needs ELEVENLABS_API_KEY).
   - Removed the automatic remote version check.
   - Playwright bumped to 1.64.1; absolute-path INSTALL_BODY.md added.
   - English tuning: language-aware body-text detection in design_lint.py and
@@ -29,8 +34,16 @@ Changes in dstack (summary; see git log for detail):
     clear bot-check failure in ref_board.py, capability detection that sees
     runtime image tools, a fixed learn.py harvest, roulette redraw rule,
     optional headlines on text-free thumbnails/covers.
-  - China-hosted author/social links de-linked; references/about-author.md
-    trimmed. HOSTS.md lists every outside host (tools/host_inventory.py).
+  - Removed all promotion of the original author's other products, courses
+    and social accounts (README, references/about-author.md deleted, demo
+    wordmarks/watermarks such as "HUASHU · DESIGN" replaced with dstack or
+    neutral text, the default promo watermark dropped). Credit stays here
+    and in LICENSE. HOSTS.md lists every outside host (tools/host_inventory.py).
+  - One English README (README.zh.md / README.en.md removed). Chinese-only
+    demos, samples and copy were deleted or translated to English; Chinese
+    file names renamed. CJK is kept only where it is functional (CJK font
+    names, CJK punctuation/length handling and their tests, and the East
+    Asian typography style specimens).
 
 All original work remains (c) 2026 alchaincyf under the MIT License.
 Modifications are released under the same MIT License.

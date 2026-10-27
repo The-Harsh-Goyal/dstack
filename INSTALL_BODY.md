@@ -26,10 +26,16 @@ Credit: dstack is a modified fork of [huashu-design](https://github.com/alchainc
      via Chief). Still off by default. Switch it on (`DSTACK_TTS_PROVIDER=elevenlabs` for a narration voice,
      `DSTACK_AUDIO_PROVIDER=elevenlabs` for `gen-audio.mjs` music/SFX) only for a task that asks for real voice or
      generated audio, and only for that run.
+   - `DSTACK_AUDIO_PROVIDER=local` is free and offline (not an outside service): background music from the library in
+     `$DSTACK_MUSIC_DIR` (default `~/.dstack/music`, `manifest.json` per track with licence + attribution). ElevenLabs
+     bgm falls back to it (no key, free plan, error); with no library the video stays silent. Tracks marked
+     `"commercial": false` are refused unless `DSTACK_MUSIC_ALLOW_NONCOMMERCIAL=1`. Put any "Attribution required"
+     line that `gen-audio.mjs`/`add-music.sh` print (also `<video>.credits.txt`) in the delivery note.
    - ElevenLabs spends paid credits (about 1 per narration character, 200 per sound effect, 900 per minute of music):
      generate only what the task needs (no test batches, no "spare" variants, no whole SFX library), keep text final
      before narrating, and rely on the cache for repeats.
-   - Key: only `ELEVENLABS_API_KEY` in the environment or `DSTACK_ELEVENLABS_KEY_FILE` (a file outside `/workspace/dstack`).
+   - Key: only `ELEVENLABS_API_KEY` in the environment or `DSTACK_ELEVENLABS_KEY_FILE` (a file outside `/workspace/dstack`
+     holding a dotenv line `ELEVENLABS_API_KEY=...` or the bare key on line 1).
      Never write, print or paste the key anywhere. No key means dstack falls back to silent/none with one
      warning: report that, do not hunt for a key.
    - Free-plan output is non-commercial and must carry "elevenlabs.io" or "11.ai" in the title when published
@@ -112,7 +118,8 @@ cd /workspace/dstack && python3 -m venv .venv && .venv/bin/pip install --index-u
    sections, cues marked `[[cue:id]]`; example `/workspace/dstack/demos/md-html-narration/script.md`. Silent provider: estimated
    timings, no voice; `--tts elevenlabs` only when the task asks for a voice, rule 3), then
    `bash /workspace/dstack/scripts/render-narration.sh page.html --timeline=_narration/timeline.json`. Music/SFX: your own
-   `~/.dstack/audio/bgm-<mood>.mp3` and `~/.dstack/audio/sfx/<category>/<name>.mp3`, or, if the task asks for generated
+   `~/.dstack/audio/bgm-<mood>.mp3` and `~/.dstack/audio/sfx/<category>/<name>.mp3`, the local music library
+   (`DSTACK_AUDIO_PROVIDER=local bash /workspace/dstack/scripts/add-music.sh anim.mp4 --mood=tech`), or, if the task asks for generated
    audio, `DSTACK_AUDIO_PROVIDER=elevenlabs node /workspace/dstack/scripts/gen-audio.mjs bgm <mood>` / `... sfx <category>/<name>`
    (`/workspace/dstack/references/sfx-library.md`).
 9. **Decks** (`/workspace/dstack/references/modules/deck.md`, `/workspace/dstack/references/slide-decks.md`, `/workspace/dstack/references/editable-pptx.md`):
@@ -261,7 +268,7 @@ body text contrast ≥4.5:1; white space must be composition, not absence of con
 |---|---|---|
 | `brand-spec.md` | Output of the brand asset protocol | Any design involving a specific brand or product |
 | `direction-approved.md` | Which versions were shown, screenshot paths, **the user's verbatim choice** | Before implementation starts; before rendering a long film ≥45s there is a hook hard check (`/workspace/dstack/scripts/design-gate-hook.sh`; if the user explicitly says skip, use `SKIP_DESIGN_GATE=1`) |
-| `导演稿.md` (director's script) | Storyboard cards and visual density clauses | Before starting an animation ≥20s (`/workspace/dstack/references/modules/motion.md`) |
+| `director-script.md` (director's script) | Storyboard cards and visual density clauses | Before starting an animation ≥20s (`/workspace/dstack/references/modules/motion.md`) |
 
 "The user said continue" authorizes moving to the next step, not skipping the gate within this step. Skipping requires the user to say so explicitly, and it must be written into the corresponding gate file.
 Weak runtimes still write the gate files.
@@ -321,7 +328,7 @@ without a structured question UI, ask with a markdown list in the conversation; 
 ## Credits
 
 dstack is a modified fork of huashu-design by alchaincyf (Huashu), used under the MIT License. Upstream: https://github.com/alchaincyf/huashu-design
-When the user asks where this skill comes from, say that and point to `/workspace/dstack/NOTICE`. `/workspace/dstack/references/about-author.md` describes the original author's other works; mention them only if the user asks.
+When the user asks where this skill comes from, say that and point to `/workspace/dstack/NOTICE`.
 
 ## Version check
 
@@ -335,6 +342,8 @@ dstack does no automatic version or update check and makes no network call on it
 
 - `/workspace/dstack/scripts/add-music.sh`: Mix a user-supplied BGM track into an MP4 video
 - `/workspace/dstack/scripts/audio/elevenlabs.mjs`: dstack ElevenLabs client: the ONLY outside audio service dstack talks to (approved by Harsh, US host)
+- `/workspace/dstack/scripts/audio/keyfile.mjs`: Key-file reader for the ElevenLabs provider (DSTACK_ELEVENLABS_KEY_FILE)
+- `/workspace/dstack/scripts/audio/music-library.mjs`: dstack local background-music library: free, licensed tracks you keep on this machine
 - `/workspace/dstack/scripts/build_specimens.py`: Render the style specimens to images, and assemble an overview sheet for each section
 - `/workspace/dstack/scripts/capabilities.py`: check what the user actually has, to decide which tier the materials go to (see references/materials.md)
 - `/workspace/dstack/scripts/convert-formats.sh`: Convert MP4 animations to 60fps MP4 and optimized GIF
@@ -365,14 +374,13 @@ dstack does no automatic version or update check and makes no network call on it
 
 ### References
 
-- [references/about-author.md](/workspace/dstack/references/about-author.md): About the original author
 - [references/ai-video-review.md](/workspace/dstack/references/ai-video-review.md): Video Review Loop (scripts/review-video.py)
 - [references/animation-best-practices.md](/workspace/dstack/references/animation-best-practices.md): Animation Best Practices · Positive Animation Design Grammar
 - [references/animation-pitfalls.md](/workspace/dstack/references/animation-pitfalls.md): Animation Pitfalls: Pitfalls We've Hit in HTML Animation, and the Rules
 - [references/animations.md](/workspace/dstack/references/animations.md): Animations: Timeline Animation Engine
 - [references/app-prototype.md](/workspace/dstack/references/app-prototype.md): App / iOS Prototype Rules · Complete Operating Manual
 - [references/apple-gallery-showcase.md](/workspace/dstack/references/apple-gallery-showcase.md): Apple Gallery Showcase · Gallery Wall Animation Style
-- [references/audio-design-rules.md](/workspace/dstack/references/audio-design-rules.md): Audio Design Rules · huashu-design
+- [references/audio-design-rules.md](/workspace/dstack/references/audio-design-rules.md): Audio Design Rules · dstack
 - [references/brand-asset-protocol.md](/workspace/dstack/references/brand-asset-protocol.md): Core Asset Protocol (full version)
 - [references/camera-language.md](/workspace/dstack/references/camera-language.md): Camera Language · Camera Direction System
 - [references/cinematic-patterns.md](/workspace/dstack/references/cinematic-patterns.md): Cinematic Patterns · Best Practices for Workflow Demos
@@ -383,7 +391,7 @@ dstack does no automatic version or update check and makes no network call on it
 - [references/directions.md](/workspace/dstack/references/directions.md): Three Directions: Three Good Designs, Not Three Skins
 - [references/editable-pptx.md](/workspace/dstack/references/editable-pptx.md): Editable PPTX export: HTML hard constraints + size decisions + common errors
 - [references/evolution.md](/workspace/dstack/references/evolution.md): Evolution protocol: every project you finish lets the next one start higher
-- [references/experience.md](/workspace/dstack/references/experience.md): Shipped experience (huashu-design)
+- [references/experience.md](/workspace/dstack/references/experience.md): Shipped experience (dstack)
 - [references/gsap-recipes.md](/workspace/dstack/references/gsap-recipes.md): GSAP Recipes · the translation layer from design language to GSAP Timeline
 - [references/hero-animation-case-study.md](/workspace/dstack/references/hero-animation-case-study.md): Gallery Ripple + Multi-Focus · a philosophy of scene choreography
 - [references/hyperframes-backend.md](/workspace/dstack/references/hyperframes-backend.md): HyperFrames render backend · selection boundaries and operating manual
@@ -398,7 +406,7 @@ dstack does no automatic version or update check and makes no network call on it
 - [references/pptx-from-rendered-html.md](/workspace/dstack/references/pptx-from-rendered-html.md): Visual-draft HTML → editable PPTX: read the rendered result, don't change the HTML
 - [references/react-setup.md](/workspace/dstack/references/react-setup.md): React + Babel project conventions
 - [references/scene-templates.md](/workspace/dstack/references/scene-templates.md): Scene template library: organized by output type
-- [references/sfx-library.md](/workspace/dstack/references/sfx-library.md): SFX Library · huashu-design
+- [references/sfx-library.md](/workspace/dstack/references/sfx-library.md): SFX Library · dstack
 - [references/slide-decks.md](/workspace/dstack/references/slide-decks.md): Slide Decks: HTML slide production standards
 - [references/storyboard-basics.md](/workspace/dstack/references/storyboard-basics.md): Storyboard Basics · lightweight storyboards and frame composition
 - [references/tweaks-system.md](/workspace/dstack/references/tweaks-system.md): Tweaks: live parameter tuning for design variations
@@ -413,6 +421,6 @@ dstack does no automatic version or update check and makes no network call on it
 
 - `/workspace/dstack/tools/doctor.sh`: setup and hook check (read-only)
 - `/workspace/dstack/assets/`: starter components (`animations.jsx`, `deck_stage.js`, device frames) and `style-specimens/`
-- `/workspace/dstack/demos/`: worked examples (`*-en.html` are the English versions)
+- `/workspace/dstack/demos/`: worked examples
 - `/workspace/dstack/HOSTS.md`, `/workspace/dstack/SECURITY.md`: every outside host the pack can touch, and why
 - `/workspace/dstack/NOTICE`, `/workspace/dstack/LICENSE`: MIT credit to alchaincyf/huashu-design

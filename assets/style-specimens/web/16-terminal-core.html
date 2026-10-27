@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="utf-8"><title>16 终端核软未来</title>
+<html lang="en"><head><meta charset="utf-8"><title>16 Terminal-core Soft Future</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap">
 <style>
 html,body{margin:0;width:1200px;height:750px;overflow:hidden}
@@ -30,26 +30,26 @@ h1 em{font-style:normal;color:#9D8CFF}
 .cube{position:absolute;left:1020px;top:380px;width:150px;height:170px}
 </style></head><body>
 <div class="glow"></div>
-<div class="nav mono"><b>ledgr</b><span>文档</span><span>命令</span><span>更新</span><span class="r">$ brew install ledgr</span></div>
-<h1>在终端里<br>管好<em>每一笔账</em><span class="cur"></span></h1>
-<div class="sub">纯文本账本，一行命令记账、一行命令出月报。数据只存在你自己的硬盘里。</div>
-<div class="install mono"><span>$</span><b>brew install ledgr</b><i>复制</i></div>
-<div class="btns"><a class="p mono">开始记账</a><a class="s mono">查看源码 ↗</a></div>
-<div class="term mono"><div class="bar"><i></i><i></i><i></i><span>~/账本 — zsh</span></div>
-<pre><span class="g">❯</span> ledgr add 午饭 38 --tag 餐饮
-<span class="m">已记录  10-17 12:41  餐饮  -38.00</span>
+<div class="nav mono"><b>ledgr</b><span>Docs</span><span>Commands</span><span>Updates</span><span class="r">$ brew install ledgr</span></div>
+<h1>In the terminal,<br>keep track of <em>every expense</em><span class="cur"></span></h1>
+<div class="sub">A plain-text ledger: one command to log, one command for the monthly report. Your data lives only on your own disk.</div>
+<div class="install mono"><span>$</span><b>brew install ledgr</b><i>Copy</i></div>
+<div class="btns"><a class="p mono">Start logging</a><a class="s mono">View source ↗</a></div>
+<div class="term mono"><div class="bar"><i></i><i></i><i></i><span>~/ledger — zsh</span></div>
+<pre><span class="g">❯</span> ledgr add lunch 38 --tag dining
+<span class="m">Logged  10-17 12:41  dining  -38.00</span>
 
 <span class="g">❯</span> ledgr report --month 10
-<span class="v">10 月支出</span>   <span class="o">¥ 4,286.50</span>
-<span class="m">餐饮    <span class="v">████████</span>░░   1,420</span>
-<span class="m">房租    <span class="v">██████████</span>   2,100</span>
-<span class="m">交通    <span class="v">██</span>░░░░░░░░     312</span>
-<span class="m">其他    <span class="v">██</span>░░░░░░░░     454</span>
+<span class="v">October spending</span>   <span class="o">¥ 4,286.50</span>
+<span class="m">Dining    <span class="v">████████</span>░░   1,420</span>
+<span class="m">Rent    <span class="v">██████████</span>   2,100</span>
+<span class="m">Transport    <span class="v">██</span>░░░░░░░░     312</span>
+<span class="m">Other    <span class="v">██</span>░░░░░░░░     454</span>
 <span class="g">❯</span> <span class="v">▌</span></pre></div>
 <svg class="cube" viewBox="0 0 150 170"><g fill="none" stroke-linejoin="round">
 <polygon points="75,12 138,48 75,84 12,48" fill="rgba(157,140,255,.28)" stroke="#9D8CFF"/>
 <polygon points="12,48 75,84 75,158 12,122" fill="rgba(79,140,255,.12)" stroke="#6C8CFF"/>
 <polygon points="138,48 75,84 75,158 138,122" fill="rgba(242,240,239,.05)" stroke="rgba(242,240,239,.5)"/>
 <line x1="75" y1="84" x2="75" y2="158" stroke="#9D8CFF"/></g></svg>
-<div class="bento"><div><b>0.9 MB</b>单文件，无依赖</div><div><b>纯文本</b>账本可用 git 管理</div><div><b>12 ms</b>万条记录出报表</div><div><b>MIT</b>开源，免费</div></div>
+<div class="bento"><div><b>0.9 MB</b> Single file, no dependencies</div><div><b>Plain text</b> Ledger works with git</div><div><b>12 ms</b> k records into a report</div><div><b>MIT</b> Open source, free</div></div>
 </body></html>

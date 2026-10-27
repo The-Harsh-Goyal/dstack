@@ -1,11 +1,11 @@
-# SFX Library · huashu-design
+# SFX Library · dstack
 
 > **dstack note (audio):** dstack ships **no music or sound effects**. The upstream `assets/bgm-*.mp3` (generated with Suno) and `assets/sfx/**` (generated with ElevenLabs) were removed because their licences couldn't be verified. File names below are kept as a naming scheme: put your own licensed files in `~/.dstack/audio/` (`bgm-<mood>.mp3`) and `~/.dstack/audio/sfx/<category>/<name>.mp3` (override with `DSTACK_AUDIO_DIR` / `DSTACK_SFX_DIR`), or, only when a task asks for it, generate them with ElevenLabs (the one approved outside audio service, off by default): `DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs sfx ui/click` / `... bgm tech`. Free-plan ElevenLabs output is non-commercial and needs attribution; see "Licensing" in `references/audio-design-rules.md`. If a file is missing, `add-music.sh`, `mix-voiceover.sh` and `sfx-cues.sh` warn and carry on without it.
 
 > **Generating a slot (dstack):** every row below can be generated from its own prompt and length: `DSTACK_AUDIO_PROVIDER=elevenlabs node scripts/gen-audio.mjs sfx <category>/<name>` writes `$DSTACK_SFX_DIR/<category>/<name>.mp3` (default `~/.dstack/audio/sfx/`). Pass `--prompt "..."` / `--seconds N` / `--loop` to override, `--force` to replace an existing file. Uses `/v1/sound-generation` (model `eleven_text_to_sound_v2`, 200 credits per generation); identical requests come from the cache in `~/.dstack/cache/elevenlabs/`. Generate only the cues the film uses. Licensing: see `audio-design-rules.md`.
 
 > All generated with the ElevenLabs Sound Generation API, at Apple-keynote-grade audio quality.
-> A product-grade SFX asset library covering every scenario in Huashu's animations / presentations / product demos.
+> A product-grade SFX asset library covering animations, presentations and product demos.
 
 **Asset location**: `assets/sfx/<category>/<name>.mp3` (dstack: `$DSTACK_SFX_DIR/<category>/<name>.mp3`, default `~/.dstack/audio/sfx/`)
 **Total**: 37 SFX (30 batch-generated + 7 kept from v7b)

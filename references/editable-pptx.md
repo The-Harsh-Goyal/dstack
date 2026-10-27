@@ -152,7 +152,7 @@ One independent HTML file per slide, with scopes isolated from each other (avoid
 
 ```html
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <style>

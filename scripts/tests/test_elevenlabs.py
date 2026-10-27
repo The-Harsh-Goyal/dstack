@@ -95,3 +95,35 @@ def test_no_other_elevenlabs_host_in_code():
     for p in list((root / "scripts").rglob("*.mjs")) + list((root / "scripts").rglob("*.sh")):
         hosts.update(re.findall(r"\b(?:[\w-]+\.)+elevenlabs\.io", p.read_text(errors="ignore")))
     assert hosts == {"api.elevenlabs.io"}
+
+
+def test_key_file_accepts_dotenv_and_bare_forms():
+    out, r = run("key-file-forms")
+    f = out["forms"]
+    for name in ("bare", "bareNoNewline", "dotenv", "exportDouble", "single", "inlineComment"):
+        assert f[name] == "key", name
+        assert f[name + "Source"] == "file", name
+    for name in ("commentedOut", "empty", "otherOnly", "blank"):
+        assert f[name] is None, name
+    assert out["envWins"] == "env"
+    assert KEY not in r.stderr + r.stdout
+
+
+DOCTOR = HERE.parents[1] / "tools" / "doctor.sh"
+
+
+@pytest.mark.parametrize("text,expect", [
+    (f"{KEY}\n", "present (file DSTACK_ELEVENLABS_KEY_FILE, bare key)"),
+    (f"# c\n\nexport ELEVENLABS_API_KEY=\"{KEY}\"\n", "present (file DSTACK_ELEVENLABS_KEY_FILE, dotenv)"),
+    (f"ELEVENLABS_API_KEY='{KEY}'\n", "present (file DSTACK_ELEVENLABS_KEY_FILE, dotenv)"),
+    ("ELEVENLABS_API_KEY=\n", "has ELEVENLABS_API_KEY= but no value"),
+    (f"# ELEVENLABS_API_KEY={KEY}\n", "has no key"),
+])
+def test_doctor_key_file_check(tmp_path, text, expect):
+    kf = tmp_path / "el.env"
+    kf.write_text(text)
+    env = {k: v for k, v in os.environ.items() if not k.startswith(("DSTACK_", "ELEVENLABS_"))}
+    env["DSTACK_ELEVENLABS_KEY_FILE"] = str(kf)
+    r = subprocess.run(["bash", str(DOCTOR)], capture_output=True, text=True, env=env, timeout=120)
+    assert expect in r.stdout + r.stderr
+    assert KEY not in r.stdout + r.stderr

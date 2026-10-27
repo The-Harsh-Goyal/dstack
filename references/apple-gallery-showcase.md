@@ -1,7 +1,7 @@
 # Apple Gallery Showcase · Gallery Wall Animation Style
 
 > Inspiration: the Claude Design website hero video + the "wall of work" display style of Apple product pages
-> Field source: huashu-design launch hero v5
+> Field source: the upstream launch hero v5
 > When to use: **product launch hero animations, skill capability demos, portfolio showcases**, any scenario where "many high-quality outputs" need to be exhibited at once while guiding the viewer's attention
 
 ---
@@ -44,7 +44,7 @@
 }
 ```
 
-> This palette is the brand choice for huashu-design's own promo film (close to the Claude ecosystem), **not a default**. When you use this gallery technique for another subject, re-derive the colors from the subject: warm off-white + terracotta is exactly item one of the 2026 AI default look.
+> This palette is the brand choice for the upstream skill's own promo film (close to the Claude ecosystem), **not a default**. When you use this gallery technique for another subject, re-derive the colors from the subject: warm off-white + terracotta is exactly item one of the 2026 AI default look.
 
 **Key principles**:
 1. **Never use a pure black background**. A black background makes the work look like a movie, not like "work output that can be adopted"
@@ -282,7 +282,7 @@ It looks like it makes no difference; remove it and you'll see that it does.
 ```html
 <div class="corner-brand">
   <div class="mark"></div>
-  <div>HUASHU · DESIGN</div>
+  <div>DSTACK</div>
 </div>
 ```
 

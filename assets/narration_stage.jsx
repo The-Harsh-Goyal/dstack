@@ -464,8 +464,8 @@ const NarrationStageLib = (() => {
    *   karaoke       true to enable, default false. Shows the whole line; each character changes color as it is read
    *   karaokeColor  color of characters already read, default brand orange '#e8590c'
    *   When a chunk has no words data, it automatically falls back to normal chunk mode; the caller doesn't need to check.
-   *   Note: a TTS may return words as normalized text (e.g. a Chinese voice returns "2025" as 二零二五, spelled-out digits;
-   *   an English one may return "twenty twenty-five"); karaoke lines are built directly from words,
+   *   Note: a TTS may return words as normalized text (e.g. "2025" may come back as
+   *   "twenty twenty-five"); karaoke lines are built directly from words,
    *   which keeps highlighting strictly aligned with pronunciation (may differ from the original chunk.text).
    */
   function splitWordsToLines(words, maxLen = null) {

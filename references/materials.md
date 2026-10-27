@@ -39,21 +39,16 @@ It checks which related skills are installed locally, whether there's an image-g
 
 ### T1 · Has AI image generation
 
-How to tell: an image-generation skill such as `huashu-gpt-image` or `nano-banana-pro` is installed locally, or the runtime you're in has a built-in image tool (such as Codex's image_gen; you know whether you have it), or the user says so explicitly. Having only an API key doesn't count: this skill has no script that calls an image-generation API directly.
+How to tell: an image-generation skill is installed locally, or the runtime you're in has a built-in image tool (such as Codex's image_gen; you know whether you have it), or the user says so explicitly. Having only an API key doesn't count: this skill has no script that calls an image-generation API directly.
 
 - **At the direction-board stage, produce probe images first**: generate one mood or main-visual image per direction (material, light, subject), and lay it out for the user together with the first HTML draft. Have the visual layer before writing code, so what the user picks is "a look they can see".
-- **After the choice, generate main visuals, illustrations, textures, people and scenes.** Prompts should describe concrete visual traits and real reference names, not adjectives like "premium feel" or "minimalist"; see `huashu-gpt-image` for the method.
+- **After the choice, generate main visuals, illustrations, textures, people and scenes.** Prompts should describe concrete visual traits and real reference names, not adjectives like "premium feel" or "minimalist".
 - **Generations are often smaller than the deliverable** (dstack: e.g. 1024×576 for a 2500×1000 X header). Upscale locally: `python3 "$HD/scripts/cover.py" upscale gen.png --preset x-article -o hero.png [--gravity top] [--sharpen]` (ffmpeg lanczos + cover-crop, no network). Expect some softness above ×2; fine at feed size, check at 100% before print. Compose so the crop keeps the subject (5:2 from 16:9 loses ~30% of the height).
 - Generated images must pass the real-image honesty test; brand product images must be generated using official reference images as the base, never drawing a product out of thin air.
 
-### T2 · Sibling skills installed
+### T2 · Other skills already installed
 
-| skill | What more it can do | Public address (dstack: not installed; installing needs the user's OK) |
-|---|---|---|
-| huashu-gpt-image | Image-generation prompt methodology; illustrations, posters, infographics, UI mockups | `npx skills add alchaincyf/huashu-gpt-image` |
-| huashu-art-motion | 36 art and explainer animation styles, whole films driven by voiceover | `npx skills add alchaincyf/huashu-art-motion` |
-| huashu-md-html | md to publication-grade html / PDF / EPUB | `npx skills add alchaincyf/huashu-md-html` |
-| huashu-3djs, huashu-flow-diagram | Procedural 3D scenes, flowing architecture diagrams | Not public yet; use them if installed locally |
+If the user already has other design skills installed locally (3D scenes, diagrams, image prompting), use them when they fit the task. dstack recommends no other products and installs nothing without the user's OK.
 
 ## What to say when a capability is missing
 

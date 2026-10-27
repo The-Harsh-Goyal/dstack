@@ -56,6 +56,6 @@ DSTACK_REVIEW_COMMAND='my-adapter --video {video} --prompt {prompt_file}' \
 
 ## Measured baseline
 
-First run target: B00-前三分钟主线-SFX.mp4 (210s). The model independently found the inter-act transition issues and the hero break points in the right direction,
+First run target: B00-first-three-minutes-main-SFX.mp4 (210s). The model independently found the inter-act transition issues and the hero break points in the right direction,
 but misreported fades as hard cuts; the model alone caught only 3/14 dead segments, and after adding freezedetect coverage was complete. Conclusion: the objective detection layer is
 the floor guarantee of this loop, and the model is responsible for semantic judgment.

@@ -183,7 +183,7 @@ Copy this template as the skeleton of a React prototype:
 
 ```html
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -10,7 +10,7 @@
 
 ## 1. Why write director's notes first
 
-Lesson from real work (the huashu-md-html v2.0 project, 2026-05-11):
+Lesson from real work (the md-html v2.0 project, 2026-05-11):
 
 The first round went straight to writing HTML, and the output was "a programmer's-eye animation": equal effort on every capability, a constant pace, slogans colliding with each other, and no narrative arc.
 In the second round, after the user's instruction "stop, first write a 10,000-character storyboard script from an Apple director's point of view", v5-director-notes.md was written (11,500 characters, a 13-shot shot-by-shot spec), and then implemented according to the script. It passed in one go, every paused frame held up, and the pacing rose and fell with a climax.
@@ -209,7 +209,7 @@ Each screenshot must verify:
 
 For complex projects (such as when the launch film's direction can't be decided / you want to see several aesthetic differences / the client hasn't settled on a style), you can **launch several subagents in parallel to make versions from different directors' perspectives**.
 
-Real configuration (the huashu-md-html project, 2026-05-11, 6 versions in parallel):
+Real configuration (the md-html project, 2026-05-11, 6 versions in parallel):
 
 ```
 v5  · baseline (Anthropic / Penguin Classics publisher taste)
@@ -293,4 +293,4 @@ When writing a new project, it's strongly recommended to **Read this sample firs
 ---
 
 *Last revised: 2026-05-11*
-*Real case: huashu-md-html v2.0 launch film (v5-director-notes.md)*
+*Real case: md-html v2.0 launch film (v5-director-notes.md)*

@@ -7,7 +7,7 @@
 
 > **This is v1's most central constraint, and the lifeline of stability.** Whether the agent follows this protocol through directly decides whether the output scores 40 or 90. Don't skip any step.
 >
-> **v1.1 restructure (2026-04-20)**: upgraded from "Brand Asset Protocol" to "Core Asset Protocol". Earlier versions focused too heavily on color values and fonts, and missed the most basic elements of design: the logo / product images / UI screenshots. In Huashu's own words: "Beyond the so-called brand colors, we obviously should find and use DJI's logo and the Pocket 4 product images. For non-physical products like websites or apps, the logo at least should be mandatory. This may be more important basic logic than a so-called brand design spec. Otherwise, what are we even expressing?"
+> **v1.1 restructure (2026-04-20)**: upgraded from "Brand Asset Protocol" to "Core Asset Protocol". Earlier versions focused too heavily on color values and fonts, and missed the most basic elements of design: the logo / product images / UI screenshots. In the upstream author's words: "Beyond the so-called brand colors, we obviously should find and use DJI's logo and the Pocket 4 product images. For non-physical products like websites or apps, the logo at least should be mandatory. This may be more important basic logic than a so-called brand design spec. Otherwise, what are we even expressing?"
 
 **Trigger condition**: the task involves a specific brand: the user names a product/company/specific client (Stripe, Linear, Anthropic, Notion, Lovart, DJI, their own company, etc.), whether or not the user has provided brand materials themselves.
 
@@ -123,7 +123,7 @@ curl -A "Mozilla/5.0" -L "<hero-image-url>" -o assets/<brand>-brand/product-hero
 
 > **The logo's rules differ from other assets**. If there's a logo, you must use it (if there isn't, stop and ask the user); other assets (product images/UI/reference images/illustrations) follow the "5-10-2-8" quality threshold.
 >
-> Huashu's own words on 2026-04-20: "Our principle is to search 5 rounds, find 10 assets, and choose 2 good ones. Each must score 8/10 or higher. Better to have fewer than to pad things out just to finish the task."
+> The upstream author's words on 2026-04-20: "Our principle is to search 5 rounds, find 10 assets, and choose 2 good ones. Each must score 8/10 or higher. Better to have fewer than to pad things out just to finish the task."
 
 | Dimension | Standard | Anti-pattern |
 |---|---|---|
@@ -141,7 +141,7 @@ curl -A "Mozilla/5.0" -L "<hero-image-url>" -o assets/<brand>-brand/product-hero
 5. **Standalone narrative ability** · can carry a narrative role on its own (not decoration)
 
 **Why this threshold is an iron rule**:
-- Huashu's philosophy: **better nothing than something shoddy**. Padding assets are worse than none: they pollute the visual taste and send an "unprofessional" signal
+- The philosophy: **better nothing than something shoddy**. Padding assets are worse than none: they pollute the visual taste and send an "unprofessional" signal
 - **The quantified version of "take one detail to 120%, everything else to 80%"**: 8 points is the floor for "everything else at 80%"; true hero assets need 9-10 points
 - When consumers look at work, every visual element is **adding or subtracting points**. A 7-point asset = a deduction; better to leave the space empty
 
@@ -235,9 +235,9 @@ Handle each asset type separately:
 
 - **Kimi animation**: guessed from memory that "it should be orange"; Kimi is actually `#1783FF` blue. Had to redo it once
 - **Lovart design**: took the HEYTEA red of a demo brand in a product screenshot as Lovart's own color. Nearly ruined the whole design
-- **DJI Pocket 4 launch animation (2026-04-20, the real case that triggered this protocol upgrade)**: followed the old protocol that only extracted color values, didn't download the DJI logo, didn't find Pocket 4 product images, and used a CSS silhouette in place of the product. The result was a "generic black background + orange accent tech animation" with no DJI recognizability. Huashu's own words: "Otherwise, what are we even expressing?" → protocol upgraded.
+- **DJI Pocket 4 launch animation (2026-04-20, the real case that triggered this protocol upgrade)**: followed the old protocol that only extracted color values, didn't download the DJI logo, didn't find Pocket 4 product images, and used a CSS silhouette in place of the product. The result was a "generic black background + orange accent tech animation" with no DJI recognizability. The user's words: "Otherwise, what are we even expressing?" → protocol upgraded.
 - Extracted colors but didn't write them into brand-spec.md; by page three the main color value was forgotten and a "close but not quite" hex was added on the spot. Brand consistency collapsed
-- **Top five coding agents comparison PPT (2026-06-06, the real case that triggered the trigger-condition expansion)**: the agent judged the task as "PPT + no style reference" and took the Fallback Design Direction Advisor path, extracted only the five brands' colors and then spawned three sets of design logic, and **didn't fetch a single one of the five product logos (Claude Code / Cursor / Codex / Copilot / Trae)**. Huashu caught it red-handed: "Why didn't we go fetch these products' logos?" Root cause: misjudged a "comparison / ranking deck" as not triggering §1.a (assuming §1.a only covered "making materials for a single client"), and the Fallback path had no logo checkpoint at all. → Fix: ① expanded the trigger condition into two types (including "real products named/placed side by side in the design") ② the Fallback doesn't exempt fetching logos ③ Phase 3.5 adds a "named-product logo sub-gate" that must pass before spawning ④ Step 3.1 adds the reliable svgl/simpleicons/Google favicon logo-fetching chain.
+- **Top five coding agents comparison PPT (2026-06-06, the real case that triggered the trigger-condition expansion)**: the agent judged the task as "PPT + no style reference" and took the Fallback Design Direction Advisor path, extracted only the five brands' colors and then spawned three sets of design logic, and **didn't fetch a single one of the five product logos (Claude Code / Cursor / Codex / Copilot / Trae)**. The user caught it red-handed: "Why didn't we go fetch these products' logos?" Root cause: misjudged a "comparison / ranking deck" as not triggering §1.a (assuming §1.a only covered "making materials for a single client"), and the Fallback path had no logo checkpoint at all. → Fix: ① expanded the trigger condition into two types (including "real products named/placed side by side in the design") ② the Fallback doesn't exempt fetching logos ③ Phase 3.5 adds a "named-product logo sub-gate" that must pass before spawning ④ Step 3.1 adds the reliable svgl/simpleicons/Google favicon logo-fetching chain.
 
 ##### Cost of the protocol vs cost of skipping it
 

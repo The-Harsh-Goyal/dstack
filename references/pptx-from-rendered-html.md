@@ -177,7 +177,7 @@ hours of troubleshooting in the wrong direction.
 
 **Also run a mechanical check** (independent of any renderer):
 
-- Dropped-text check: **runs automatically by default after the script exports** (`verify_text()`). It compares the page's rendered `innerText` with the text in the pptx slide by slide (ignoring whitespace and case), and if anything's missing it prints "⚠️ Dropped-text check: N pieces of text are visible in the browser but missing from the PPTX" and the missing fragments ("slide N missing: …"). When nothing is missing it prints a line that stays in Chinese because a test checks it: "🔍 丢字校验：渲染后的页面文字全部在 PPTX 里，没有丢字" ("Dropped-text check: all rendered page text is in the PPTX, no dropped text"). It's on by default because missing text is silent: there's no error, and relying on someone remembering to check is the same as not checking
+- Dropped-text check: **runs automatically by default after the script exports** (`verify_text()`). It compares the page's rendered `innerText` with the text in the pptx slide by slide (ignoring whitespace and case), and if anything's missing it prints "⚠️ Dropped-text check: N pieces of text are visible in the browser but missing from the PPTX" and the missing fragments ("slide N missing: …"). When nothing is missing it prints "🔍 Dropped-text check: all rendered page text is in the PPTX, no text dropped". It's on by default because missing text is silent: there's no error, and relying on someone remembering to check is the same as not checking
 - Count comparison: image counts and shape counts match slide by slide
 
 **The reference source must be independent of the extraction logic; you can't compare against the `--dump-json` list.** The list and the pptx both come from the same DOM extraction:

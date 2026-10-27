@@ -21,9 +21,9 @@ Full file:line inventory of every host named in the pack: `HOSTS.md` (regenerate
 
 ## API keys
 
-dstack reads exactly one API key, and only when an ElevenLabs provider is selected: `ELEVENLABS_API_KEY` from the environment, or the first line of the file named by `DSTACK_ELEVENLABS_KEY_FILE`.
+dstack reads exactly one API key, and only when an ElevenLabs provider is selected: `ELEVENLABS_API_KEY` from the environment, or from the file named by `DSTACK_ELEVENLABS_KEY_FILE`: either a dotenv line `ELEVENLABS_API_KEY=...` (optional `export `, optional quotes; `#` comments and blank lines ignored) or the bare key alone on line 1.
 
-- The key file must be outside the dstack folder (a path inside it is refused with a warning); keep it `chmod 600`, e.g. `~/.config/dstack/elevenlabs.key`.
+- The key file must be outside the dstack folder (a path inside it is refused with a warning); keep it `chmod 600`, e.g. `~/.config/dstack/elevenlabs.env`.
 - The key is sent only to `https://api.elevenlabs.io`, only in the `xi-api-key` header. It is never written to disk (not to the cache, timeline.json or `*.provenance.json`), never logged, never echoed; every error and warning passes through a mask that replaces it with `****` (tested in `scripts/tests/test_elevenlabs.py`).
 - No key: one warning, then narration falls back to `silent` and `gen-audio.mjs` to `none`. Nothing crashes.
 - `.gitignore` blocks `.env`, `.env.*` (except `.env.example`), `*.env`, `*.key`, `*.pem`, `*api_key*`, `*apikey*`, `*.secret`, `secrets/`, `.elevenlabs*`. `.env.example` has no values.
@@ -33,7 +33,7 @@ Generated audio is cached in `~/.dstack/cache/elevenlabs/` (audio + request para
 
 ## Optional providers and hooks
 
-Narration defaults to `--tts silent` (silent track, estimated timings, subtitle-only). Music/SFX default to `DSTACK_AUDIO_PROVIDER=none` (you supply the files). Video review defaults to local ffmpeg checks plus contact sheets. Opt-ins: `elevenlabs` for narration and audio (above), and an off-by-default `command` hook for TTS and review that runs a local command you configure; asking for it without configuring it exits with a clear error. ElevenLabs uses paid credits (about 1 per character of narration, 200 per sound effect, 900 per minute of music): generate only what the task needs.
+Narration defaults to `--tts silent` (silent track, estimated timings, subtitle-only). Music/SFX default to `DSTACK_AUDIO_PROVIDER=none` (you supply the files); `local` picks music from your own offline library in `$DSTACK_MUSIC_DIR` and contacts nothing. Video review defaults to local ffmpeg checks plus contact sheets. Opt-ins: `elevenlabs` for narration and audio (above), and an off-by-default `command` hook for TTS and review that runs a local command you configure; asking for it without configuring it exits with a clear error. ElevenLabs uses paid credits (about 1 per character of narration, 200 per sound effect, 900 per minute of music): generate only what the task needs.
 
 ## Local files written outside the skill directory
 

@@ -126,6 +126,30 @@ try {
     out.repoKey = el.loadKey({ DSTACK_ELEVENLABS_KEY_FILE: path.resolve(path.dirname(new URL(import.meta.url).pathname), '..', '..', 'SKILL.md') }).source;
     try { await el.post('/../other', {}, { env: { ELEVENLABS_API_KEY: KEY }, fetchImpl: m.f }); out.badEndpoint = 'sent'; } catch { out.badEndpoint = 'refused'; }
     out.key = KEY; // the test checks stdout/stderr apart from this field
+  } else if (scenario === 'key-file-forms') {
+    delete process.env.ELEVENLABS_API_KEY;
+    const forms = {
+      bare: `${KEY}\n`,
+      bareNoNewline: KEY,
+      dotenv: `ELEVENLABS_API_KEY=${KEY}\n`,
+      exportDouble: `# dstack key\n\nexport ELEVENLABS_API_KEY="${KEY}"\n`,
+      single: `OTHER=1\nELEVENLABS_API_KEY = '${KEY}'  # comment\n`,
+      inlineComment: `ELEVENLABS_API_KEY=${KEY} # note\r\n`,
+      commentedOut: `# ELEVENLABS_API_KEY=${KEY}\n`,
+      empty: `ELEVENLABS_API_KEY=\n`,
+      otherOnly: `OTHER_KEY=${KEY}\n`,
+      blank: `\n\n`,
+    };
+    out.forms = {};
+    for (const [name, text] of Object.entries(forms)) {
+      const f = path.join(work, `${name}.env`);
+      fs.writeFileSync(f, text);
+      const r = el.loadKey({ DSTACK_ELEVENLABS_KEY_FILE: f });
+      out.forms[name] = r.key === KEY ? 'key' : r.key === null ? null : 'wrong';
+      out.forms[name + 'Source'] = r.source;
+      if (r.key && el.mask(`echo ${KEY}`, { DSTACK_ELEVENLABS_KEY_FILE: f }).includes(KEY)) out.forms[name] = 'unmasked';
+    }
+    out.envWins = el.loadKey({ ELEVENLABS_API_KEY: 'sk_envFAKE0000000000', DSTACK_ELEVENLABS_KEY_FILE: path.join(work, 'dotenv.env') }).source;
   } else {
     throw new Error(`unknown scenario ${scenario}`);
   }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,8 +26,8 @@ const TIMELINE = {
   "totalDuration": 23.808,
   "scenes": [
     {"id":"intro","start":0,"end":4.368,"duration":4.368,"audio":"audio/intro.mp3","text":"Have you ever wondered, when we talk to an AI, how the AI actually understands what we say?","cues":[{"id":"question","offset":1.08,"absoluteTime":1.08}]},
-    {"id":"token-1","start":4.768,"end":7.576,"duration":2.808,"audio":"audio/token-1.mp3","text":"The answer is that it doesn't understand Chinese characters at all. It only knows tokens.","cues":[{"id":"reveal","offset":1.632,"absoluteTime":6.4}]},
-    {"id":"token-2","start":7.976,"end":16.808,"duration":8.832,"audio":"audio/token-2.mp3","text":"You can think of a token as the AI's smallest unit of information.\nFor example, the four characters 人工智能 (artificial intelligence) may be two tokens to an AI: 人工 and 智能.","cues":[{"id":"split","offset":5.4,"absoluteTime":13.376}]},
+    {"id":"token-1","start":4.768,"end":7.576,"duration":2.808,"audio":"audio/token-1.mp3","text":"The answer is that it doesn't read words at all. It only knows tokens.","cues":[{"id":"reveal","offset":1.632,"absoluteTime":6.4}]},
+    {"id":"token-2","start":7.976,"end":16.808,"duration":8.832,"audio":"audio/token-2.mp3","text":"You can think of a token as the AI's smallest unit of information.\nFor example, the word "playground" may be two tokens to an AI: play and ground.","cues":[{"id":"split","offset":5.4,"absoluteTime":13.376}]},
     {"id":"ending","start":17.208,"end":23.664,"duration":6.456,"audio":"audio/ending.mp3","text":"So next time you see a phrase like \"million-token context\", you'll know it means how many of these little chunks the AI can remember at once.","cues":[{"id":"context","offset":2.376,"absoluteTime":19.584}]}
   ],
   "voiceover": "voiceover.mp3"
@@ -142,7 +142,7 @@ const App = () => (
     {/* Scene 2: reveal the keyword */}
     <Scene id="token-1">
       <div className="scene-padding" style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ fontSize: 64, color: '#888', marginBottom: 80, fontWeight: 300 }}>It doesn't know Chinese characters</div>
+        <div style={{ fontSize: 64, color: '#888', marginBottom: 80, fontWeight: 300 }}>It doesn't read words</div>
         <Cue id="reveal">{(triggered, p) => (
           <div style={{
             fontSize: 280, fontWeight: 700, color: '#ffd54a', letterSpacing: '0.05em',
@@ -162,14 +162,14 @@ const App = () => (
         <Cue id="split">{(triggered, p) => (
           <div style={{ display: 'flex', gap: triggered ? 80 : 8, transition: 'gap 0.6s cubic-bezier(0.16, 1, 0.3, 1)' }}>
             <div style={{ fontSize: 200, fontWeight: 600, color: triggered ? '#ffd54a' : '#fff', padding: triggered ? '40px 60px' : '40px 20px', border: triggered ? '4px solid #ffd54a' : '4px solid transparent', borderRadius: 24, transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)', background: triggered ? 'rgba(255, 213, 74, 0.05)' : 'transparent' }}>
-              人工
+              play
             </div>
             <div style={{ fontSize: 200, fontWeight: 600, color: triggered ? '#ffd54a' : '#fff', padding: triggered ? '40px 60px' : '40px 20px', border: triggered ? '4px solid #ffd54a' : '4px solid transparent', borderRadius: 24, transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)', background: triggered ? 'rgba(255, 213, 74, 0.05)' : 'transparent' }}>
-              智能
+              ground
             </div>
           </div>
         )}</Cue>
-        <div style={{ fontSize: 36, color: '#666', marginTop: 60, opacity: 0.6 }}>"人工智能" (artificial intelligence) = 2 tokens</div>
+        <div style={{ fontSize: 36, color: '#666', marginTop: 60, opacity: 0.6 }}>"playground" = 2 tokens</div>
       </div>
     </Scene>
 
@@ -191,7 +191,7 @@ const App = () => (
 
     {/* Global watermark */}
     <div style={{ position: 'absolute', bottom: 24, right: 32, fontSize: 11, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.15em', fontFamily: 'monospace', pointerEvents: 'none', zIndex: 100 }}>
-      Created by Huashu-Design
+      Made with dstack
     </div>
   </NarrationStage>
 );

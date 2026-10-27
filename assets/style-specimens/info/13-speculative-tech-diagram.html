@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>13 东方思辨科技图</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>13 Eastern Contemplative Tech Chart</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+SC:wght@200;300;400&family=Noto+Sans+SC:wght@300;400&display=swap" rel="stylesheet">
 <style>
 html,body{margin:0;width:1200px;height:750px;overflow:hidden}
@@ -14,11 +14,11 @@ svg{position:absolute;left:450px;top:0}
 .fn{position:absolute;right:70px;bottom:40px;font-size:12px;letter-spacing:.28em;color:#6d6b60}
 </style></head><body>
 <div class="t"><div class="k">Observatory · Night 214</div>
-<h1>夜的厚度<em>an instrument for looking up</em></h1>
-<div class="p">十二个小时里，天空是否愿意被看见，取决于三层薄薄的东西：月光、云、与空气的透明。</div></div>
-<div class="leg"><i style="background:#7c8f6e"></i>透明度 transparency<br><i style="background:#b0694c"></i>月照度 moonlight<br><i style="border:1px solid #6d6b60;box-sizing:border-box"></i>云量 cloud cover</div>
+<h1>The thickness of night <em>an instrument for looking up</em></h1>
+<div class="p">Over twelve hours, whether the sky lets itself be seen depends on three thin layers: moonlight, cloud, and the clarity of the air.</div></div>
+<div class="leg"><i style="background:#7c8f6e"></i>transparency<br><i style="background:#b0694c"></i>moonlight<br><i style="border:1px solid #6d6b60;box-sizing:border-box"></i>cloud cover</div>
 <svg width="750" height="750" id="s"></svg>
-<div class="fn">18:00 — 06:00 · 观星台 海拔 1,120 m</div>
+<div class="fn">18:00 — 06:00 · observatory, elevation 1,120 m</div>
 <script>
 const NS='http://www.w3.org/2000/svg',s=document.getElementById('s');
 function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||s).appendChild(e);return e}
@@ -39,5 +39,5 @@ cl.forEach((v,i)=>{const p=P(rs[2],ang(18+i));el('circle',{cx:p[0],cy:p[1],r:3+v
 el('path',{d:arc(rs[4]+8,ang(21.5),ang(25.5)),fill:'none',stroke:'#3b3b36','stroke-width':1.2});
 el('circle',{cx,cy,r:3,fill:'#3b3b36'});el('circle',{cx,cy,r:rs[0]-30,fill:'none',stroke:'#8a877a','stroke-width':.5,'stroke-dasharray':'1 5'});
 const t1=el('text',{x:cx,y:cy+34,'text-anchor':'middle','font-size':12,'letter-spacing':'.28em',fill:'#6d6b60'});t1.textContent='N 40°';
-const w=el('text',{x:cx,y:30,'font-size':13,'letter-spacing':'.2em',fill:'#3b3b36','text-anchor':'middle'});w.textContent='最佳窗口 23:30 – 01:30';
+const w=el('text',{x:cx,y:30,'font-size':13,'letter-spacing':'.2em',fill:'#3b3b36','text-anchor':'middle'});w.textContent='Best window 23:30 – 01:30';
 </script></body></html>

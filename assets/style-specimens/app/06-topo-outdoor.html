@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><title>06 户外地形工具</title>
+<html lang="en"><head><meta charset="utf-8"><title>06 Topo Outdoor Tool</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 html,body{margin:0;width:1200px;height:750px;overflow:hidden}*{box-sizing:border-box}
@@ -25,7 +25,7 @@ body{background:#2F3B2C;font-family:"Noto Sans SC","Barlow Condensed",sans-serif
 <path d="M-20 560 C200 520 380 640 600 580 S980 500 1220 590"/><path d="M-20 610 C200 570 380 690 600 630 S980 550 1220 640"/><path d="M-20 660 C200 620 380 740 600 680 S980 600 1220 690"/>
 <ellipse cx="610" cy="60" rx="120" ry="40"/><ellipse cx="610" cy="60" rx="80" ry="24"/><ellipse cx="610" cy="60" rx="40" ry="10"/></g></svg>
 
-<!-- 主屏：地形图 -->
+<!-- main screen: terrain map -->
 <div class="ph" style="left:70px;top:46px">
  <div class="sb"><span>9:41</span><span>●●●</span></div>
  <svg class="map" viewBox="0 0 360 760">
@@ -46,37 +46,37 @@ body{background:#2F3B2C;font-family:"Noto Sans SC","Barlow Condensed",sans-serif
   <circle cx="60" cy="640" r="11" fill="#2D7A46" stroke="#fff" stroke-width="3"/><circle cx="168" cy="330" r="11" fill="#1F2A24" stroke="#fff" stroke-width="3"/>
   <circle cx="188" cy="420" r="8" fill="#2B6CB0" stroke="#fff" stroke-width="3"/>
  </svg>
- <div class="chip" style="left:24px;top:62px">栖云岭 · 1,184 米</div>
- <div class="chip" style="right:22px;top:62px;font-size:16px">图层</div>
- <div class="chip" style="left:206px;top:386px;background:#1F2A24;color:#fff">山脊垭口 960 m</div>
+ <div class="chip" style="left:24px;top:62px">Cloudrest Ridge · 1,184 m</div>
+ <div class="chip" style="right:22px;top:62px;font-size:16px">Layers</div>
+ <div class="chip" style="left:206px;top:386px;background:#1F2A24;color:#fff">Ridge pass 960 m</div>
  <div class="pan" style="bottom:20px">
-  <div class="lbl">南坡环线 · 记录中</div>
-  <div class="stats" style="margin-top:6px"><div><div class="n">5.82</div><div class="lbl">公里</div></div><div><div class="n">+486</div><div class="lbl">米爬升</div></div><div><div class="n">2:14</div><div class="lbl">用时</div></div></div>
+  <div class="lbl">South Slope Loop · recording</div>
+  <div class="stats" style="margin-top:6px"><div><div class="n">5.82</div><div class="lbl">km</div></div><div><div class="n">+486</div><div class="lbl">m climb</div></div><div><div class="n">2:14</div><div class="lbl">Time</div></div></div>
   <svg viewBox="0 0 320 60" style="width:100%;margin-top:10px"><path d="M0 52 L40 46 L80 38 L120 30 L160 16 L200 8 L240 20 L280 36 L320 44 L320 60 L0 60Z" fill="#E4572E" opacity=".25"/><path d="M0 52 L40 46 L80 38 L120 30 L160 16 L200 8 L240 20 L280 36 L320 44" fill="none" stroke="#E4572E" stroke-width="3"/><circle cx="200" cy="8" r="5" fill="#E4572E"/></svg>
  </div>
 </div>
 
-<!-- 路线列表 -->
+<!-- route list -->
 <div class="ph" style="left:470px;top:110px;transform:scale(.94)">
  <div class="sb"><span>9:41</span><span>●●●</span></div>
- <div style="padding:6px 22px 14px"><div class="lbl">附近 · 12 条</div><div style="font-size:28px;font-weight:700">徒步路线</div></div>
- <div class="card"><div class="mini"><svg viewBox="0 0 96 72"><g fill="none" stroke="#C09A68" stroke-width="1"><ellipse cx="48" cy="38" rx="40" ry="26"/><ellipse cx="48" cy="38" rx="28" ry="17"/><ellipse cx="48" cy="38" rx="14" ry="8"/></g><path d="M10 64 C30 50 40 30 58 34 S80 20 90 12" fill="none" stroke="#E4572E" stroke-width="3"/></svg></div><div><b>南坡环线</b><div class="m">8.4 公里 · 爬升 520 米</div><span class="dif" style="background:#FDE6B8;color:#7A4A00">中等</span></div></div>
- <div class="card"><div class="mini"><svg viewBox="0 0 96 72"><g fill="none" stroke="#C09A68" stroke-width="1"><ellipse cx="40" cy="36" rx="34" ry="22"/><ellipse cx="40" cy="36" rx="20" ry="12"/></g><path d="M8 60 C28 56 46 40 62 44 S84 30 90 20" fill="none" stroke="#E4572E" stroke-width="3"/></svg></div><div><b>溪谷步道</b><div class="m">4.1 公里 · 爬升 140 米</div><span class="dif" style="background:#CFE8CF;color:#1F5A2A">轻松</span></div></div>
- <div class="card"><div class="mini"><svg viewBox="0 0 96 72"><g fill="none" stroke="#C09A68" stroke-width="1"><ellipse cx="56" cy="34" rx="36" ry="28"/><ellipse cx="56" cy="34" rx="24" ry="19"/><ellipse cx="56" cy="34" rx="12" ry="9"/></g><path d="M6 66 C30 58 40 28 60 30 S82 12 92 8" fill="none" stroke="#E4572E" stroke-width="3"/></svg></div><div><b>云顶山脊线</b><div class="m">12.6 公里 · 爬升 980 米</div><span class="dif" style="background:#F6C9C0;color:#8A2410">困难</span></div></div>
+ <div style="padding:6px 22px 14px"><div class="lbl">Nearby · 12</div><div style="font-size:28px;font-weight:700">Hiking routes</div></div>
+ <div class="card"><div class="mini"><svg viewBox="0 0 96 72"><g fill="none" stroke="#C09A68" stroke-width="1"><ellipse cx="48" cy="38" rx="40" ry="26"/><ellipse cx="48" cy="38" rx="28" ry="17"/><ellipse cx="48" cy="38" rx="14" ry="8"/></g><path d="M10 64 C30 50 40 30 58 34 S80 20 90 12" fill="none" stroke="#E4572E" stroke-width="3"/></svg></div><div><b>South Slope Loop</b><div class="m">8.4 km · 520 m climb</div><span class="dif" style="background:#FDE6B8;color:#7A4A00">Moderate</span></div></div>
+ <div class="card"><div class="mini"><svg viewBox="0 0 96 72"><g fill="none" stroke="#C09A68" stroke-width="1"><ellipse cx="40" cy="36" rx="34" ry="22"/><ellipse cx="40" cy="36" rx="20" ry="12"/></g><path d="M8 60 C28 56 46 40 62 44 S84 30 90 20" fill="none" stroke="#E4572E" stroke-width="3"/></svg></div><div><b>Creek Valley Trail</b><div class="m">4.1 km · 140 m climb</div><span class="dif" style="background:#CFE8CF;color:#1F5A2A">Easy</span></div></div>
+ <div class="card"><div class="mini"><svg viewBox="0 0 96 72"><g fill="none" stroke="#C09A68" stroke-width="1"><ellipse cx="56" cy="34" rx="36" ry="28"/><ellipse cx="56" cy="34" rx="24" ry="19"/><ellipse cx="56" cy="34" rx="12" ry="9"/></g><path d="M6 66 C30 58 40 28 60 30 S82 12 92 8" fill="none" stroke="#E4572E" stroke-width="3"/></svg></div><div><b>Summit Ridge Line</b><div class="m">12.6 km · 980 m climb</div><span class="dif" style="background:#F6C9C0;color:#8A2410">Hard</span></div></div>
 </div>
 
-<!-- 放大：爬升剖面 -->
+<!-- detail: elevation profile -->
 <div class="ph" style="left:850px;top:208px;transform:scale(.9)">
  <div class="sb"><span>9:41</span><span>●●●</span></div>
- <div style="padding:6px 22px 0"><div class="lbl">海拔剖面</div><div style="font-size:26px;font-weight:700">云顶山脊线</div></div>
+ <div style="padding:6px 22px 0"><div class="lbl">Elevation profile</div><div style="font-size:26px;font-weight:700">Summit Ridge Line</div></div>
  <div style="margin:14px 14px 0;background:#FBFAF2;border-radius:22px;padding:14px">
   <svg viewBox="0 0 300 200" style="width:100%"><g stroke="#E3DEC8" stroke-width="1"><path d="M0 40H300M0 90H300M0 140H300"/></g>
    <path d="M0 170 L30 160 L70 130 L110 120 L150 70 L190 40 L225 55 L260 100 L300 120 L300 200 L0 200Z" fill="#E4572E" opacity=".22"/>
    <path d="M0 170 L30 160 L70 130 L110 120 L150 70 L190 40 L225 55 L260 100 L300 120" fill="none" stroke="#E4572E" stroke-width="3.5" stroke-linejoin="round"/>
    <circle cx="190" cy="40" r="6" fill="#1F2A24"/><text x="198" y="30" font-family="Barlow Condensed" font-weight="700" font-size="18" fill="#1F2A24">1,184</text>
    <text x="2" y="38" font-size="13" fill="#6B6A58">1200</text><text x="2" y="88" font-size="13" fill="#6B6A58">900</text><text x="2" y="138" font-size="13" fill="#6B6A58">600</text></svg>
-  <div class="stats" style="margin-top:8px"><div><div class="n">12.6</div><div class="lbl">公里</div></div><div><div class="n">980</div><div class="lbl">爬升</div></div><div><div class="n">22%</div><div class="lbl">最陡坡度</div></div></div>
+  <div class="stats" style="margin-top:8px"><div><div class="n">12.6</div><div class="lbl">km</div></div><div><div class="n">980</div><div class="lbl">Climb</div></div><div><div class="n">22%</div><div class="lbl">Steepest grade</div></div></div>
  </div>
- <div style="margin:14px 14px 0;background:#1F2A24;color:#fff;border-radius:22px;padding:18px;font-size:17px;line-height:1.5">第 7 公里起连续上坡，建议在垭口补水。</div>
+ <div style="margin:14px 14px 0;background:#1F2A24;color:#fff;border-radius:22px;padding:18px;font-size:17px;line-height:1.5">Steady climb from km 7; refill water at the pass.</div>
 </div>
 </body></html>

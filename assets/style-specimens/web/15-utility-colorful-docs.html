@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="utf-8"><title>15 实用主义彩虹分类文档</title>
+<html lang="en"><head><meta charset="utf-8"><title>15 Utility Rainbow Docs</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&display=swap">
 <style>
 html,body{margin:0;width:1200px;height:750px;overflow:hidden}
@@ -33,26 +33,26 @@ pre{margin:0;padding:16px 20px;font:14.5px/1.75 "JetBrains Mono",monospace;color
 .toc div{padding:5px 0;color:#64748B}.toc div.on{color:#0284C7;font-weight:600}
 .badges{position:absolute;left:32px;bottom:22px;display:flex;gap:6px}
 </style></head><body>
-<div class="rb"></div><div class="top"><b><i></i>rollcall</b><span>文档</span><span>命令参考</span><span>示例</span><div class="search"><span>搜索文档…</span><kbd>⌘K</kbd></div></div>
+<div class="rb"></div><div class="top"><b><i></i>rollcall</b><span>Docs</span><span>Command reference</span><span>Examples</span><div class="search"><span>Search docs…</span><kbd>⌘K</kbd></div></div>
 <div class="side">
-  <h5><span style="color:#38BDF8">●</span> 入门</h5><ul><li>安装</li><li>快速上手</li></ul>
-  <h5><span style="color:#EC4899">●</span> 核心命令</h5><ul><li class="on">rollcall check</li><li>rollcall sync</li><li>rollcall report</li></ul>
-  <h5><span style="color:#A855F7">●</span> 配置</h5><ul><li>rollcall.toml</li><li>环境变量</li></ul>
-  <h5><span style="color:#10B981">●</span> 进阶</h5><ul><li>CI 集成</li><li>插件</li></ul>
+  <h5><span style="color:#38BDF8">●</span> Getting started</h5><ul><li>Install</li><li>Quick start</li></ul>
+  <h5><span style="color:#EC4899">●</span> Core commands</h5><ul><li class="on">rollcall check</li><li>rollcall sync</li><li>rollcall report</li></ul>
+  <h5><span style="color:#A855F7">●</span> Config</h5><ul><li>rollcall.toml</li><li>Environment variables</li></ul>
+  <h5><span style="color:#10B981">●</span> Advanced</h5><ul><li>CI integration</li><li>Plugins</li></ul>
 </div>
 <div class="main">
-  <div class="crumb"><i></i>核心命令</div>
+  <div class="crumb"><i></i>Core commands</div>
   <h1>rollcall check</h1>
-  <p class="lead">逐项检查仓库里的成员名单是否与上游一致，并给出可直接执行的修复建议。</p>
-  <h2>基本用法</h2>
-  <div class="code"><div class="tab"><span class="a">终端</span><span>rollcall.toml</span></div>
-<pre><span class="c"># 检查当前目录，只看有差异的项</span>
+  <p class="lead">Checks each member list in the repo against upstream and gives fixes you can run directly.</p>
+  <h2>Basic usage</h2>
+  <div class="code"><div class="tab"><span class="a">Terminal</span><span>rollcall.toml</span></div>
+<pre><span class="c"># check the current directory, show only differing items</span>
 <span class="g">$</span> rollcall check <span class="s">--diff-only</span> <span class="s">--format</span> <span class="n">table</span>
 
-<span class="k">✗</span> 3 项不一致    <span class="k">✓</span> 41 项通过
-  <span class="s">members/lin.toml</span>   <span class="c">缺少 role 字段</span></pre></div>
-  <div class="note" style="margin-top:14px"><b>提示：</b>在 CI 中加上 <code style="font-family:'JetBrains Mono',monospace;font-size:14px;background:#E0F2FE;padding:1px 6px;border-radius:4px">--strict</code>，存在差异时会以退出码 1 终止。</div>
-<table class="p"><tr><td>--diff-only</td><td><span style="background:#FCE7F3;color:#BE185D">过滤</span>只显示有差异的项</td></tr><tr><td>--format</td><td><span style="background:#F3E8FF;color:#7E22CE">输出</span>table / json / junit</td></tr><tr><td>--strict</td><td><span style="background:#D1FAE5;color:#047857">CI</span>存在差异时退出码为 1</td></tr></table>
+<span class="k">✗</span> 3 mismatches    <span class="k">✓</span> 41 passed
+  <span class="s">members/lin.toml</span>   <span class="c">missing role field</span></pre></div>
+  <div class="note" style="margin-top:14px"><b>Tip:</b> In CI, add <code style="font-family:'JetBrains Mono',monospace;font-size:14px;background:#E0F2FE;padding:1px 6px;border-radius:4px">--strict</code>, and it exits with code 1 when anything differs.</div>
+<table class="p"><tr><td>--diff-only</td><td><span style="background:#FCE7F3;color:#BE185D">Filter</span> Show only differing items</td></tr><tr><td>--format</td><td><span style="background:#F3E8FF;color:#7E22CE">Output</span> table / json / junit</td></tr><tr><td>--strict</td><td><span style="background:#D1FAE5;color:#047857">CI</span> Exit code 1 when anything differs</td></tr></table>
 </div>
-<div class="toc"><h5>本页内容</h5><div class="on">基本用法</div><div>参数一览</div><div>退出码</div><div>输出格式</div><div>常见问题</div></div>
+<div class="toc"><h5>On this page</h5><div class="on">Basic usage</div><div>Options</div><div>Exit codes</div><div>Output formats</div><div>FAQ</div></div>
 </body></html>

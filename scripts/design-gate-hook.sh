@@ -1,7 +1,7 @@
 #!/bin/bash
 # design-gate-hook.sh: PreToolUse(Bash) hook: checks the design process gate file before rendering long videos
 #
-# Iron rule background (set by Huashu on 2026-07-17): before designing, huashu-design must ① run the asset protocol (brand-spec.md)
+# Iron rule background (set upstream on 2026-07-17): before designing, the skill must ① run the asset protocol (brand-spec.md)
 # ② give the user three directions of real visuals to choose from (direction-approved.md records the choice or the reason for an exemption).
 # B00 (210s) in practice: skipping direction confirmation and rendering the whole video → redoing the entire video. This hook turns the lesson into a machine constraint:
 # **compositions ≥45 seconds long may not render without direction-approved.md**. Redoing a long video costs far more than pausing for a moment.
@@ -9,7 +9,7 @@
 # Allowed through if (any of):
 #   - the composition is <45s or its length can't be determined (shorts/experiments stay low-friction, governed by the SKILL.md gate protocol)
 #   - direction-approved.md exists in the project directory (or up to two levels above)
-#   - the command explicitly includes SKIP_DESIGN_GATE=1 (used when Huashu explicitly says to skip; auditable)
+#   - the command explicitly includes SKIP_DESIGN_GATE=1 (used when the user explicitly says to skip; auditable)
 #
 # Security statement: this hook **is not installed automatically by the skill**. SKILL.md/README contain no instruction to write into settings.json;
 # it only takes effect after you manually configure it in settings.json. Maximum behavior: for matching long-video render commands, exit 2

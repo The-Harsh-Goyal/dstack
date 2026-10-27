@@ -20,7 +20,7 @@ for _k in ("ALL_PROXY", "all_proxy", "HTTP_PROXY", "http_proxy", "HTTPS_PROXY", 
 
 API = "https://commons.wikimedia.org/w/api.php"
 # ② A compliant User-Agent is a hard requirement, otherwise Wikimedia returns 429
-UA = "dstack-image-fetcher/0.1 (local design tool; based on huashu-design)"
+UA = "dstack-image-fetcher/0.1 (local design tool)"
 
 
 def _api_get(params):

@@ -241,7 +241,7 @@ For example, if you type "the weather today", [[cue:input]]the model predicts th
           absoluteStart: number,   // absolute time on the whole track (aligned with voiceover.mp3)
           absoluteEnd: number,
           // words: per-character timestamps (returned as measured by TTS enable_subtitle, included by default; turn off with --no-timestamps)
-          // note that text is post-TN text ("2025"→"二零二五"), with punctuation attached to the preceding character
+          // note that text is post-TN text ("2025"→"twenty twenty-five"), with punctuation attached to the preceding character
           words: [
             { text: string, start: number, end: number, absoluteStart: number, absoluteEnd: number }
           ],
@@ -377,7 +377,7 @@ NarrationStage automatically detects `window.__recording`:
   - Voice: `DSTACK_ELEVENLABS_VOICE` (default `JBFqnCBsd6RMkjVDRZzb`, "George"). A script's `voice:` is used only if it looks like an ElevenLabs voice id (20 letters/digits). Find ids in the ElevenLabs voice library or with `GET /v1/voices`.
   - Model: `DSTACK_ELEVENLABS_MODEL` (default `eleven_multilingual_v2`, stable on long-form, 1 credit per character; `eleven_flash_v2_5` is cheaper and faster, `eleven_v3`/`eleven_v4` are more expressive).
   - `speed:` maps to `voice_settings.speed` (clamped to 0.7–1.2).
-  - Key: `ELEVENLABS_API_KEY` in the environment, or `DSTACK_ELEVENLABS_KEY_FILE` pointing at a file outside the repo. Never in the script, the repo or `.env.example`.
+  - Key: `ELEVENLABS_API_KEY` in the environment, or `DSTACK_ELEVENLABS_KEY_FILE` pointing at a file outside the repo (a dotenv line `ELEVENLABS_API_KEY=...`, or the bare key on line 1). Never in the script, the repo or `.env.example`.
   - No key: one warning, then the whole run uses `silent` (timeline.json records `ttsRequested`/`ttsFallback`). An API error (bad key, no credits, rate limit) does the same for the failing chunk and every later one; the run never crashes and the key is masked in every message.
   - Cache: each chunk is cached in `~/.dstack/cache/elevenlabs/` by voice + model + speed + text, so re-running after editing one scene only pays for the changed chunks.
   - Licensing: free-plan output is non-commercial and must carry "elevenlabs.io" or "11.ai" in the title when published; paid plans include a commercial licence. Quotes and links: "Licensing" in `audio-design-rules.md`.

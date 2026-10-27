@@ -249,7 +249,7 @@ MyDeck/
 
 ```html
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>P05 · Chapter Title</title>
