@@ -18,10 +18,11 @@
  * window.__seek(t). Pure CSS @keyframes / Lottie / animations not driven by Stage don't respond to __seek;
  * keep using render-video.js for those.
  *
- * Requires: global playwright (`npm install -g playwright`), ffmpeg on PATH.
+ * Requires: playwright from dstack's local node_modules (`npm ci` in the dstack root;
+ *   no global install), ffmpeg on PATH.
  *
  * Usage:
- *   NODE_PATH=$(npm root -g) node render-video-seek.js <html-file> \
+ *   node render-video-seek.js <html-file> \
  *     [--duration=30] [--fps=60] [--width=1920] [--height=1080] \
  *     [--concurrency=4] [--settle=2] [--keep-chrome]
  *
@@ -44,7 +45,7 @@ function hasFlag(name) {
 const HTML_FILE = process.argv[2];
 if (!HTML_FILE || HTML_FILE.startsWith('--')) {
   console.error('Usage: node render-video-seek.js <html-file>');
-  console.error('Example: NODE_PATH=$(npm root -g) node render-video-seek.js my-animation.html --fps=60');
+  console.error('Example: node render-video-seek.js my-animation.html --fps=60');
   process.exit(1);
 }
 

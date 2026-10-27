@@ -112,14 +112,14 @@ echo "════════════════════════�
 echo ""
 if [ -n "$USE_SEEK" ]; then
   echo "▸ Step 1/2 · seek-rendering the HTML animation frame by frame (silent · ${SEEK_FPS}fps deterministic)"
-  NODE_PATH=$(npm root -g) node "$SCRIPT_DIR/render-video-seek.js" "$HTML_ABS" \
+  node "$SCRIPT_DIR/render-video-seek.js" "$HTML_ABS" \
     --duration="$RECORD_DURATION" \
     --fps="$SEEK_FPS" \
     --width="$WIDTH" \
     --height="$HEIGHT"
 else
   echo "▸ Step 1/2 · recording the HTML animation (silent)"
-  NODE_PATH=$(npm root -g) node "$SCRIPT_DIR/render-video.js" "$HTML_ABS" \
+  node "$SCRIPT_DIR/render-video.js" "$HTML_ABS" \
     --duration="$RECORD_DURATION" \
     --width="$WIDTH" \
     --height="$HEIGHT"

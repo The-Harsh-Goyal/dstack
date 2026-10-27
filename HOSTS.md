@@ -19,9 +19,10 @@ China-linked hits (outside lines that say a service was removed or banned): **0*
 | cdn.simpleicons.org | doc-link 1 | 1 | references/brand-asset-protocol.md:81 |
 | commons.wikimedia.org | doc-link 2 | 2 | references/app-prototype.md:41, scripts/fetch_images.py:21 |
 | example.com | doc-link 3 | 3 | assets/browser_window.jsx:7, assets/browser_window.jsx:121, references/design-context.md:28 |
-| github.com | doc-link 109 | 109 | INSTALL_BODY.md:6, INSTALL_BODY.md:201, NOTICE:6, README.en.md:3, README.en.md:45, README.en.md:49 …(+103) |
+| github.com | doc-link 111 | 111 | INSTALL_BODY.md:11, INSTALL_BODY.md:111, INSTALL_BODY.md:306, NOTICE:6, README.en.md:3, README.en.md:45 …(+105) |
 | img.shields.io | doc-link 9 | 9 | README.en.md:12, README.en.md:13, README.en.md:14, README.md:12, README.md:13, README.md:14 …(+3) |
 | img.youtube.com | doc-link 3 | 3 | README.en.md:121, README.md:121, README.zh.md:121 |
+| pypi.org | doc-link 2 | 2 | INSTALL_BODY.md:55, tools/make_install_body.py:137 |
 | raw.githubusercontent.com | doc-link 6 | 6 | README.en.md:429, README.en.md:471, README.md:429, README.md:471, README.zh.md:428, README.zh.md:470 |
 | skill-huasheng.vercel.app | doc-link 6 | 6 | README.en.md:257, README.en.md:257, README.md:257, README.md:257, README.zh.md:257, README.zh.md:257 |
 | skills.sh | doc-link 6 | 6 | README.en.md:13, README.en.md:14, README.md:13, README.md:14, README.zh.md:13, README.zh.md:14 |

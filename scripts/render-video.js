@@ -2,10 +2,11 @@
 /**
  * HTML animation → MP4 via Playwright recordVideo + ffmpeg.
  *
- * Requires: global playwright (`npm install -g playwright`), ffmpeg on PATH.
+ * Requires: playwright from dstack's local node_modules (`npm ci` in the dstack root;
+ *   no global install), ffmpeg on PATH.
  *
  * Usage:
- *   NODE_PATH=$(npm root -g) node render-video.js <html-file> \
+ *   node render-video.js <html-file> \
  *     [--duration=30] [--width=1920] [--height=1080] \
  *     [--trim=<seconds>] [--fontwait=1.5] [--readytimeout=8] \
  *     [--keep-chrome]
@@ -53,7 +54,7 @@ function hasFlag(name) {
 const HTML_FILE = process.argv[2];
 if (!HTML_FILE || HTML_FILE.startsWith('--')) {
   console.error('Usage: node render-video.js <html-file>');
-  console.error('Example: NODE_PATH=$(npm root -g) node render-video.js my-animation.html');
+  console.error('Example: node render-video.js my-animation.html');
   process.exit(1);
 }
 

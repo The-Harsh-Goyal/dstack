@@ -34,10 +34,10 @@ Two scripts in `scripts/`:
 
 ### 1. `render-video.js`: HTML → MP4
 
-Records a basic 25fps MP4. Depends on a global playwright.
+Records a basic 25fps MP4. Uses playwright from dstack's local node_modules (no global install).
 
 ```bash
-NODE_PATH=$(npm root -g) node /path/to/claude-design/scripts/render-video.js <html file>
+node $HD/scripts/render-video.js <html file>
 ```
 
 Optional arguments:
@@ -89,7 +89,7 @@ bash add-music.sh product-promo.mp4 --mood=ad --out=promo-final.mp4
 Generates a 60fps version and a GIF from an existing MP4.
 
 ```bash
-bash /path/to/claude-design/scripts/convert-formats.sh <input.mp4> [gif_width] [--minterpolate]
+bash $HD/scripts/convert-formats.sh <input.mp4> [gif_width] [--minterpolate]
 ```
 
 Output (same directory as the input):
@@ -117,7 +117,7 @@ The recordVideo path in `render-video.js` has three inherent limits: the frame r
 It seeks frame by frame to each timestamp and takes a screenshot, then uses ffmpeg to encode the PNG sequence into an MP4. The technical core borrows the "frozen clock + seek screenshot" idea from HeyGen HyperFrames (Apache 2.0), but doesn't bring in any third-party packages: it uses only the playwright + ffmpeg this skill already has, so it's runtime neutral.
 
 ```bash
-NODE_PATH=$(npm root -g) node /path/to/claude-design/scripts/render-video-seek.js <html file> --fps=60
+node $HD/scripts/render-video-seek.js <html file> --fps=60
 ```
 
 Arguments: `--duration` · `--fps` (default 60) · `--width` · `--height` · `--concurrency` (default 4 workers in parallel) · `--settle` (how many rAFs to wait after a seek before the screenshot, default 2; raise it for layout-heavy animations) · `--keep-chrome`. Output goes to the same directory as the HTML, a `.mp4` with the same name.
@@ -140,13 +140,13 @@ After the user says "export the video":
 ```bash
 cd <project directory>
 
-# assume $SKILL points to this skill's root directory (replace according to your install location)
+# $HD is this skill's root directory
 
 # 1. record the basic 25fps MP4
-NODE_PATH=$(npm root -g) node "$SKILL/scripts/render-video.js" my-animation.html
+node "$HD/scripts/render-video.js" my-animation.html
 
 # 2. derive the 60fps MP4 and GIF
-bash "$SKILL/scripts/convert-formats.sh" my-animation.mp4
+bash "$HD/scripts/convert-formats.sh" my-animation.mp4
 
 # output list:
 # my-animation.mp4         (25fps · 1-2 MB)

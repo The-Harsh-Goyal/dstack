@@ -94,17 +94,17 @@ This generates `deck-slide-01.png`, `deck-slide-02.png`... for quick browsing.
 
 ## Playwright Setup
 
-First use requires:
+One-time setup, all local to the dstack root (no global installs; on Harsh's box it is already done,
+check with `bash /workspace/dstack/tools/doctor.sh`):
 
 ```bash
-# dstack: no global installs. Node: use the pack's local node_modules
-cd /workspace/dstack && npm ci && npx playwright install chromium
-
-# Python: a venv
-python3 -m venv .venv && .venv/bin/pip install playwright && .venv/bin/playwright install chromium
+cd /workspace/dstack
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # Python: playwright, pillow, python-pptx, pytest
+npm ci                                                               # Node: playwright, pdf-lib, pptxgenjs, sharp
+.venv/bin/python -m playwright install chromium                      # only if doctor.sh says Chromium is missing
 ```
 
-If the user already has Playwright installed globally, just use it.
+Then run Python scripts with `/workspace/dstack/.venv/bin/python`; Node scripts find the local `node_modules` on their own.
 
 ## Screenshot best practices
 

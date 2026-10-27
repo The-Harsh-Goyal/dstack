@@ -41,3 +41,6 @@ __pycache__/
 # Python test/cache dirs
 .pytest_cache/
 **/.pytest_cache/
+
+# dstack local Python env (one-time setup, see INSTALL_BODY.md)
+.venv/

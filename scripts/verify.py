@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-verify.py: Playwright wrapper for verifying the HTML that claude-design produces
+verify.py: Playwright wrapper for verifying the HTML that dstack produces
 
 Usage:
     python verify.py path/to/design.html                    # basic: open + screenshot + capture console errors
